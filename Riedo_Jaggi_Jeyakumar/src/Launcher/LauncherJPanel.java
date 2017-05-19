@@ -13,6 +13,8 @@ public class LauncherJPanel extends JPanel{
 	
 	public LauncherJPanel(){
 		add(buttonConctact);
+		add(buttonCalculate);
+		add(buttonGallery);
 		
 		buttonConctact.addActionListener(new ListerButtonMenu());
 		buttonCalculate.addActionListener(new ListerButtonMenu());
@@ -22,7 +24,16 @@ public class LauncherJPanel extends JPanel{
 	class ListerButtonMenu implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			MainJFrame.changePanel("contactJPanel");	
+			if(e.getSource() == buttonConctact){
+				MainJFrame.changePanel("contactJPanel");
+			}
+			else if(e.getSource() == buttonCalculate){
+				MainJFrame.changePanel("calculateJPanel");
+			}
+			else if(e.getSource() == buttonGallery){
+				MainJFrame.changePanel("galleryJPanel");
+			}
+			
 		}
 	}
 }
