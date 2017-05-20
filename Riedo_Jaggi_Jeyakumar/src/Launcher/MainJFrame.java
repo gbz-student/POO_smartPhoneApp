@@ -10,7 +10,6 @@ import Caculate.CalculateJPanel;
 import Contact.ContactJPanel;
 import Gallery.GalleryJPanel;
 
-
 public class MainJFrame extends JFrame{
 	private JButton buttonMenu = new JButton();
 	private static CardLayout cardLayout;
@@ -46,7 +45,7 @@ public class MainJFrame extends JFrame{
 		add(buttonMenu, BorderLayout.SOUTH);
 		
 		buttonMenu.addActionListener(new ListerButtonMenu());
-	
+		
 		buttonMenu.setSize(150, 50);
 		buttonMenu.setOpaque(false);
 		buttonMenu.setContentAreaFilled(false); // On met à false pour empêcher le composant de peindre l'intérieur du JButton.
@@ -64,9 +63,4 @@ public class MainJFrame extends JFrame{
 			MainJFrame.changePanel("launcherJPanel");
 		}
 	}
-	
-	
-	
-	
-	
 }
