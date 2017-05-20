@@ -42,9 +42,6 @@ public class MainJFrame extends JFrame{
 		}
 		*/
 		
-		
-		
-		
 		cards = new JPanel (cardLayout = new CardLayout());
 		cards.add(launcherPanel, "launcherJPanel");
 		cards.add(contactJPanel, "contactJPanel");
@@ -59,7 +56,7 @@ public class MainJFrame extends JFrame{
 		buttonMenu.addActionListener(new ListerButtonMenu());
 		
 		
-		buttonMenu.setBackground(Color.RED);
+		buttonMenu.setBackground(Color.red);
 		buttonMenu.setOpaque(true);
 	}
 	
