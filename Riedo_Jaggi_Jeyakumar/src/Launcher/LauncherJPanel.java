@@ -15,7 +15,6 @@ public class LauncherJPanel extends JPanel{
 	private JButton buttonContact = new LauncherButton("resources/contactIcon.png");
 	private JButton buttonCalculate = new LauncherButton("resources/calculatorIcon.png");
 	private JButton buttonGallery = new LauncherButton("resources/galleryIcon.png");
-	private JButton buttonFullScreenImg = new JButton("image full screen");//juste pour test
 	private Image img;
 	
 	public LauncherJPanel(){
@@ -27,12 +26,10 @@ public class LauncherJPanel extends JPanel{
         add(buttonContact);
         add(buttonCalculate);
         add(buttonGallery);
-        add(buttonFullScreenImg);
         
 		buttonContact.addActionListener(new ListerButtonMenu());
 		buttonCalculate.addActionListener(new ListerButtonMenu());
 		buttonGallery.addActionListener(new ListerButtonMenu());
-		buttonFullScreenImg.addActionListener(new ListerButtonMenu());//juste pour test
 	}
 	
 	protected void paintComponent(Graphics g) {
@@ -52,9 +49,9 @@ public class LauncherJPanel extends JPanel{
 			else if(e.getSource() == buttonGallery){
 				MainJFrame.changePanel("galleryJPanel");
 			}
-//			else if(e.getSource() == buttonFullScreenImg){
-//				MainJFrame.changePanel("imageFullScreen");
-//			}
+			else if(e.getSource() == buttonFullScreenImg){
+				MainJFrame.changePanel("imageFullScreen");
+			}
 			
 		}
 	}
