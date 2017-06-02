@@ -41,7 +41,7 @@ public class CalculateJPanel extends JPanel{
 		
 	  
 		
-		// inisialisation des boutons 
+		// inisialisation des boutons d
 		
 	   for (int i = 0; i < but.length; i++) {
 			
