@@ -39,7 +39,7 @@ public class CalculateJPanel extends JPanel{
 	
 	public CalculateJPanel(){
 		
-	 
+	  
 		
 		// inisialisation des boutons 
 		
@@ -70,7 +70,7 @@ public class CalculateJPanel extends JPanel{
 		cr.setRows(3);
 		this.setLayout(cr);
 		
-		// fixer des espaces entre les boutons
+		// gfixer des espaces entre les boutons 
 		cr.setHgap(4);
 		cr.setVgap(6);
 		
