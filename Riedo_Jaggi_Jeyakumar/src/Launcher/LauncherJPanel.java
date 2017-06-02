@@ -52,9 +52,9 @@ public class LauncherJPanel extends JPanel{
 			else if(e.getSource() == buttonGallery){
 				MainJFrame.changePanel("galleryJPanel");
 			}
-			else if(e.getSource() == buttonFullScreenImg){
-				MainJFrame.changePanel("imageFullScreen");
-			}
+//			else if(e.getSource() == buttonFullScreenImg){
+//				MainJFrame.changePanel("imageFullScreen");
+//			}
 			
 		}
 	}

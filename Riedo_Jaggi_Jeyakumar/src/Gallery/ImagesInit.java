@@ -41,7 +41,7 @@ public class ImagesInit extends JPanel implements MouseListener{
 		return imagesList;
 	}
 
-	//Générer les images à partir de la liste
+	//Générer les images à partir de la liste test
 	public JPanel generateImages(){
 		JPanel imagesPanel= new JPanel();
 		String[]imagesList= getImagesList(getImagesPath());
