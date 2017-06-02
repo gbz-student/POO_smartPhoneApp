@@ -28,7 +28,8 @@ public class GalleryJPanel extends JPanel {
 		
 //		private JPanel galleryPanel = new JPanel();
 		private TitleJPanel title = new TitleJPanel("Mes images");
-		private Image images = new Image();
+		private ImagesInit images = new ImagesInit();
+		private JButton buttonFullScreenImg = new JButton("image full screen");//juste pour test
 
 		
 		 
@@ -36,33 +37,37 @@ public class GalleryJPanel extends JPanel {
 		
 		public GalleryJPanel() {
 			
-//			this.setVisible(true);
-//			this.setLayout(new BorderLayout());
-//			
-//			JPanel imagesPanel = images.generateImages();
-//			GridLayout column = new GridLayout(0, 3);
-//			column.setVgap(20);
-//			imagesPanel.setLayout(column);
-//						
-//			JScrollPane imgScroll = new JScrollPane(imagesPanel);
-//			imgScroll.setPreferredSize(new Dimension(400, 400));
-//			
-//			add(title, BorderLayout.NORTH);
-//			add(imgScroll, BorderLayout.CENTER);
+			this.setVisible(true);
+			this.setLayout(new BorderLayout());
+			
+			JPanel imagesPanel = images.generateImages();
+			GridLayout column = new GridLayout(0, 3);
+			column.setVgap(20);
+			imagesPanel.setLayout(column);
+						
+			JScrollPane imgScroll = new JScrollPane(imagesPanel);
+			imgScroll.setPreferredSize(new Dimension(400, 400));
+			
+			add(title, BorderLayout.NORTH);
+			add(imgScroll, BorderLayout.CENTER);
+	        add(buttonFullScreenImg);
+	        
+			buttonFullScreenImg.addActionListener(new ListerButtonMenu());//juste pour test
+
+
 			
 					
 			
 		}
-		
-
-		
-		class ListerButtonBack implements ActionListener{
+		class ListerButtonMenu implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainJFrame.changePanel("launcherJPanel");	
+				if(e.getSource() == buttonFullScreenImg){
+					MainJFrame.changePanel("imageFullScreen");
+				}
+				
 			}
 		}
-		
 	
 
 }

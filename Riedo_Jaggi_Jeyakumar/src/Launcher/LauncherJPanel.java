@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import MainPackage.Main;
+
 public class LauncherJPanel extends JPanel{
 	
 	private JButton buttonContact = new LauncherButton("resources/contactIcon.png");
@@ -46,6 +48,9 @@ public class LauncherJPanel extends JPanel{
 			}
 			else if(e.getSource() == buttonGallery){
 				MainJFrame.changePanel("galleryJPanel");
+			}
+			else if(e.getSource() == buttonFullScreenImg){
+				MainJFrame.changePanel("imageFullScreen");
 			}
 			
 		}

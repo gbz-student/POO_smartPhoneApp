@@ -9,6 +9,7 @@ import javax.swing.*;
 import Caculate.CalculateJPanel;
 import Contact.ContactJPanel;
 import Gallery.GalleryJPanel;
+import Gallery.ImageFullScreen;
 
 public class MainJFrame extends JFrame{
 	private JButton buttonMenu = new JButton();
@@ -18,6 +19,7 @@ public class MainJFrame extends JFrame{
 	private JPanel contactJPanel = new ContactJPanel();
 	private JPanel calculateJPanel = new CalculateJPanel();
 	private JPanel galleryJPanel = new GalleryJPanel();
+	private JPanel imageFullScreen = new ImageFullScreen();
 	
 	public MainJFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -37,6 +39,7 @@ public class MainJFrame extends JFrame{
 		cards.add(contactJPanel, "contactJPanel");
 		cards.add(calculateJPanel, "calculateJPanel");
 		cards.add(galleryJPanel, "galleryJPanel");
+		cards.add(imageFullScreen, "imageFullScreen");
 		
 		cards.setBackground(new Color(0,0,0,0));
 		
