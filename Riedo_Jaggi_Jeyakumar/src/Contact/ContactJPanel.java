@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -35,7 +37,7 @@ public class ContactJPanel extends JPanel{
 		setPreferredSize(new Dimension(480, 750));
 		setLayout(new BorderLayout());
 		
-		ArrayList<Person> contacts = getContact();
+		ArrayList<Person> contacts = getContacts();
 		
 		JPanel gridPanel = new JPanel(new GridLayout(0,1));
 		gridPanel.setBackground(new Color(255,255,255));
@@ -72,17 +74,32 @@ public class ContactJPanel extends JPanel{
 		add(scrollPanel, BorderLayout.CENTER);
 	}
 	
-	public ArrayList<Person> getContact(){
+	public ArrayList<Person> getContacts(){
 		ArrayList<Person> contacts = new ArrayList();
 		ArrayList<PhoneNumber> phoneNumbers = new ArrayList();
 		
 		phoneNumbers.add(new PhoneNumber("privé", "0799999999"));
 		
 		for(int i = 0; i < 50; i++) {
-			contacts.add(new Person("Test", "Test", phoneNumbers, "gdhdjk", "bbb"));
+			contacts.add(new Person("Test" + i, "Test", phoneNumbers, "gdhdjk", "bbb"));
 		}
 		return contacts;
 	}
+	
+	public Person getContact(String firstName, String lastName){
+		ArrayList<Person> contacts = getContacts();
+		Person contact = null;
+
+	    for (Person c : contacts) {
+	        if (firstName.equals(c.getFirstName()) && lastName.equals(c.getLastName())) {
+	            contact = c;
+	            break;
+	        }
+	    }
+
+		return contact;
+	}
+	
 	
 	class ListerButtonBack implements ActionListener{
 		@Override
@@ -94,7 +111,8 @@ public class ContactJPanel extends JPanel{
 	class ShowContactListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JOptionPane.showMessageDialog(null, "Hello wolrd");	
+			System.out.println(((AbstractButton) e.getSource()).getText());
+			MainJFrame.changePanel("contactInfoJPanel");	
 		}
 	}
 }
