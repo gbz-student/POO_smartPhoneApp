@@ -29,6 +29,7 @@ public class GalleryJPanel extends JPanel {
 //		private JPanel galleryPanel = new JPanel();
 		private TitleJPanel title = new TitleJPanel("Mes images");
 		private ImagesInit images = new ImagesInit();
+		private JButton buttonFullScreenImg = new JButton("image full screen");//juste pour test
 
 		
 		 
@@ -49,20 +50,24 @@ public class GalleryJPanel extends JPanel {
 			
 			add(title, BorderLayout.NORTH);
 			add(imgScroll, BorderLayout.CENTER);
+	        add(buttonFullScreenImg);
+	        
+			buttonFullScreenImg.addActionListener(new ListerButtonMenu());//juste pour test
+
+
 			
 					
 			
 		}
-		
-
-		
-		class ListerButtonBack implements ActionListener{
+		class ListerButtonMenu implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainJFrame.changePanel("launcherJPanel");	
+				if(e.getSource() == buttonFullScreenImg){
+					MainJFrame.changePanel("imageFullScreen");
+				}
+				
 			}
 		}
-		
 	
 
 }

@@ -19,12 +19,12 @@ import org.w3c.dom.events.MouseEvent;
 
 import Launcher.MainJFrame;
 
-public class ImagesInit extends JPanel implements MouseListener{
+public class ImagesInit extends JPanel {
 	
 	private static int ImgSizeConstraint = 120;
 	
 	public ImagesInit() {
-		this.addMouseListener(this);
+//		this.addMouseListener(this);
 
 	}
 	
@@ -77,25 +77,25 @@ public class ImagesInit extends JPanel implements MouseListener{
 	}
 	
 	//Crop de l'image
-	private Image squareCropImage(Image img,int initWidth, int initHeight){
-		int x = 0;
-		int y = 0;		
-		Image croppedImage;
-		Dimension imgBoudaries = new Dimension();
-		
-		int width = img.getWidth(this);
-		int height = img.getHeight(this);
-		
-		if(width>height){
-			x = (width - ImgSizeConstraint)/2;
-		}
-		else{
-			y = (height - ImgSizeConstraint)/2;
-		}
-		
-		CropImageFilter filter = new CropImageFilter(x, y, initHeight, initHeight);
-		return croppedImage;
-	}
+//	private Image squareCropImage(Image img,int initWidth, int initHeight){
+//		int x = 0;
+//		int y = 0;		
+//		Image croppedImage;
+//		Dimension imgBoudaries = new Dimension();
+//		
+//		int width = img.getWidth(this);
+//		int height = img.getHeight(this);
+//		
+//		if(width>height){
+//			x = (width - ImgSizeConstraint)/2;
+//		}
+//		else{
+//			y = (height - ImgSizeConstraint)/2;
+//		}
+//		
+//		CropImageFilter filter = new CropImageFilter(x, y, initHeight, initHeight);
+//		return croppedImage;
+//	}
 	
 	//Définit la dimension de l'image proportionnellement
 	private Dimension setImgBoudaries(ImageIcon image){
