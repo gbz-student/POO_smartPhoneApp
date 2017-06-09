@@ -30,7 +30,7 @@ public class CalculateJPanel extends JPanel{
 	// création des boutons par élément
 	private JButton but[] = new JButton[elements.length];
 	
-	// création d'un champ de texte
+	// création d'un champ detexte
 	private JTextField text = new JTextField();
 	
 	// création d'une dimension pour le champ de texte
