@@ -2,6 +2,7 @@ package Gallery;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,29 +11,37 @@ import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.naming.LimitExceededException;
 
-public class ImgThumbDate {
+public class ImgInfo {
 
 	private String imgName;
 	private String thumbName;
 	private FileTime creationDate;
-	private final static String THUMB_SUFFIX = "_thumb";
 	
-	private GalleryJPanel gallery = new GalleryJPanel();
-	private String imgFolderPath = gallery.getOriginalImagesFolder();
-	private Path imgPath = Paths.get(imgFolderPath+imgName);
-	
-	ArrayList<ImgThumbDate>list = new ArrayList<ImgThumbDate>();
+	private Path imgPath = Paths.get(GalleryConstants.IMG_FOLDER_PATH+imgName);
+	protected int imgCount = GalleryConstants.IMG_FOLDER_FILE.list().length-1;
 
 	
-	public ImgThumbDate(String imgName){
+//	ArrayList<ImgInfo>imgInfoList = new ArrayList<ImgInfo>();
+	
+	public ImgInfo(){
+		String imgName;
+		String thumbName;
+	}
+
+	public ImgInfo(String imgName){
 		this.imgName = imgName;
-		this.thumbName = rename(imgName);		
-		File img = new File(imgFolderPath+imgName);
-		this.creationDate = getCreationTime(img);
+		this.thumbName = nameThumb(imgName);		
+//		File img = new File(GalleryConstants.IMG_FOLDER_PATH+"/"+imgName);
+//		this.creationDate = getCreationTime(img);
+	}
+	
+	public String getThumbName(){
+		return thumbName;
 	}
 	
 	//Date de téléchargement de l'image
@@ -52,29 +61,31 @@ public class ImgThumbDate {
 	}
 	
 	//Ajout d'un suffixe au nom de fichier
-	private static String rename(String inputName){
+	private static String nameThumb(String inputName){
 		String beforeExtension = inputName.substring(0, inputName.lastIndexOf("."));
 		String extension = inputName.substring(inputName.lastIndexOf("."), inputName.length());
 		
-		String outputName = beforeExtension + THUMB_SUFFIX + extension;
+		String outputName = beforeExtension + GalleryConstants.THUMB_SUFFIX + extension;
 		
 		return outputName;		
 	}
 
-	protected ArrayList<ImgThumbDate> createList(File imgFolder){
+	//Création de la liste d'objet
+	protected ArrayList<ImgInfo> createList(){
 		
-		int count = imgFolder.list().length;
-		String[]imgList = imgFolder.list();
-		for (int i = 0; i < count; i++) {
-			ImgThumbDate imgThumDate = new ImgThumbDate(imgList[i]);
-			list.add(imgThumDate);
+		ArrayList<ImgInfo>list = new ArrayList<ImgInfo>();
+		String[]listImage = GalleryConstants.IMG_FOLDER_FILE.list();
+		
+		for (int i = 0; i < imgCount; i++) {
+			ImgInfo itd = new ImgInfo(listImage[i]);
+			list.add(itd);						
 		}
 		
 		return list;
-		
-	}
-
-	protected void addITD2List(ImgThumbDate object){
-		list.add(object);
+				
 	}
 }
+
+
+
+

@@ -27,11 +27,7 @@ import MainPackage.TitleJPanel;
 public class GalleryJPanel extends JPanel {
 		
 	private TitleJPanel title = new TitleJPanel("Mes images");
-	private ThumbDisplay thumbsPanel = new ThumbDisplay();
 	private ActionBar imgActionBar = new ActionBar();
-	
-	private static String originalImgFolder = new String("./img_library/");
-	private static String thumbsFolder = new String("./img_library/thumb/");
 	
 	public GalleryJPanel() {
 		
@@ -41,9 +37,7 @@ public class GalleryJPanel extends JPanel {
 		setPreferredSize(new Dimension(480, 700));
 		
 		
-//		thumbsPanel.regenerateThumbs();
-		thumbsPanel.displayThumbs(3);
-		
+		ThumbDisplay thumbsPanel = new ThumbDisplay(3);
 					
 		JScrollPane thumbScroll = new JScrollPane(thumbsPanel);
 		thumbScroll.getVerticalScrollBar().setUnitIncrement(16);
@@ -56,15 +50,6 @@ public class GalleryJPanel extends JPanel {
         
 
 		}
-	
-	protected String getOriginalImagesFolder(){
-		return 	originalImgFolder;
-
-	}
-	
-	protected String getThumbsFolder(){
-		return thumbsFolder;
-	}
 	
 
 }
