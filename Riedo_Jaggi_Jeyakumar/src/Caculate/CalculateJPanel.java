@@ -37,7 +37,7 @@ public class CalculateJPanel extends JPanel{
 	private Dimension dim = new Dimension(300,100);
 	
 	// définir la taille et la police du champ de texte
-	private Font tp = new Font("Arial",Font.BOLD,60);
+	private Font tp = new Font("Arial",Font.BOLD,65);
 	
 	// agrandissement du caractère du bouton
 	private Font f = new Font("Serif", Font.PLAIN, 40);
