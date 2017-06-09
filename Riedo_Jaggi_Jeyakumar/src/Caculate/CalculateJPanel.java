@@ -23,23 +23,23 @@ public class CalculateJPanel extends JPanel{
 	private JPanel b = new JPanel();
 	private JPanel champ = new JPanel();
 
-	// création des éléments à afficher
+	// crï¿½ation des ï¿½lï¿½ments ï¿½ afficher
 	
-	private String elements [] = {"CE","C","DEL","÷","7","8","9","×","4","5","6","-","1","2","3","+","+/-","0",".","="};
+	private String elements [] = {"CE","C","DEL","Ã·","7","8","9","Ã—","4","5","6","-","1","2","3","+","+/-","0",".","="};
 	
-	// création des boutons par élément
+	// crï¿½ation des boutons par ï¿½lï¿½ment
 	private JButton but[] = new JButton[elements.length];
 	
-	// création d'un champ detexte
+	// crï¿½ation d'un champ detexte
 	private JTextField text = new JTextField();
-	
-	// création d'une dimension pour le champ de texte
+
+	// crï¿½ation d'une dimension pour le champ de texte
 	private Dimension dim = new Dimension(300,100);
 	
-	// définir la taille et la police du champ de texte
+	// dï¿½finir la taille et la police du champ de texte
 	private Font tp = new Font("Arial",Font.BOLD,65);
 	
-	// agrandissement du caractère du bouton
+	// agrandissement du caractï¿½re du bouton
 	private Font f = new Font("Serif", Font.PLAIN, 40);
 	
 	private GridLayout cr = new GridLayout();
@@ -73,10 +73,12 @@ public class CalculateJPanel extends JPanel{
 		   
 		   but[i].setBackground(new Color(128,128,125));
 		   
-		   if(elements[i]=="+"||elements[i]=="-"||elements[i]=="÷"||elements[i]=="×"||elements[i]=="="){
+		   if(elements[i]=="+"||elements[i]=="-"||elements[i]=="Ã·"||elements[i]=="Ã—"||elements[i]=="="){
 			
 			 but[i].setBackground(new Color(255,170,7));
 		   }
+		   but[i].setOpaque(true);
+		   but[i].setBorderPainted(false);
 	}
 	     
 		// ajout des boutons dans le Panel b
@@ -85,7 +87,7 @@ public class CalculateJPanel extends JPanel{
 		
 			    b.add(but[i]);	   
 		}
-		
+	   
 		cr.setColumns(4);
 		cr.setRows(5);
 		b.setLayout(cr);
@@ -101,7 +103,6 @@ public class CalculateJPanel extends JPanel{
 		this.add(champ, BorderLayout.NORTH);
 			
 	}
-	
 	
 
 
