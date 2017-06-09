@@ -3,6 +3,8 @@ package Contact;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,8 +16,12 @@ import Model.PhoneNumber;
 			
 public class ContactInfoJPanel extends JPanel {
 	
+	private JButton back = new JButton("back");
+	private JPanel contactInfoTop = new JPanel(new BorderLayout());
+	
 	private ContactController contactController = new ContactController();
-	private JPanel contactPanel = new JPanel();
+	private JPanel contactPanel = new JPanel(new BorderLayout());
+	private JPanel imagePanel = new JPanel();
 	private JPanel infoPanel = new JPanel();
 	private JLabel image = new JLabel();
 	private JLabel nameLabel;
@@ -23,6 +29,13 @@ public class ContactInfoJPanel extends JPanel {
 	public ContactInfoJPanel(String firstName, String lastName){
 		setBackground(new Color(255,255,255));
 		setLayout(new BorderLayout());
+		
+		contactInfoTop.setBackground(new Color(40,50,70));
+		
+		back.addActionListener(new Back());
+		contactInfoTop.add(back, BorderLayout.WEST);
+		
+		add(contactInfoTop, BorderLayout.NORTH);
 		
 		Person contact = contactController.getContact(firstName, lastName);
 		
@@ -39,11 +52,11 @@ public class ContactInfoJPanel extends JPanel {
 		    System.out.println(ex);
 		}
 		
-		contactPanel.setLayout(new BorderLayout());
-		contactPanel.setBackground(new Color(40,50,70));
-		contactPanel.setPreferredSize(new Dimension(480, 300));
-		contactPanel.add(image, BorderLayout.NORTH);
-		contactPanel.add(nameLabel, BorderLayout.CENTER);
+		imagePanel.setLayout(new BorderLayout());
+		imagePanel.setBackground(new Color(40,50,70));
+		imagePanel.setPreferredSize(new Dimension(480, 300));
+		imagePanel.add(image, BorderLayout.NORTH);
+		imagePanel.add(nameLabel, BorderLayout.CENTER);
 		
 		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 		
@@ -57,7 +70,17 @@ public class ContactInfoJPanel extends JPanel {
 		JPanel panelEmail = new ContactInfoDetail("Mail: ", contact.getEmail());
 		infoPanel.add(panelEmail);
 			
-		add(contactPanel, BorderLayout.NORTH);
-		add(infoPanel, BorderLayout.CENTER);
+		contactPanel.add(imagePanel, BorderLayout.NORTH);
+		contactPanel.add(infoPanel, BorderLayout.CENTER);
+		
+		add(contactPanel, BorderLayout.CENTER);
+	}
+	
+	class Back implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ContactJPanel.removeLastPanel();
+			ContactJPanel.goFirstPanel();
+		}
 	}
 }
