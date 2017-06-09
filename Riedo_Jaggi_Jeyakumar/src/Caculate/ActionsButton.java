@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 public class ActionsButton {
 	
-	CalculateJPanel actionPanel = new CalculateJPanel();
+	CalculateJPanel actionPanel= new CalculateJPanel();
 
 	public ActionsButton(){
 		
