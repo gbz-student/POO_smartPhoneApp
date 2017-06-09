@@ -40,7 +40,7 @@ public class CalculateJPanel extends JPanel{
 	private Font tp = new Font("Arial",Font.BOLD,60);
 	
 	// agrandissement du caractère du bouton
-	private Font f = new Font("Serif", Font.PLAIN, 40);
+	private Font f = new Font("Serif", Font.PLAIN, 45);
 	
 	private GridLayout cr = new GridLayout();
 
@@ -65,7 +65,6 @@ public class CalculateJPanel extends JPanel{
 			
 			but[i].setFont(f);
 		
-			
 	   }
 	   
 	  // coloriage des boutons 
