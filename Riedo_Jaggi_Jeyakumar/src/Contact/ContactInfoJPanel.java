@@ -17,6 +17,7 @@ import Model.PhoneNumber;
 public class ContactInfoJPanel extends JPanel {
 	
 	private JButton back = new JButton("back");
+	private JButton edit = new JButton("edit");
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
 	
 	private ContactController contactController = new ContactController();
@@ -33,7 +34,9 @@ public class ContactInfoJPanel extends JPanel {
 		contactInfoTop.setBackground(new Color(40,50,70));
 		
 		back.addActionListener(new Back());
+		edit.addActionListener(new Edit());
 		contactInfoTop.add(back, BorderLayout.WEST);
+		contactInfoTop.add(edit, BorderLayout.EAST);
 		
 		add(contactInfoTop, BorderLayout.NORTH);
 		
@@ -81,6 +84,13 @@ public class ContactInfoJPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			ContactJPanel.removeLastPanel();
 			ContactJPanel.goFirstPanel();
+		}
+	}
+	
+	class Edit implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("edit");
 		}
 	}
 }
