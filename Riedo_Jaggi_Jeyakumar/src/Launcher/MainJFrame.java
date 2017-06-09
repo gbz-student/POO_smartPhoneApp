@@ -19,7 +19,7 @@ public class MainJFrame extends JFrame{
 	private JPanel launcherPanel= new LauncherJPanel();
 	private JPanel contactJPanel = new ContactJPanel();
 	private JPanel calculateJPanel = new CalculateJPanel();
-	private JPanel galleryJPanel = new GalleryJPanel();
+//	private JPanel galleryJPanel = new GalleryJPanel();
 	private JPanel imageFullScreen = new ImageFullScreen();
 	
 	public MainJFrame() {
@@ -39,7 +39,7 @@ public class MainJFrame extends JFrame{
 		cards.add(launcherPanel, "launcherJPanel");
 		cards.add(contactJPanel, "contactJPanel");
 		cards.add(calculateJPanel, "calculateJPanel");
-		cards.add(galleryJPanel, "galleryJPanel");
+//		cards.add(galleryJPanel, "galleryJPanel");
 		cards.add(imageFullScreen, "imageFullScreen");
 		
 		cards.setBackground(new Color(0,0,0,0));

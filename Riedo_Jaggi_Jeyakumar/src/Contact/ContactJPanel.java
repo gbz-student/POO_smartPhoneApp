@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import MainPackage.TitleJPanel;
 
@@ -14,14 +12,14 @@ public class ContactJPanel extends JPanel{
 	private TitleJPanel title = new TitleJPanel("Mes contacts");	
 	public static JPanel cards;
 	private JPanel contactListJPanel = new ContactListJPanel();
-	public static CardLayout cardLayout;
+	public static CardLayout cardLayout = new CardLayout();
 	
 	public ContactJPanel(){
 		setPreferredSize(new Dimension(480, 750));
 		setLayout(new BorderLayout());
-		
-		cards = new JPanel (cardLayout = new CardLayout());
-		cards.add(contactListJPanel, "contactListJPanel");
+		 
+		cards = new JPanel (cardLayout);
+		cards.add(contactListJPanel);
 		
 		add(title, BorderLayout.NORTH);
 		
@@ -36,11 +34,10 @@ public class ContactJPanel extends JPanel{
 	}
 	
 	public static void addPanel(JPanel panel, String constraint){
-		cards.add(panel, constraint, cards.getComponentCount());
-		cards.validate();
+		cards.add(panel, constraint, 1);
     }
 	
-	public static void changePanel(String name){
+	public static void changePanel(JPanel panel, String name){
 		cardLayout.show(cards, name);
     }
 	

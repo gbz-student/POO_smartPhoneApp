@@ -11,7 +11,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import Model.Person;
@@ -21,7 +20,7 @@ public class ContactListJPanel extends JPanel {
 	private JButton addContact = new JButton("add");
 	private JPanel contactListTop = new JPanel(new BorderLayout());
 	private ContactController contactController = new ContactController();
-	private ContactInfoJPanel contactInfoJPanel;
+	private JPanel contactInfoJPanel;
 	
 	public ContactListJPanel(){
 		setLayout(new BorderLayout());  
@@ -53,7 +52,7 @@ public class ContactListJPanel extends JPanel {
 	    scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	    scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 	    
-		add(scrollPanel);	
+		add(scrollPanel, BorderLayout.CENTER);	
 	}
 	
 	class ShowContactListener implements ActionListener{
@@ -66,9 +65,11 @@ public class ContactListJPanel extends JPanel {
 			
 			contactInfoJPanel = new ContactInfoJPanel(firstName, lastName);
 			
+			ContactJPanel.removeLastPanel();
+			
 			ContactJPanel.addPanel(contactInfoJPanel, "contactListJPanel");
 			
-			ContactJPanel.changePanel("contactListJPanel");	
+			ContactJPanel.changePanel(contactInfoJPanel, "contactListJPanel");	
 		}
 	}
 	
