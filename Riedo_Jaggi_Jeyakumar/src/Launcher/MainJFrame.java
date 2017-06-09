@@ -18,7 +18,6 @@ public class MainJFrame extends JFrame{
 	public static JPanel cards;
 	private JPanel launcherPanel= new LauncherJPanel();
 	private JPanel contactJPanel = new ContactJPanel();
-	private JPanel contactInfoJPanel = new ContactInfoJPanel();
 	private JPanel calculateJPanel = new CalculateJPanel();
 	private JPanel galleryJPanel = new GalleryJPanel();
 	private JPanel imageFullScreen = new ImageFullScreen();
@@ -39,7 +38,6 @@ public class MainJFrame extends JFrame{
 		cards = new JPanel (cardLayout = new CardLayout());
 		cards.add(launcherPanel, "launcherJPanel");
 		cards.add(contactJPanel, "contactJPanel");
-		cards.add(contactInfoJPanel, "contactInfoJPanel");
 		cards.add(calculateJPanel, "calculateJPanel");
 		cards.add(galleryJPanel, "galleryJPanel");
 		cards.add(imageFullScreen, "imageFullScreen");

@@ -5,7 +5,7 @@ public class PhoneNumber {
 	private String typePhoneNumber;
 	private String phoneNumber;
 	
-	public PhoneNumber(String typePhoneNumber, String PhoneNumber){
+	public PhoneNumber(String typePhoneNumber, String phoneNumber){
 		this.typePhoneNumber = typePhoneNumber;
 		this.phoneNumber = phoneNumber;
 	}
@@ -20,7 +20,7 @@ public class PhoneNumber {
 		return phoneNumber;
 	}
 	public void setPhoneNumber(String phoneNumber) {
-		phoneNumber = phoneNumber;
+		this.phoneNumber = phoneNumber;
 	}
 		
 }
