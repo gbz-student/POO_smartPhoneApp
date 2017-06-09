@@ -2,11 +2,13 @@ package Contact;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,15 +19,17 @@ import Model.PhoneNumber;
 
 public class ContactListJPanel extends JPanel {
 	
+	private ContactController contactController = new ContactController();
 	private ContactInfoJPanel contactInfoJPanel;
 	
 	public ContactListJPanel(){
 		setLayout(new BorderLayout());
 		
-		ArrayList<Person> contacts = getContacts();
+		ArrayList<Person> contacts = contactController.getContacts();
 		
-		JPanel gridPanel = new JPanel(new GridLayout(0,1));
-		gridPanel.setBackground(new Color(255,255,255));
+		JPanel gridPanel = new JPanel();
+		gridPanel.setLayout(new BoxLayout(gridPanel, BoxLayout.Y_AXIS));
+		gridPanel.setBackground(new Color(255,255,255));		
 		
 		Border paddingBorder = BorderFactory.createEmptyBorder(20,10,20,10);
 		Border raisedetched = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(189, 195, 199));
@@ -34,6 +38,7 @@ public class ContactListJPanel extends JPanel {
 			label.setBorder(BorderFactory.createCompoundBorder(raisedetched,paddingBorder));
 			label.addActionListener(new ShowContactListener());
 			label.setHorizontalAlignment(SwingConstants.LEFT);
+			label.setMaximumSize(new Dimension(480, 70));
             gridPanel.add(label);
         }
 		
@@ -60,29 +65,4 @@ public class ContactListJPanel extends JPanel {
 		}
 	}
 	
-	public ArrayList<Person> getContacts(){
-		ArrayList<Person> contacts = new ArrayList();
-		ArrayList<PhoneNumber> phoneNumbers = new ArrayList();
-		
-		phoneNumbers.add(new PhoneNumber("privé", "0799999999"));
-		
-		for(int i = 0; i < 50; i++) {
-			contacts.add(new Person("Test" + i, "Test", phoneNumbers, "gdhdjk", "bbb"));
-		}
-		return contacts;
-	}
-	
-	public Person getContact(String firstName, String lastName){
-		ArrayList<Person> contacts = getContacts();
-		Person contact = null;
-
-	    for (Person c : contacts) {
-	        if (firstName.equals(c.getFirstName()) && lastName.equals(c.getLastName())) {
-	            contact = c;
-	            break;
-	        }
-	    }
-
-		return contact;
-	}
 }
