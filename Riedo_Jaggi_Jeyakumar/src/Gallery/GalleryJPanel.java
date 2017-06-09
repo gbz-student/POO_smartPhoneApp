@@ -26,48 +26,45 @@ import MainPackage.TitleJPanel;
 
 public class GalleryJPanel extends JPanel {
 		
-//		private JPanel galleryPanel = new JPanel();
-		private TitleJPanel title = new TitleJPanel("Mes images");
-		private ImagesInit images = new ImagesInit();
-		private JButton buttonFullScreenImg = new JButton("image full screen");//juste pour test
-
+	private TitleJPanel title = new TitleJPanel("Mes images");
+	private ThumbDisplay thumbsPanel = new ThumbDisplay();
+	private ActionBar imgActionBar = new ActionBar();
+	
+	private static String originalImgFolder = new String("./img_library/");
+	private static String thumbsFolder = new String("./img_library/thumb/");
+	
+	public GalleryJPanel() {
 		
-		 
+		this.setVisible(true);
+		this.setLayout(new BorderLayout());
+		
+		setPreferredSize(new Dimension(480, 700));
 		
 		
-		public GalleryJPanel() {
-			
-			this.setVisible(true);
-			this.setLayout(new BorderLayout());
-			
-			JPanel imagesPanel = images.generateImages();
-			GridLayout column = new GridLayout(0, 3);
-			column.setVgap(20);
-			imagesPanel.setLayout(column);
-						
-			JScrollPane imgScroll = new JScrollPane(imagesPanel);
-			imgScroll.setPreferredSize(new Dimension(400, 400));
-			
-			add(title, BorderLayout.NORTH);
-			add(imgScroll, BorderLayout.CENTER);
-	        add(buttonFullScreenImg);
-	        
-			buttonFullScreenImg.addActionListener(new ListerButtonMenu());//juste pour test
-
-
-			
+//		thumbsPanel.regenerateThumbs();
+		thumbsPanel.displayThumbs(3);
+		
 					
-			
+		JScrollPane thumbScroll = new JScrollPane(thumbsPanel);
+		thumbScroll.getVerticalScrollBar().setUnitIncrement(16);
+		thumbScroll.setPreferredSize(new Dimension(400, 400));
+		
+		
+		add(title, BorderLayout.NORTH);
+		add(thumbScroll, BorderLayout.CENTER);
+		add(imgActionBar, BorderLayout.SOUTH);
+        
+
 		}
-		class ListerButtonMenu implements ActionListener{
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == buttonFullScreenImg){
-					MainJFrame.changePanel("imageFullScreen");
-				}
-				
-			}
-		}
+	
+	protected String getOriginalImagesFolder(){
+		return 	originalImgFolder;
+
+	}
+	
+	protected String getThumbsFolder(){
+		return thumbsFolder;
+	}
 	
 
 }
