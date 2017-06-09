@@ -3,7 +3,6 @@ package Contact;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,18 +11,26 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import Model.Person;
-import Model.PhoneNumber;
 
 public class ContactListJPanel extends JPanel {
 	
+	private JButton addContact = new JButton("add");
+	private JPanel contactListTop = new JPanel(new BorderLayout());
 	private ContactController contactController = new ContactController();
 	private ContactInfoJPanel contactInfoJPanel;
 	
 	public ContactListJPanel(){
-		setLayout(new BorderLayout());
+		setLayout(new BorderLayout());  
+		
+		contactListTop.setBackground(new Color(40,50,70));
+		
+		contactListTop.add(addContact, BorderLayout.EAST);
+		
+		add(contactListTop, BorderLayout.NORTH);
 		
 		ArrayList<Person> contacts = contactController.getContacts();
 		
