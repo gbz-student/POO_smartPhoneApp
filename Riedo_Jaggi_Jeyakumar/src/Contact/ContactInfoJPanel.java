@@ -19,7 +19,7 @@ public class ContactInfoJPanel extends JPanel {
 	private JButton back = new JButton("back");
 	private JButton edit = new JButton("edit");
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
-	private ContactController contactController = new ContactController();
+	private static ContactController contactController = ContactJPanel.getContactController();
 	private JPanel contactPanel = new JPanel(new BorderLayout());
 	private JPanel imagePanel = new JPanel();
 	private JPanel infoPanel = new JPanel();

@@ -11,9 +11,14 @@ public class ContactJPanel extends JPanel{
 
 	private TitleJPanel title = new TitleJPanel("Mes contacts");	
 	public static JPanel cards;
-	private JPanel contactListJPanel = new ContactListJPanel();
+	private ContactListJPanel contactListJPanel = new ContactListJPanel();
 	private JPanel contactForm = new ContactForm();
 	public static CardLayout cardLayout = new CardLayout();
+	private static ContactController contactController = new ContactController();
+	
+	public static ContactController getContactController(){
+		return contactController;
+	}
 	
 	public ContactJPanel(){
 		setPreferredSize(new Dimension(480, 750));
@@ -37,7 +42,6 @@ public class ContactJPanel extends JPanel{
 	
 	public static void backPanel(String source){
 		if(source == "contactForm"){
-			System.out.println(cards.getComponentCount());
 			if(cards.getComponentCount() == 2){
 				goFirstPanel();
 			}else{

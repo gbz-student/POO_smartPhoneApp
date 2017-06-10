@@ -19,9 +19,14 @@ public class ContactListJPanel extends JPanel {
 	
 	private JButton addContact = new JButton("add");
 	private JPanel contactListTop = new JPanel(new BorderLayout());
-	private ContactController contactController = new ContactController();
+	private static ContactController contactController = ContactJPanel.getContactController();
 	private JPanel contactInfoJPanel;
 	
+	JPanel gridPanel = new JPanel();
+	
+	ArrayList<Person> contacts = contactController.getContacts();
+	
+		
 	public ContactListJPanel(){
 		setLayout(new BorderLayout());  
 		
@@ -32,12 +37,19 @@ public class ContactListJPanel extends JPanel {
 		
 		add(contactListTop, BorderLayout.NORTH);
 		
-		ArrayList<Person> contacts = contactController.getContacts();
-		
-		JPanel gridPanel = new JPanel();
 		gridPanel.setLayout(new BoxLayout(gridPanel, BoxLayout.Y_AXIS));
 		gridPanel.setBackground(new Color(255,255,255));		
 		
+		generateList();
+		
+		JScrollPane scrollPanel = new JScrollPane(gridPanel);
+	    scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	    scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	    
+		add(scrollPanel, BorderLayout.CENTER);	
+	}
+	
+	private void generateList(){
 		Border paddingBorder = BorderFactory.createEmptyBorder(20,10,20,10);
 		Border raisedetched = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(189, 195, 199));
 		for (Person contact : contacts) {
@@ -48,12 +60,16 @@ public class ContactListJPanel extends JPanel {
 			label.setMaximumSize(new Dimension(480, 70));
             gridPanel.add(label);
         }
+	}
+	
+	public void updateContact(){
+		gridPanel.removeAll();
+		contacts = contactController.getContacts();
 		
-		JScrollPane scrollPanel = new JScrollPane(gridPanel);
-	    scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	    scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	    
-		add(scrollPanel, BorderLayout.CENTER);	
+		generateList();
+		
+		gridPanel.revalidate();
+		gridPanel.repaint();
 	}
 	
 	class ShowContactListener implements ActionListener{
