@@ -19,7 +19,6 @@ public class ContactInfoJPanel extends JPanel {
 	private JButton back = new JButton("back");
 	private JButton edit = new JButton("edit");
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
-	
 	private ContactController contactController = new ContactController();
 	private JPanel contactPanel = new JPanel(new BorderLayout());
 	private JPanel imagePanel = new JPanel();
@@ -82,15 +81,16 @@ public class ContactInfoJPanel extends JPanel {
 	class Back implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ContactJPanel.removeLastPanel();
-			ContactJPanel.goFirstPanel();
+//			ContactJPanel.removeLastPanel();
+//			ContactJPanel.goFirstPanel();
+			ContactJPanel.backPanel("contactInfo");
 		}
 	}
 	
 	class Edit implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("edit");
+			ContactJPanel.changePanel("contactForm");
 		}
 	}
 }

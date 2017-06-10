@@ -12,6 +12,7 @@ public class ContactJPanel extends JPanel{
 	private TitleJPanel title = new TitleJPanel("Mes contacts");	
 	public static JPanel cards;
 	private JPanel contactListJPanel = new ContactListJPanel();
+	private JPanel contactForm = new ContactForm();
 	public static CardLayout cardLayout = new CardLayout();
 	
 	public ContactJPanel(){
@@ -20,6 +21,7 @@ public class ContactJPanel extends JPanel{
 		 
 		cards = new JPanel (cardLayout);
 		cards.add(contactListJPanel);
+		cards.add(contactForm, "contactForm");
 		
 		add(title, BorderLayout.NORTH);
 		
@@ -28,16 +30,30 @@ public class ContactJPanel extends JPanel{
 	}
 	
 	public static void removeLastPanel(){
-		if(cards.getComponentCount() > 1){
+		if(cards.getComponentCount() > 2){
 			cards.remove(cards.getComponentCount() - 1);
 		}
 	}
 	
+	public static void backPanel(String source){
+		if(source == "contactForm"){
+			System.out.println(cards.getComponentCount());
+			if(cards.getComponentCount() == 2){
+				goFirstPanel();
+			}else{
+				changePanel("contactInfo");
+			}
+		}else if (source == "contactInfo") {
+			ContactJPanel.removeLastPanel();
+			ContactJPanel.goFirstPanel();
+		}
+	}
+	
 	public static void addPanel(JPanel panel, String constraint){
-		cards.add(panel, constraint, 1);
+		cards.add(panel, constraint, 2);
     }
 	
-	public static void changePanel(JPanel panel, String name){
+	public static void changePanel(String name){
 		cardLayout.show(cards, name);
     }
 	

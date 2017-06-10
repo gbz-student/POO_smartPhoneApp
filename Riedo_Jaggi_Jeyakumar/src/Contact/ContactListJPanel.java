@@ -27,6 +27,7 @@ public class ContactListJPanel extends JPanel {
 		
 		contactListTop.setBackground(new Color(40,50,70));
 		
+		addContact.addActionListener(new AddContact());
 		contactListTop.add(addContact, BorderLayout.EAST);
 		
 		add(contactListTop, BorderLayout.NORTH);
@@ -67,9 +68,16 @@ public class ContactListJPanel extends JPanel {
 			
 			ContactJPanel.removeLastPanel();
 			
-			ContactJPanel.addPanel(contactInfoJPanel, "contactListJPanel");
+			ContactJPanel.addPanel(contactInfoJPanel, "contactInfo");
 			
-			ContactJPanel.changePanel(contactInfoJPanel, "contactListJPanel");	
+			ContactJPanel.changePanel("contactInfo");	
+		}
+	}
+	
+	class AddContact implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ContactJPanel.changePanel("contactForm");
 		}
 	}
 	
