@@ -49,6 +49,7 @@ public class ThumbDisplay extends JPanel{
 			JLabel thumbLabel = new JLabel(thumb);
 			
 			MouseListenerThumb click = new MouseListenerThumb();
+			click.index = i;
 			thumbLabel.addMouseListener(click);
 			
 			this.add(thumbLabel);
@@ -88,12 +89,13 @@ public class ThumbDisplay extends JPanel{
 //	}
 		
 	class MouseListenerThumb implements MouseListener{
-		
+		int index;
 		
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent e){
 			MainJFrame.changePanel("imageFullScreen");
 			JPanel imgFullScreen = new JPanel();
+			System.out.println(index);
 
 		}
 
