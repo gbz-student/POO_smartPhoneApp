@@ -40,7 +40,7 @@ public class ImageFullScreen extends JPanel {
 	}
 	
 	//Ajout de navigation
-	//Side 0 vaut gauche, side 1 vaut droite
+	//Side 0 vaut gauche, side 1 vaut droite 
 	private void addNavButton(String str, int side){
 
 		JLabel nav = new JLabel(str);
