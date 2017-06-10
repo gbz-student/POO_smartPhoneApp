@@ -59,6 +59,9 @@ public class ImageFullScreen extends JPanel {
 		closeButton.addActionListener(new CloseListener());
 	}
 
+	/*
+	 * affichage de l-image en fullscreen
+	 */
 	public void displayImg(int i){
 		String imgPath = list.get(i).getImgName();
 		ImageIcon imgIcon = new ImageIcon(GalleryConstants.IMG_FOLDER+imgPath);
