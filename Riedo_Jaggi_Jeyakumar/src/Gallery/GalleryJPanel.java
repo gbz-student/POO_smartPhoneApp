@@ -34,21 +34,19 @@ public class GalleryJPanel extends JPanel {
 		this.setVisible(true);
 		this.setLayout(new BorderLayout());
 		
-		setPreferredSize(new Dimension(480, 700));
+		setPreferredSize(new Dimension(480, 500));
 		
 		
 		ThumbDisplay thumbsPanel = new ThumbDisplay(3);
 					
 		JScrollPane thumbScroll = new JScrollPane(thumbsPanel);
 		thumbScroll.getVerticalScrollBar().setUnitIncrement(16);
-		thumbScroll.setPreferredSize(new Dimension(400, 400));
 		
 		
 		add(title, BorderLayout.NORTH);
 		add(thumbScroll, BorderLayout.CENTER);
-		add(imgActionBar, BorderLayout.SOUTH);
+		add(imgActionBar, BorderLayout.NORTH);
         
-
 		}
 	
 

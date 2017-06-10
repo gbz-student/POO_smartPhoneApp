@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -52,8 +53,8 @@ public class ImageFullScreen extends JPanel {
 		closeButton.addActionListener(new CloseListener());
 	}
 
-	public void setImgPath(String str){
-		this.path = str;
+	public void displayImg(int i){
+		System.out.println("hahahhaha");
 	}
 	
 	class CloseListener implements ActionListener{

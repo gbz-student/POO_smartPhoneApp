@@ -33,12 +33,10 @@ public class ActionBar extends JPanel{
 	}
 	
 	private void initButton(){
-		
-		
+				
 		addImg.addActionListener(new ActionButtonListener());
 		removeImg.addActionListener(new ActionButtonListener());;
-		
-		
+				
 		this.add(addImg);
 		this.add(removeImg);
 	}
