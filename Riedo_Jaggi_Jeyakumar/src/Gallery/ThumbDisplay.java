@@ -33,6 +33,7 @@ import Launcher.MainJFrame;
 
 public class ThumbDisplay extends JPanel{
 	
+	
 	public ThumbDisplay(int column) {
 		displayThumbs();
 		columnDisplay(column);
@@ -94,8 +95,8 @@ public class ThumbDisplay extends JPanel{
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent e){
 			MainJFrame.changePanel("imageFullScreen");
-			JPanel imgFullScreen = new JPanel();
-			System.out.println(index);
+			ImageFullScreen imgFS = (ImageFullScreen) MainJFrame.getCards(4);
+			imgFS.displayImg(index);
 
 		}
 

@@ -19,20 +19,24 @@ import Launcher.MainJFrame;
 
 public class ImageFullScreen extends JPanel {
 	
-	private String path;
+	private ImgInfo imgInfo = new ImgInfo();
+	private ArrayList<ImgInfo>list = imgInfo.createList();	
 
+	public int index;
+	JLabel imgLabel = new JLabel();
+	
+	
 	public ImageFullScreen(){
-		
 		this.setVisible(true);
 		this.setBackground(new Color(0,0,0));
 		this.setLayout(new BorderLayout());
+				
 		
 		addCloseButton();
 		addNavButton("<", 0);
 		addNavButton(">", 1);
 		
-		
-	
+					
 	}
 	
 	//Ajout de navigation
@@ -41,8 +45,10 @@ public class ImageFullScreen extends JPanel {
 
 		JLabel nav = new JLabel(str);
 		nav.setBackground(Color.blue);
-		if(side==0)
+		if(side==0){
+			
 			this.add(nav, BorderLayout.WEST);
+		}
 		else
 			this.add(nav, BorderLayout.EAST);
 	}
@@ -54,9 +60,14 @@ public class ImageFullScreen extends JPanel {
 	}
 
 	public void displayImg(int i){
-		System.out.println("hahahhaha");
+		String imgPath = list.get(i).getImgName();
+		ImageIcon imgIcon = new ImageIcon(GalleryConstants.IMG_FOLDER+imgPath);
+		imgLabel.setIcon(imgIcon);
+		this.add(imgLabel, BorderLayout.CENTER);
+		
 	}
 	
+		
 	class CloseListener implements ActionListener{
 
 		@Override
