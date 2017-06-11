@@ -8,17 +8,14 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import Model.Contact;
-import Model.PhoneNumber;
-
 import java.awt.Insets;
+import Model.*;
 
 public class ContactForm extends JPanel{
 	
@@ -30,11 +27,11 @@ public class ContactForm extends JPanel{
 	private JTextField photoField;
 	private JPanel panelContainer = new JPanel();
 	private JPanel panel = new JPanel();
-	String[] typePhoneNumber = { "", "Privé", "Maison", "Bureau" };
 	private static ContactController contactController = ContactJPanel.getContactController();
-	JComboBox<String>[] typeNumberLabel = new JComboBox[3];
-	JTextField[] phoneField = new JTextField[3];
+	private JComboBox<?>[] typeNumberLabel = new JComboBox[3];
+	private JTextField[] phoneField = new JTextField[3];
 	public int formFunction = 0; // 0 => formulaire d'ajout, 1 => formulaire de modification
+	private String[] typePhoneNumber = { "", "Privé", "Maison", "Bureau" };
 	
 	public ContactForm(){
 		setBackground(new Color(255,255,255));
@@ -110,6 +107,19 @@ public class ContactForm extends JPanel{
 		panelContainer.repaint();
 	}
 	
+	public void resetField(){
+		firstNameField.setText("");
+		lastNameField.setText("");
+		emailField.setText("");
+		photoField.setText("");
+		for(int i = 0; i < typeNumberLabel.length; i++){
+			typeNumberLabel[i].setSelectedIndex(0);
+			phoneField[i].setText("");
+		}
+		panelContainer.revalidate();
+		panelContainer.repaint();
+	}
+	
 	public void addElement(Component comp, Insets insets, int anchor, int gridx, int gridy){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = insets;
@@ -140,7 +150,6 @@ public class ContactForm extends JPanel{
 					contactController.createContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
 				}else if (formFunction == 1) {
 					contactController.editContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
-					
 				}
 			}else{
 			    JOptionPane.showMessageDialog(new JPanel(), "Veuillez remplir les champs nom et prénom", "Attention", JOptionPane.WARNING_MESSAGE);

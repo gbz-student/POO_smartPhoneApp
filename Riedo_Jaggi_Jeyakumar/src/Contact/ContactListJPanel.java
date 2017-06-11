@@ -21,10 +21,8 @@ public class ContactListJPanel extends JPanel {
 	private JPanel contactListTop = new JPanel(new BorderLayout());
 	private static ContactController contactController = ContactJPanel.getContactController();
 	private JPanel contactInfoJPanel;
-	
-	JPanel gridPanel = new JPanel();
-	
-	ArrayList<Contact> contacts = contactController.getContacts();
+	private JPanel gridPanel = new JPanel();
+	private ArrayList<Contact> contacts = contactController.getContacts();
 	
 		
 	public ContactListJPanel(){
@@ -74,7 +72,6 @@ public class ContactListJPanel extends JPanel {
 	
 	class ShowContactListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			
 			String string = ((JButton) e.getSource()).getText();
 			String[] parts = string.split(" ");
 			String firstName = parts[0]; 
@@ -95,6 +92,7 @@ public class ContactListJPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			ContactForm contactForm = (ContactForm) ContactJPanel.getCards().getComponent(1);
 			contactForm.formFunction = 0;
+			contactForm.resetField();
 			ContactJPanel.changePanel("contactForm");
 		}
 	}
