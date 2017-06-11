@@ -25,6 +25,7 @@ public class ContactInfoJPanel extends JPanel {
 	private JPanel infoPanel = new JPanel();
 	private JLabel image = new JLabel();
 	private JLabel nameLabel;
+	Person contact;
 	
 	public ContactInfoJPanel(String firstName, String lastName){
 		setBackground(new Color(255,255,255));
@@ -39,7 +40,7 @@ public class ContactInfoJPanel extends JPanel {
 		
 		add(contactInfoTop, BorderLayout.NORTH);
 		
-		Person contact = contactController.getContact(firstName, lastName);
+		contact = contactController.getContact(firstName, lastName);
 		
 		nameLabel = new JLabel(contact.getFirstName() + " " + contact.getLastName());
 		nameLabel.setFont(nameLabel.getFont().deriveFont(25f));
@@ -90,6 +91,9 @@ public class ContactInfoJPanel extends JPanel {
 	class Edit implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			ContactForm contactForm = (ContactForm) ContactJPanel.getCards().getComponent(1);
+			contactForm.formFunction = 1;
+			contactForm.setField(contact);
 			ContactJPanel.changePanel("contactForm");
 		}
 	}

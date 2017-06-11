@@ -20,6 +20,10 @@ public class ContactJPanel extends JPanel{
 		return contactController;
 	}
 	
+	public static JPanel getCards(){
+		return cards;
+	}
+	
 	public ContactJPanel(){
 		setPreferredSize(new Dimension(480, 750));
 		setLayout(new BorderLayout());

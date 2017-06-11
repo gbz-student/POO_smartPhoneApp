@@ -93,6 +93,8 @@ public class ContactListJPanel extends JPanel {
 	class AddContact implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			ContactForm contactForm = (ContactForm) ContactJPanel.getCards().getComponent(1);
+			contactForm.formFunction = 0;
 			ContactJPanel.changePanel("contactForm");
 		}
 	}

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -36,6 +37,7 @@ public class ContactForm extends JPanel{
 	private static ContactController contactController = ContactJPanel.getContactController();
 	JComboBox<String>[] typeNumberLabel = new JComboBox[3];
 	JTextField[] phoneField = new JTextField[3];
+	public int formFunction = 0; // 0 => formulaire d'ajout, 1 => formulaire de modification
 	
 	public ContactForm(){
 		setBackground(new Color(255,255,255));
@@ -96,6 +98,21 @@ public class ContactForm extends JPanel{
 		addElement(save, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 7);
 	}
 	
+	public void setField(Person contact){
+		firstNameField.setText(contact.getFirstName());
+		lastNameField.setText(contact.getLastName());
+		emailField.setText(contact.getEmail());
+		photoField.setText(contact.getPhoto());
+		int i = 0;
+		for(PhoneNumber number : contact.getPhoneNumbers()){
+			typeNumberLabel[i].setSelectedItem(number.getTypePhoneNumber());
+			phoneField[i].setText(number.getPhoneNumber());
+			i++;
+		}
+		panelContainer.revalidate();
+		panelContainer.repaint();
+	}
+	
 	public void addElement(Component comp, Insets insets, int anchor, int gridx, int gridy){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = insets;
@@ -108,8 +125,12 @@ public class ContactForm extends JPanel{
 	class Save implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			contactController.createContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), typeNumberLabel, phoneField);
-			
+			if(formFunction == 0){
+				contactController.createContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), typeNumberLabel, phoneField);
+				ContactJPanel.goFirstPanel();
+			}else if (formFunction == 1) {
+				ContactJPanel.changePanel("contactInfo");
+			}
 		}
 	}
 	
@@ -119,5 +140,4 @@ public class ContactForm extends JPanel{
 			ContactJPanel.backPanel("contactForm");
 		}
 	}
-
 }
