@@ -7,17 +7,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.AbstractButton;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import Model.Person;
 import Model.PhoneNumber;
 
@@ -33,7 +27,7 @@ public class ContactForm extends JPanel{
 	private JTextField photoField;
 	private JPanel panelContainer = new JPanel();
 	private JPanel panel = new JPanel();
-	String[] typePhoneNumber = { "Privé", "Maison", "Bureau" };
+	String[] typePhoneNumber = { "", "Privé", "Maison", "Bureau" };
 	private static ContactController contactController = ContactJPanel.getContactController();
 	JComboBox<String>[] typeNumberLabel = new JComboBox[3];
 	JTextField[] phoneField = new JTextField[3];
@@ -127,7 +121,6 @@ public class ContactForm extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			if(formFunction == 0){
 				contactController.createContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), typeNumberLabel, phoneField);
-				ContactJPanel.goFirstPanel();
 			}else if (formFunction == 1) {
 				ContactJPanel.changePanel("contactInfo");
 			}

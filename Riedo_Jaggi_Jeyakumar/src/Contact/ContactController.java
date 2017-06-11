@@ -23,7 +23,7 @@ public class ContactController {
 	public void getContactsFromFile(){
 		ArrayList<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
 		
-		phoneNumbers.add(new PhoneNumber("privé", "0799999999"));
+		phoneNumbers.add(new PhoneNumber("Privé", "0799999999"));
 		phoneNumbers.add(new PhoneNumber("Maison", "0799999999"));
 		
 		for(int i = 0; i < 5; i++) {
@@ -64,8 +64,9 @@ public class ContactController {
 		
 		if(statut){
 			contacts.add(new Person(firstName, lastName, phoneNumbers, email, photo));
+			ContactJPanel.goFirstPanel();
 		}else{
-		    JOptionPane.showMessageDialog(new JPanel(), "Could not open file", "Warning", JOptionPane.WARNING_MESSAGE);
+		    JOptionPane.showMessageDialog(new JPanel(), "Veuillez remplir les champs nom et prénom", "Attention", JOptionPane.WARNING_MESSAGE);
 		}
 		
 		ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.cards.getComponent(0);
