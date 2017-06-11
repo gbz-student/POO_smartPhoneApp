@@ -160,7 +160,11 @@ public class ContactForm extends JPanel{
 	class Back implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ContactJPanel.backPanel("contactForm");
+			if(formFunction == 0){
+				ContactJPanel.changePanel("contactListJPanel");
+			}else if (formFunction == 1) {
+				ContactJPanel.changePanel("contactInfoJPanel");
+			}
 		}
 	}
 }

@@ -7,30 +7,33 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import MainPackage.TitleJPanel;
 
+/**
+ * Panel de base pour l'application contact. Comprend un cardlayout avec les différents panel.
+ * 
+ * @author ken
+ *
+ */
 public class ContactJPanel extends JPanel{
 
 	private TitleJPanel title = new TitleJPanel("Mes contacts");	
-	public static JPanel cards;
+	private static JPanel cards;
+	private static CardLayout cardLayout = new CardLayout();
 	private ContactListJPanel contactListJPanel = new ContactListJPanel();
+	private ContactInfoJPanel contactInfoJPanel = new ContactInfoJPanel();
 	private JPanel contactForm = new ContactForm();
-	public static CardLayout cardLayout = new CardLayout();
 	private static ContactController contactController = new ContactController();
 	
-	public static ContactController getContactController(){
-		return contactController;
-	}
-	
-	public static JPanel getCards(){
-		return cards;
-	}
-	
+	/**
+	 * Construit le JPanel de basse qui contient le cardLayout
+	 */
 	public ContactJPanel(){
 		setPreferredSize(new Dimension(480, 750));
 		setLayout(new BorderLayout());
 		 
 		cards = new JPanel (cardLayout);
-		cards.add(contactListJPanel);
-		cards.add(contactForm, "contactForm");
+		cards.add(contactListJPanel, "contactListJPanel", 0);
+		cards.add(contactForm, "contactForm", 1);
+		cards.add(contactInfoJPanel, "contactInfoJPanel", 2);
 		
 		add(title, BorderLayout.NORTH);
 		
@@ -38,28 +41,22 @@ public class ContactJPanel extends JPanel{
 		add(cards, BorderLayout.CENTER);
 	}
 	
-	public static void removeLastPanel(){
-		if(cards.getComponentCount() > 2){
-			cards.remove(cards.getComponentCount() - 1);
-		}
+	/**
+	 * @return ContactController contactController
+	 */
+	public static ContactController getContactController(){
+		return contactController;
 	}
 	
-	public static void backPanel(String source){
-		if(source == "contactForm"){
-			if(cards.getComponentCount() == 2){
-				goFirstPanel();
-			}else{
-				changePanel("contactInfo");
-			}
-		}else if (source == "contactInfo") {
-			ContactJPanel.removeLastPanel();
-			ContactJPanel.goFirstPanel();
-		}
+	/**
+	 * Retourne le composant du cardLayout correspondant à l'index donnée en paramètre
+	 * 
+	 * @param int index
+	 * @return JPanel 
+	 */
+	public static JPanel getCardsComponent(int index){
+		return (JPanel) cards.getComponent(index);
 	}
-	
-	public static void addPanel(JPanel panel, String constraint){
-		cards.add(panel, constraint, 2);
-    }
 	
 	public static void changePanel(String name){
 		cardLayout.show(cards, name);

@@ -40,7 +40,7 @@ public class ContactController {
 	            break;
 	        }
 	    }
-
+	    
 		return contact;
 	}
 	
@@ -49,8 +49,8 @@ public class ContactController {
 			Contact c = new Contact(firstName, lastName, phoneNumbers, email, photo);
 			contacts.add(c);
 			
-			ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.cards.getComponent(0);
-			contactListJPanel.updateContact();	
+			ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.getCardsComponent(0);
+			contactListJPanel.updateList();	
 			
 			if(saveContact(c)){
 				ContactJPanel.goFirstPanel();
@@ -72,15 +72,13 @@ public class ContactController {
 		contacts.get(index).setPhoto(photo);
 		contacts.get(index).setPhoneNumbers(phoneNumbers);
 		
-		ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.cards.getComponent(0);
-		contactListJPanel.updateContact();
-		ContactInfoJPanel contactInfoJPanel = (ContactInfoJPanel) ContactJPanel.cards.getComponent(2);
+		ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.getCardsComponent(0);
+		contactListJPanel.updateList();
+		ContactInfoJPanel contactInfoJPanel = (ContactInfoJPanel) ContactJPanel.getCardsComponent(2);
 		contactInfoJPanel.updateContact();
 		
-		ContactJPanel.changePanel("contactInfo");
-		
 		if(saveContact(c)){
-			ContactJPanel.goFirstPanel();
+			ContactJPanel.changePanel("contactInfoJPanel");
 		}else{
 			JOptionPane.showMessageDialog(new JPanel(), "Erreur d'enregistrement", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
