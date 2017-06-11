@@ -13,15 +13,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-import Model.Person;
+import Model.Contact;
 
 public class ContactListJPanel extends JPanel {
 	
 	private JButton addContact = new JButton("add");
 	private JPanel contactListTop = new JPanel(new BorderLayout());
-	private ContactController contactController = new ContactController();
+	private static ContactController contactController = ContactJPanel.getContactController();
 	private JPanel contactInfoJPanel;
+	private JPanel gridPanel = new JPanel();
+	private ArrayList<Contact> contacts = contactController.getContacts();
 	
+		
 	public ContactListJPanel(){
 		setLayout(new BorderLayout());  
 		
@@ -32,22 +35,10 @@ public class ContactListJPanel extends JPanel {
 		
 		add(contactListTop, BorderLayout.NORTH);
 		
-		ArrayList<Person> contacts = contactController.getContacts();
-		
-		JPanel gridPanel = new JPanel();
 		gridPanel.setLayout(new BoxLayout(gridPanel, BoxLayout.Y_AXIS));
 		gridPanel.setBackground(new Color(255,255,255));		
 		
-		Border paddingBorder = BorderFactory.createEmptyBorder(20,10,20,10);
-		Border raisedetched = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(189, 195, 199));
-		for (Person contact : contacts) {
-			JButton label = new JButton(contact.getFirstName() + " " + contact.getLastName());
-			label.setBorder(BorderFactory.createCompoundBorder(raisedetched,paddingBorder));
-			label.addActionListener(new ShowContactListener());
-			label.setHorizontalAlignment(SwingConstants.LEFT);
-			label.setMaximumSize(new Dimension(480, 70));
-            gridPanel.add(label);
-        }
+		generateList();
 		
 		JScrollPane scrollPanel = new JScrollPane(gridPanel);
 	    scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -56,9 +47,31 @@ public class ContactListJPanel extends JPanel {
 		add(scrollPanel, BorderLayout.CENTER);	
 	}
 	
+	private void generateList(){
+		Border paddingBorder = BorderFactory.createEmptyBorder(20,10,20,10);
+		Border raisedetched = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(189, 195, 199));
+		for (Contact contact : contacts) {
+			JButton label = new JButton(contact.getFirstName() + " " + contact.getLastName());
+			label.setBorder(BorderFactory.createCompoundBorder(raisedetched,paddingBorder));
+			label.addActionListener(new ShowContactListener());
+			label.setHorizontalAlignment(SwingConstants.LEFT);
+			label.setMaximumSize(new Dimension(480, 70));
+            gridPanel.add(label);
+        }
+	}
+	
+	public void updateContact(){
+		gridPanel.removeAll();
+		contacts = contactController.getContacts();
+		
+		generateList();
+		
+		gridPanel.revalidate();
+		gridPanel.repaint();
+	}
+	
 	class ShowContactListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			
 			String string = ((JButton) e.getSource()).getText();
 			String[] parts = string.split(" ");
 			String firstName = parts[0]; 
@@ -77,6 +90,9 @@ public class ContactListJPanel extends JPanel {
 	class AddContact implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			ContactForm contactForm = (ContactForm) ContactJPanel.getCards().getComponent(1);
+			contactForm.formFunction = 0;
+			contactForm.resetField();
 			ContactJPanel.changePanel("contactForm");
 		}
 	}

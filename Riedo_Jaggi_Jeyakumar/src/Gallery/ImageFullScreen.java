@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.ByteOrder;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,30 +19,36 @@ import Launcher.MainJFrame;
 
 public class ImageFullScreen extends JPanel {
 	
-	private String path;
+	private ImgInfo imgInfo = new ImgInfo();
+	private ArrayList<ImgInfo>list = imgInfo.createList();	
 
+	public int index;
+	JLabel imgLabel = new JLabel();
+	
+	
 	public ImageFullScreen(){
-		
 		this.setVisible(true);
 		this.setBackground(new Color(0,0,0));
 		this.setLayout(new BorderLayout());
+				
 		
 		addCloseButton();
 		addNavButton("<", 0);
 		addNavButton(">", 1);
 		
-		
-	
+					
 	}
 	
 	//Ajout de navigation
-	//Side 0 vaut gauche, side 1 vaut droite
+	//Side 0 vaut gauche, side 1 vaut droite 
 	private void addNavButton(String str, int side){
 
 		JLabel nav = new JLabel(str);
 		nav.setBackground(Color.blue);
-		if(side==0)
+		if(side==0){
+			
 			this.add(nav, BorderLayout.WEST);
+		}
 		else
 			this.add(nav, BorderLayout.EAST);
 	}
@@ -52,10 +59,18 @@ public class ImageFullScreen extends JPanel {
 		closeButton.addActionListener(new CloseListener());
 	}
 
-	public void setImgPath(String str){
-		this.path = str;
+	/*
+	 * affichage de l-image en fullscreen
+	 */
+	public void displayImg(int i){
+		String imgPath = list.get(i).getImgName();
+		ImageIcon imgIcon = new ImageIcon(GalleryConstants.IMG_FOLDER+imgPath);
+		imgLabel.setIcon(imgIcon);
+		this.add(imgLabel, BorderLayout.CENTER);
+		
 	}
 	
+		
 	class CloseListener implements ActionListener{
 
 		@Override

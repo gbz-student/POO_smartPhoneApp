@@ -24,16 +24,13 @@ public class AddImageWindow extends JFileChooser{
 	
 	
 	private GalleryJPanel gallery = new GalleryJPanel();
-	private String imgFolder = gallery.getOriginalImagesFolder();
 	private File imgSource = this.getSelectedFile();
-	
-	private ImgThumbDate itd;
+	private ImgInfo itd;
 		
 	public AddImageWindow(){
-
 		initActionWindows();
 		addImage();
-		ArrayList<ImgThumbDate>list = itd.createList(imgSource);
+//		ArrayList<ImgInfo>list = itd.createList();
 	}
 	
 	private void initActionWindows(){
@@ -46,25 +43,29 @@ public class AddImageWindow extends JFileChooser{
 	
 	private void addImage(){
 		//ajout de l'image taille originale
+		System.out.println(imgSource);
+
 		String imgName = imgSource.getName();
+
 		String imgSourcePath = imgSource.getPath();
 		
+		
 		Path source = Paths.get(imgSourcePath);
-		Path originalImgFolder = Paths.get("./img_library/"+imgName);
+		Path originalImgFolder = Paths.get(GalleryConstants.IMG_FOLDER+imgName);
 				
-		try {
-			Files.copy(source, originalImgFolder) ;
-
-			//création du thumb
-			ThumbNail thumb = new ThumbNail(originalImgFolder);
-		} catch (IOException e) {	
-			JFrame warningFrame = new JFrame("avertissement");
-			JLabel warningLabel = new JLabel("Cette image existe deja !");
-			warningFrame.add(warningLabel);
-			warningFrame.setSize(220, 120);
-			warningFrame.setVisible(true);
-						
-		}				
+//		try {
+//			Files.copy(source, originalImgFolder) ;
+//
+//			//création du thumb
+//			ThumbNail thumb = new ThumbNail(originalImgFolder);
+//		} catch (IOException e) {	
+//			JFrame warningFrame = new JFrame("avertissement");
+//			JLabel warningLabel = new JLabel("Cette image existe deja !");
+//			warningFrame.add(warningLabel);
+//			warningFrame.setSize(220, 120);
+//			warningFrame.setVisible(true);
+//						
+//		}				
 	}
 	
 

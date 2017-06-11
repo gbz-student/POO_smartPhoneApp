@@ -1,81 +1,67 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Person {
+public class Contact implements Serializable{
 	
-	private String FirstName;
-	private String LastName;
-	private ArrayList<PhoneNumber> PhoneNumbers;
+	private static int id = 0;
+	private String firstName;
+	private String lastName;
+	private ArrayList<PhoneNumber> phoneNumbers;
 	private String email;
 	private String photo;
 	
-	
-	public Person(String FirstName, String LastName, ArrayList<PhoneNumber> PhoneNumbers, String email, String photo ){
-		
-		this.FirstName = FirstName;
-		this.LastName = LastName;
-		this.PhoneNumbers = PhoneNumbers;
+	public Contact(String FirstName, String LastName, ArrayList<PhoneNumber> PhoneNumbers, String email, String photo ){	
+		this.firstName = FirstName;
+		this.lastName = LastName;
+		this.phoneNumbers = PhoneNumbers;
 		this.email = email;
 		this.photo = photo;
-		
-		
+		id++;
 	}
-
 
 	public String getFirstName() {
-		return FirstName;
+		return firstName;
 	}
-
 
 	public void setFirstName(String firstName) {
-		FirstName = firstName;
+		this.firstName = firstName;
 	}
-
 
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
-
 
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
-
 
 	public ArrayList<PhoneNumber> getPhoneNumbers() {
-		return PhoneNumbers;
+		return phoneNumbers;
 	}
-
 
 	public void setPhoneNumbers(ArrayList<PhoneNumber> phoneNumbers) {
-		PhoneNumbers = phoneNumbers;
+		this.phoneNumbers = phoneNumbers;
 	}
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 	public String getPhoto() {
 		return photo;
 	}
 
-
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	
-	
-	
-	
-	
-	
 
+	public static int getId() {
+		return id;
+	}
 }

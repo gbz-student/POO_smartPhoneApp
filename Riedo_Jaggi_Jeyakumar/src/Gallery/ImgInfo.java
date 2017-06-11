@@ -43,6 +43,9 @@ public class ImgInfo {
 	public String getThumbName(){
 		return thumbName;
 	}
+	public String getImgName(){
+		return imgName;
+	}
 	
 	//Date de téléchargement de l'image
 	protected FileTime getCreationTime(File img){

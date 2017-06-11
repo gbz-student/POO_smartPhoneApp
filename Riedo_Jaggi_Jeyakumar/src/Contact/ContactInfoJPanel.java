@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import Model.Person;
+import Model.Contact;
 import Model.PhoneNumber;
 			
 public class ContactInfoJPanel extends JPanel {
@@ -19,12 +19,13 @@ public class ContactInfoJPanel extends JPanel {
 	private JButton back = new JButton("back");
 	private JButton edit = new JButton("edit");
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
-	private ContactController contactController = new ContactController();
+	private static ContactController contactController = ContactJPanel.getContactController();
 	private JPanel contactPanel = new JPanel(new BorderLayout());
 	private JPanel imagePanel = new JPanel();
 	private JPanel infoPanel = new JPanel();
 	private JLabel image = new JLabel();
 	private JLabel nameLabel;
+	Contact contact;
 	
 	public ContactInfoJPanel(String firstName, String lastName){
 		setBackground(new Color(255,255,255));
@@ -39,8 +40,21 @@ public class ContactInfoJPanel extends JPanel {
 		
 		add(contactInfoTop, BorderLayout.NORTH);
 		
-		Person contact = contactController.getContact(firstName, lastName);
+		contact = contactController.getContact(firstName, lastName);
 		
+		setImagePanel();
+		
+		setInfoPanel();
+		
+		
+			
+//		contactPanel.add(imagePanel, BorderLayout.NORTH);
+//		contactPanel.add(infoPanel, BorderLayout.CENTER);
+		
+		add(contactPanel, BorderLayout.CENTER);
+	}
+	
+	public void setImagePanel(){
 		nameLabel = new JLabel(contact.getFirstName() + " " + contact.getLastName());
 		nameLabel.setFont(nameLabel.getFont().deriveFont(25f));
 		nameLabel.setForeground(Color.white);
@@ -60,6 +74,10 @@ public class ContactInfoJPanel extends JPanel {
 		imagePanel.add(image, BorderLayout.NORTH);
 		imagePanel.add(nameLabel, BorderLayout.CENTER);
 		
+		contactPanel.add(imagePanel, BorderLayout.NORTH);
+	}
+	
+	public void setInfoPanel(){
 		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 		
 		for(PhoneNumber number : contact.getPhoneNumbers()){
@@ -71,11 +89,18 @@ public class ContactInfoJPanel extends JPanel {
 		
 		JPanel panelEmail = new ContactInfoDetail("Mail: ", contact.getEmail());
 		infoPanel.add(panelEmail);
-			
-		contactPanel.add(imagePanel, BorderLayout.NORTH);
-		contactPanel.add(infoPanel, BorderLayout.CENTER);
 		
-		add(contactPanel, BorderLayout.CENTER);
+		contactPanel.add(infoPanel, BorderLayout.CENTER);
+	}
+	
+	public void updateContact(){
+		infoPanel.removeAll();
+		
+		setImagePanel();
+		setInfoPanel();
+		
+		contactPanel.revalidate();
+		contactPanel.repaint();
 	}
 	
 	class Back implements ActionListener{
@@ -90,6 +115,9 @@ public class ContactInfoJPanel extends JPanel {
 	class Edit implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			ContactForm contactForm = (ContactForm) ContactJPanel.getCards().getComponent(1);
+			contactForm.formFunction = 1;
+			contactForm.setField(contact);
 			ContactJPanel.changePanel("contactForm");
 		}
 	}

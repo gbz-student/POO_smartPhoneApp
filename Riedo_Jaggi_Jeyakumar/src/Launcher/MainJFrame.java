@@ -15,7 +15,7 @@ import Gallery.ImageFullScreen;
 public class MainJFrame extends JFrame{
 	private JButton buttonMenu = new JButton();
 	private static CardLayout cardLayout;
-	public static JPanel cards;
+	private static JPanel cards;
 	private JPanel launcherPanel= new LauncherJPanel();
 	private JPanel contactJPanel = new ContactJPanel();
 	private JPanel calculateJPanel = new CalculateJPanel();
@@ -61,6 +61,12 @@ public class MainJFrame extends JFrame{
 		cardLayout.show(cards, name);
     }
 	
+	public static JPanel getCards(int n){
+		JPanel card = (JPanel)cards.getComponent(n);
+		return card;
+	}
+	
+
 	class ListerButtonMenu implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
