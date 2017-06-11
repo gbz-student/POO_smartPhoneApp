@@ -139,7 +139,7 @@ public class ContactForm extends JPanel{
 				if(formFunction == 0){
 					contactController.createContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
 				}else if (formFunction == 1) {
-					contactController.SaveEditContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
+					contactController.editContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
 					
 				}
 			}else{
