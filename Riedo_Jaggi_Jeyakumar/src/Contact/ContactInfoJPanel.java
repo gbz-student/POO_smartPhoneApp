@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import Model.Person;
+import Model.Contact;
 import Model.PhoneNumber;
 			
 public class ContactInfoJPanel extends JPanel {
@@ -25,7 +25,7 @@ public class ContactInfoJPanel extends JPanel {
 	private JPanel infoPanel = new JPanel();
 	private JLabel image = new JLabel();
 	private JLabel nameLabel;
-	Person contact;
+	Contact contact;
 	
 	public ContactInfoJPanel(String firstName, String lastName){
 		setBackground(new Color(255,255,255));

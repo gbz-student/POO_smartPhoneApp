@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import Model.Person;
+import Model.Contact;
 import Model.PhoneNumber;
 
 import java.awt.Insets;
@@ -95,7 +95,7 @@ public class ContactForm extends JPanel{
 		addElement(save, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 7);
 	}
 	
-	public void setField(Person contact){
+	public void setField(Contact contact){
 		firstNameField.setText(contact.getFirstName());
 		lastNameField.setText(contact.getLastName());
 		emailField.setText(contact.getEmail());

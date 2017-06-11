@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-import Model.Person;
+import Model.Contact;
 
 public class ContactListJPanel extends JPanel {
 	
@@ -24,7 +24,7 @@ public class ContactListJPanel extends JPanel {
 	
 	JPanel gridPanel = new JPanel();
 	
-	ArrayList<Person> contacts = contactController.getContacts();
+	ArrayList<Contact> contacts = contactController.getContacts();
 	
 		
 	public ContactListJPanel(){
@@ -52,7 +52,7 @@ public class ContactListJPanel extends JPanel {
 	private void generateList(){
 		Border paddingBorder = BorderFactory.createEmptyBorder(20,10,20,10);
 		Border raisedetched = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(189, 195, 199));
-		for (Person contact : contacts) {
+		for (Contact contact : contacts) {
 			JButton label = new JButton(contact.getFirstName() + " " + contact.getLastName());
 			label.setBorder(BorderFactory.createCompoundBorder(raisedetched,paddingBorder));
 			label.addActionListener(new ShowContactListener());

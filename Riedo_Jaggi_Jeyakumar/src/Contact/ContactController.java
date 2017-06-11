@@ -9,13 +9,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import Model.Person;
+import Model.Contact;
 import Model.PhoneNumber;
 
 public class ContactController {
-	private ArrayList<Person> contacts = new ArrayList<Person>();
+	private ArrayList<Contact> contacts = new ArrayList<Contact>();
 	
-	public ArrayList<Person> getContacts(){
+	public ArrayList<Contact> getContacts(){
 		if(this.contacts.isEmpty()){
 			getContactsFromFiles();
 		}
@@ -31,10 +31,10 @@ public class ContactController {
 		}
 	}
 	
-	public Person getContact(String firstName, String lastName){
-		Person contact = null;
+	public Contact getContact(String firstName, String lastName){
+		Contact contact = null;
 
-	    for (Person c : contacts) {
+	    for (Contact c : contacts) {
 	        if (firstName.equals(c.getFirstName()) && lastName.equals(c.getLastName())) {
 	            contact = c;
 	            break;
@@ -46,7 +46,7 @@ public class ContactController {
 	
 	public void createContact(String firstName, String lastName, String email, String photo, ArrayList<PhoneNumber> phoneNumbers){
 		if(getContact(firstName, lastName) == null){
-			Person c = new Person(firstName, lastName, phoneNumbers, email, photo);
+			Contact c = new Contact(firstName, lastName, phoneNumbers, email, photo);
 			contacts.add(c);
 			
 			ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.cards.getComponent(0);
@@ -63,7 +63,7 @@ public class ContactController {
 	}
 	
 	public void editContact(String firstName, String lastName, String email, String photo, ArrayList<PhoneNumber> phoneNumbers){
-		Person c = getContact(firstName, lastName);
+		Contact c = getContact(firstName, lastName);
 		int index = contacts.indexOf(c);
 		
 		contacts.get(index).setFirstName(firstName);
@@ -86,14 +86,14 @@ public class ContactController {
 		}
 	}
 	
-	public Person readFile(String filename){
+	public Contact readFile(String filename){
 		ObjectInputStream ois = null;
-		Person c = null;
+		Contact c = null;
 		
 		try {
 			final FileInputStream fichier = new FileInputStream(filename);
 			ois = new ObjectInputStream(fichier);
-			 c = (Person) ois.readObject();
+			 c = (Contact) ois.readObject();
 		} catch (final java.io.IOException e) {
 			e.printStackTrace();
 		} catch (final ClassNotFoundException e) {
@@ -111,7 +111,7 @@ public class ContactController {
 		return c;
 	}
 	
-	public boolean saveContact(Person c){
+	public boolean saveContact(Contact c){
 		ObjectOutputStream oos = null;
 		boolean isSave = true;
 		
