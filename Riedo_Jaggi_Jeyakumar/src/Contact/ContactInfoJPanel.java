@@ -42,6 +42,19 @@ public class ContactInfoJPanel extends JPanel {
 		
 		contact = contactController.getContact(firstName, lastName);
 		
+		setImagePanel();
+		
+		setInfoPanel();
+		
+		
+			
+//		contactPanel.add(imagePanel, BorderLayout.NORTH);
+//		contactPanel.add(infoPanel, BorderLayout.CENTER);
+		
+		add(contactPanel, BorderLayout.CENTER);
+	}
+	
+	public void setImagePanel(){
 		nameLabel = new JLabel(contact.getFirstName() + " " + contact.getLastName());
 		nameLabel.setFont(nameLabel.getFont().deriveFont(25f));
 		nameLabel.setForeground(Color.white);
@@ -61,6 +74,10 @@ public class ContactInfoJPanel extends JPanel {
 		imagePanel.add(image, BorderLayout.NORTH);
 		imagePanel.add(nameLabel, BorderLayout.CENTER);
 		
+		contactPanel.add(imagePanel, BorderLayout.NORTH);
+	}
+	
+	public void setInfoPanel(){
 		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 		
 		for(PhoneNumber number : contact.getPhoneNumbers()){
@@ -72,11 +89,18 @@ public class ContactInfoJPanel extends JPanel {
 		
 		JPanel panelEmail = new ContactInfoDetail("Mail: ", contact.getEmail());
 		infoPanel.add(panelEmail);
-			
-		contactPanel.add(imagePanel, BorderLayout.NORTH);
-		contactPanel.add(infoPanel, BorderLayout.CENTER);
 		
-		add(contactPanel, BorderLayout.CENTER);
+		contactPanel.add(infoPanel, BorderLayout.CENTER);
+	}
+	
+	public void updateContact(){
+		infoPanel.removeAll();
+		
+		setImagePanel();
+		setInfoPanel();
+		
+		contactPanel.revalidate();
+		contactPanel.repaint();
 	}
 	
 	class Back implements ActionListener{

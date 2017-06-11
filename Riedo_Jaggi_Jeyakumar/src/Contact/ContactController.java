@@ -45,35 +45,40 @@ public class ContactController {
 		return contact;
 	}
 	
-	public void createContact(String firstName, String lastName, String email, String photo, JComboBox<String>[] typeNumberLabel, JTextField[] phoneField){
-		
-//		JOptionPane.showMessageDialog(new JPanel(), "meessage", "Warning", JOptionPane.ERROR_MESSAGE);
-		
-		Boolean statut = true;
-		ArrayList<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
-		
-		for (int i=0; i < phoneField.length; i++){
-			if(!phoneField[i].getText().isEmpty()){
-				phoneNumbers.add(new PhoneNumber(typeNumberLabel[i].getSelectedItem().toString(), phoneField[i].getText()));
-			}
-		}
-		
-		if((firstName.isEmpty()) && (lastName.isEmpty())){
-			statut = false;
-		}
-		
-		if(statut){
+	public void createContact(String firstName, String lastName, String email, String photo, ArrayList<PhoneNumber> phoneNumbers){
+	
+		if(getContact(firstName, lastName) == null){
 			contacts.add(new Person(firstName, lastName, phoneNumbers, email, photo));
+			
+			ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.cards.getComponent(0);
+			contactListJPanel.updateContact();	
+			
 			ContactJPanel.goFirstPanel();
+			
+			//save contact to a file
 		}else{
-		    JOptionPane.showMessageDialog(new JPanel(), "Veuillez remplir les champs nom et prénom", "Attention", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(new JPanel(), "Le contact existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
-		
-		ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.cards.getComponent(0);
-		contactListJPanel.updateContact();
 		
 	}
 	
-	
-
+	public void SaveEditContact(String firstName, String lastName, String email, String photo, ArrayList<PhoneNumber> phoneNumbers){
+		Person c = getContact(firstName, lastName);
+		int index = contacts.indexOf(c);
+		
+		contacts.get(index).setFirstName(firstName);
+		contacts.get(index).setLastName(lastName);
+		contacts.get(index).setEmail(email);
+		contacts.get(index).setPhoto(photo);
+		contacts.get(index).setPhoneNumbers(phoneNumbers);
+		
+		ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.cards.getComponent(0);
+		contactListJPanel.updateContact();
+		ContactInfoJPanel contactInfoJPanel = (ContactInfoJPanel) ContactJPanel.cards.getComponent(2);
+		contactInfoJPanel.updateContact();
+		
+		ContactJPanel.changePanel("contactInfo");
+		
+		//to save to file
+	}
 }

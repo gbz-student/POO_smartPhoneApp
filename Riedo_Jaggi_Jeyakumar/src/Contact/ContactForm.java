@@ -7,9 +7,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import Model.Person;
@@ -119,10 +122,28 @@ public class ContactForm extends JPanel{
 	class Save implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if(formFunction == 0){
-				contactController.createContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), typeNumberLabel, phoneField);
-			}else if (formFunction == 1) {
-				ContactJPanel.changePanel("contactInfo");
+			Boolean statut = true;
+			ArrayList<PhoneNumber> phoneNumbers = new ArrayList<PhoneNumber>();
+			
+			for (int i=0; i < phoneField.length; i++){
+				if(!phoneField[i].getText().isEmpty()){
+					phoneNumbers.add(new PhoneNumber(typeNumberLabel[i].getSelectedItem().toString(), phoneField[i].getText()));
+				}
+			}
+			
+			if((firstNameField.getText().isEmpty()) && (lastNameField.getText().isEmpty())){
+				statut = false;
+			}
+			
+			if(statut){
+				if(formFunction == 0){
+					contactController.createContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
+				}else if (formFunction == 1) {
+					contactController.SaveEditContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
+					
+				}
+			}else{
+			    JOptionPane.showMessageDialog(new JPanel(), "Veuillez remplir les champs nom et prénom", "Attention", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}
