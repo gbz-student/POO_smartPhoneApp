@@ -14,21 +14,24 @@ import Model.PhoneNumber;
 
 public class ContactController {
 	private ArrayList<Contact> contacts = new ArrayList<Contact>();
-	private File repertoire = new File("contacts/");
+	private String SOURCE_DIR = "contacts/";
 	
 	public ArrayList<Contact> getContacts(){
-		
-		getContactsFromFiles();
+		setContactsFromFiles();
 		
 		return this.contacts;
 	}
 	
-	public void getContactsFromFiles(){
+	public void setContactsFromFiles(){
 		ArrayList<Contact> contacts = new ArrayList<Contact>();
-		File[] files=repertoire.listFiles();
 		
-		for(File file : files){
-			contacts.add(readFile(file.getPath()));
+		File dir = new File(SOURCE_DIR);
+		File[] files = dir.listFiles();
+		
+		if(files != null){
+			for(File f : files){
+				contacts.add(readContactFile(f.getPath()));
+			}
 		}
 		
 		this.contacts = contacts;
@@ -47,7 +50,7 @@ public class ContactController {
 	}
 	
 	public Contact getContactById(int id){
-		Contact contact = readFile("contacts/" + id + ".ser");
+		Contact contact = readContactFile(SOURCE_DIR + id + ".ser");
 	    
 		return contact;
 	}
@@ -57,11 +60,12 @@ public class ContactController {
 			Contact c = new Contact(firstName, lastName, phoneNumbers, email, photo);
 			contacts.add(c);
 			
-			ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.getCardsComponent(0);
-			contactListJPanel.updateList();	
+			ContactListView contactListView = (ContactListView) ContactView.getCardsComponent(0);
+				
 			
-			if(saveContact(c)){
-				ContactJPanel.goFirstPanel();
+			if(saveContactInFile(c)){
+				contactListView.updateList();
+				ContactView.changePanel("contactListView");
 			}else{
 				JOptionPane.showMessageDialog(new JPanel(), "Erreur d'enregistrement", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
@@ -71,15 +75,6 @@ public class ContactController {
 	}
 	
 	public void editContact(int id, String firstName, String lastName, String email, String photo, ArrayList<PhoneNumber> phoneNumbers){
-//		Contact c = getContactByName(firstName, lastName);
-//		int index = contacts.indexOf(c);
-//		
-//		contacts.get(index).setFirstName(firstName);
-//		contacts.get(index).setLastName(lastName);
-//		contacts.get(index).setEmail(email);
-//		contacts.get(index).setPhoto(photo);
-//		contacts.get(index).setPhoneNumbers(phoneNumbers);
-		
 		Contact c = getContactById(id);
 		
 		c.setFirstName(firstName);
@@ -88,20 +83,19 @@ public class ContactController {
 		c.setPhoto(photo);
 		c.setPhoneNumbers(phoneNumbers);
 		
-		ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.getCardsComponent(0);
-		contactListJPanel.updateList();
-		ContactInfoJPanel contactInfoJPanel = (ContactInfoJPanel) ContactJPanel.getCardsComponent(2);
+		ContactListView contactListView = (ContactListView) ContactView.getCardsComponent(0);
+		ContactInfoView contactInfoView = (ContactInfoView) ContactView.getCardsComponent(2);
 		
-		
-		if(saveContact(c)){
-			contactInfoJPanel.setContact(c.getId());
-			ContactJPanel.changePanel("contactInfoJPanel");
+		if(saveContactInFile(c)){
+			contactInfoView.setContact(c.getId());
+			contactListView.updateList();
+			ContactView.changePanel("contactInfoView");
 		}else{
 			JOptionPane.showMessageDialog(new JPanel(), "Erreur d'enregistrement", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
-	public Contact readFile(String filename){
+	public Contact readContactFile(String filename){
 		ObjectInputStream ois = null;
 		Contact c = null;
 		
@@ -124,15 +118,14 @@ public class ContactController {
 		}
 		
 		Contact.setIndex(c.getId());
-		System.out.println(c.getId());
 		return c;
 	}
 	
-	public boolean saveContact(Contact c){
+	public boolean saveContactInFile(Contact c){
 		ObjectOutputStream oos = null;
 		boolean isSave = true;
 		
-		String filename = "contacts/" + c.getId() + ".ser";
+		String filename = SOURCE_DIR + c.getId() + ".ser";
 		
 		try {
 			final FileOutputStream fichier = new FileOutputStream(filename);

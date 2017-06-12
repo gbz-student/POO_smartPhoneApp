@@ -9,22 +9,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-public class ContactInfoDetail extends JPanel{
+public class PersonalDataRow extends JPanel{
 	Border paddingBorder = BorderFactory.createEmptyBorder(20,10,20,10);
 	Border raisedetched = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(189, 195, 199));
 	
-	public ContactInfoDetail(String labelS, String infoS){
+	public PersonalDataRow(String label, String data){
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createCompoundBorder(raisedetched,paddingBorder));
 		setMaximumSize(new Dimension(480, 70));
 		
-		JLabel label = new JLabel(labelS);
-		Font f = label.getFont();
-		label.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
+		JLabel jlabel = new JLabel(label);
+		Font f = jlabel.getFont();
+		jlabel.setFont(f.deriveFont(f.getStyle() ^ Font.BOLD));
 		
-		JLabel info = new JLabel(infoS);
+		JLabel jlabelData = new JLabel(data);
 		
-		add(label, BorderLayout.WEST);
-		add(info, BorderLayout.CENTER);
+		add(jlabel, BorderLayout.WEST);
+		add(jlabelData, BorderLayout.CENTER);
 	}
 }

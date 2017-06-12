@@ -17,24 +17,24 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import Model.*;
 
-public class ContactForm extends JPanel{
+public class ContactFormView extends JPanel{
 	
-	private JButton back = new JButton("back");
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
+	private JPanel panelContainer = new JPanel();
+	private JPanel panel = new JPanel();
+	private JButton back = new JButton("back");
 	private JTextField firstNameField;
 	private JTextField lastNameField;
 	private JTextField emailField;
 	private JTextField photoField;
-	private JPanel panelContainer = new JPanel();
-	private JPanel panel = new JPanel();
-	private static ContactController contactController = ContactJPanel.getContactController();
 	private JComboBox<?>[] typeNumberLabel = new JComboBox[3];
 	private JTextField[] phoneField = new JTextField[3];
-	public int formFunction = 0; // 0 => formulaire d'ajout, 1 => formulaire de modification
+	private static ContactController contactController = ContactView.getContactController();
 	private String[] typePhoneNumber = { "", "Privé", "Maison", "Bureau" };
+	public int formFunction = 0; // 0 => formulaire d'ajout, 1 => formulaire de modification
 	private int contactId;
 	
-	public ContactForm(){
+	public ContactFormView(){
 		setBackground(new Color(255,255,255));
 		setLayout(new BorderLayout());
 		
@@ -55,42 +55,42 @@ public class ContactForm extends JPanel{
 		panel.setLayout(gbl_panel);
 		
 		JLabel firstNameLabel = new JLabel("Prénom");
-		addElement(firstNameLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 0);
+		addConstraint(firstNameLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 0);
 		
 		firstNameField = new JTextField();
-		addElement(firstNameField, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 0);
+		addConstraint(firstNameField, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 0);
 		
 		JLabel lastNameLabel = new JLabel("Nom");
-		addElement(lastNameLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 1);
+		addConstraint(lastNameLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 1);
 		
 		lastNameField = new JTextField();
-		addElement(lastNameField, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 1);
+		addConstraint(lastNameField, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 1);
 		
 		JLabel emailLabel = new JLabel("Email");
-		addElement(emailLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 2);
+		addConstraint(emailLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 2);
 		
 		emailField = new JTextField();
-		addElement(emailField, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 2);
+		addConstraint(emailField, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 2);
 		
 		JLabel photoLabel = new JLabel("Photo");
-		addElement(photoLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 3);
+		addConstraint(photoLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 3);
 		
 		photoField = new JTextField();
-		addElement(photoField, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 3);
+		addConstraint(photoField, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 3);
 		
 		for (int i=0; i < typeNumberLabel.length; i++){
 			typeNumberLabel[i] = new JComboBox<String>(typePhoneNumber);
-			addElement(typeNumberLabel[i], new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 4 + i);
+			addConstraint(typeNumberLabel[i], new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 4 + i);
 		}
 		
 		for (int i=0; i < phoneField.length; i++){
 			phoneField[i] = new JTextField();
-			addElement(phoneField[i], new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 4 + i);
+			addConstraint(phoneField[i], new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 4 + i);
 		}
 		
 		JButton save = new JButton("Save");
 		save.addActionListener(new Save());
-		addElement(save, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 7);
+		addConstraint(save, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 7);
 	}
 	
 	public void setField(Contact contact){
@@ -122,7 +122,7 @@ public class ContactForm extends JPanel{
 		panelContainer.repaint();
 	}
 	
-	public void addElement(Component comp, Insets insets, int anchor, int gridx, int gridy){
+	public void addConstraint(Component comp, Insets insets, int anchor, int gridx, int gridy){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = insets;
 		gbc.fill = anchor;
@@ -163,9 +163,9 @@ public class ContactForm extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(formFunction == 0){
-				ContactJPanel.changePanel("contactListJPanel");
+				ContactView.changePanel("contactListView");
 			}else if (formFunction == 1) {
-				ContactJPanel.changePanel("contactInfoJPanel");
+				ContactView.changePanel("contactInfoView");
 			}
 		}
 	}

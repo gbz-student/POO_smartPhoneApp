@@ -13,27 +13,27 @@ import MainPackage.TitleJPanel;
  * @author ken
  *
  */
-public class ContactJPanel extends JPanel{
+public class ContactView extends JPanel{
 
 	private TitleJPanel title = new TitleJPanel("Mes contacts");	
 	private static JPanel cards;
 	private static CardLayout cardLayout = new CardLayout();
-	private ContactListJPanel contactListJPanel = new ContactListJPanel();
-	private ContactInfoJPanel contactInfoJPanel = new ContactInfoJPanel();
-	private JPanel contactForm = new ContactForm();
+	private ContactListView contactListView = new ContactListView();
+	private ContactInfoView contactInfoView = new ContactInfoView();
+	private ContactFormView contactFormView = new ContactFormView();
 	private static ContactController contactController = new ContactController();
 	
 	/**
 	 * Construit le JPanel de basse qui contient le cardLayout
 	 */
-	public ContactJPanel(){
+	public ContactView(){
 		setPreferredSize(new Dimension(480, 750));
 		setLayout(new BorderLayout());
 		 
 		cards = new JPanel (cardLayout);
-		cards.add(contactListJPanel, "contactListJPanel", 0);
-		cards.add(contactForm, "contactForm", 1);
-		cards.add(contactInfoJPanel, "contactInfoJPanel", 2);
+		cards.add(contactListView, "contactListView", 0);
+		cards.add(contactFormView, "contactFormView", 1);
+		cards.add(contactInfoView, "contactInfoView", 2);
 		
 		add(title, BorderLayout.NORTH);
 		
@@ -60,9 +60,5 @@ public class ContactJPanel extends JPanel{
 	
 	public static void changePanel(String name){
 		cardLayout.show(cards, name);
-    }
-	
-	public static void goFirstPanel(){
-		cardLayout.first(cards);
     }
 }

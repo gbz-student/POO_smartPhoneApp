@@ -15,17 +15,16 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import Model.Contact;
 
-public class ContactListJPanel extends JPanel {
+public class ContactListView extends JPanel {
 	
 	private JButton addContact = new JButton("add");
 	private JPanel contactListTop = new JPanel(new BorderLayout());
-	private static ContactController contactController = ContactJPanel.getContactController();
-	private ContactInfoJPanel contactInfoJPanel;
 	private JPanel gridPanel = new JPanel();
+	private ContactInfoView contactInfoView;
+	private static ContactController contactController = ContactView.getContactController();
 	private ArrayList<Contact> contacts = contactController.getContacts();
-	
 		
-	public ContactListJPanel(){
+	public ContactListView(){
 		setLayout(new BorderLayout());  
 		
 		contactListTop.setBackground(new Color(40,50,70));
@@ -72,33 +71,24 @@ public class ContactListJPanel extends JPanel {
 	}
 	
 	class ShowContactListener implements ActionListener{
-		public void actionPerformed(ActionEvent e) {
-//			String string = ((JButton) e.getSource()).getText();
-//			String[] parts = string.split(" ");
-//			String firstName = parts[0]; 
-//			String lastName = parts[1]; 
-			
+		public void actionPerformed(ActionEvent e) { 
 			JButton button = ((JButton) e.getSource());
 			
+			contactInfoView = (ContactInfoView) ContactView.getCardsComponent(2);
 			
-			contactInfoJPanel = (ContactInfoJPanel) ContactJPanel.getCardsComponent(2);
-			
-//			contactInfoJPanel.setContact(firstName, lastName);
-			
-			contactInfoJPanel.setContact(Integer.parseInt(button.getName()));
+			contactInfoView.setContact(Integer.parseInt(button.getName()));
 
-			ContactJPanel.changePanel("contactInfoJPanel");	
+			ContactView.changePanel("contactInfoView");	
 		}
 	}
 	
 	class AddContact implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ContactForm contactForm = (ContactForm) ContactJPanel.getCardsComponent(1);
-			contactForm.formFunction = 0;
-			contactForm.resetField();
-			ContactJPanel.changePanel("contactForm");
+			ContactFormView contactFormView = (ContactFormView) ContactView.getCardsComponent(1);
+			contactFormView.formFunction = 0;
+			contactFormView.resetField();
+			ContactView.changePanel("contactFormView");
 		}
 	}
-	
 }

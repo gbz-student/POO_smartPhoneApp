@@ -13,12 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import Model.*;
 			
-public class ContactInfoJPanel extends JPanel {
+public class ContactInfoView extends JPanel {
 	
 	private JButton back = new JButton("back");
 	private JButton edit = new JButton("edit");
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
-	private static ContactController contactController = ContactJPanel.getContactController();
+	private static ContactController contactController = ContactView.getContactController();
 	private JPanel contactPanel = new JPanel(new BorderLayout());
 	private JPanel imagePanel = new JPanel();
 	private JPanel infoPanel = new JPanel();
@@ -26,7 +26,7 @@ public class ContactInfoJPanel extends JPanel {
 	private JLabel nameLabel;
 	Contact contact;
 	
-	public ContactInfoJPanel(){
+	public ContactInfoView(){
 		setBackground(new Color(255,255,255));
 		setLayout(new BorderLayout());
 		
@@ -42,8 +42,6 @@ public class ContactInfoJPanel extends JPanel {
 		add(contactPanel, BorderLayout.CENTER);
 	}
 	
-//	public void setContact(String firstName, String lastName){
-//		contact = contactController.getContactByName(firstName, lastName);
 	public void setContact(int id){
 		contact = contactController.getContactById(id);
 	
@@ -91,13 +89,13 @@ public class ContactInfoJPanel extends JPanel {
 		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 		
 		for(PhoneNumber number : contact.getPhoneNumbers()){
-			JPanel panel = new ContactInfoDetail("Téléphone " + number.getTypePhoneNumber() + ": ", number.getPhoneNumber());
+			JPanel panel = new PersonalDataRow("Téléphone " + number.getTypePhoneNumber() + ": ", number.getPhoneNumber());
 			JButton phone = new JButton("phone");
 			panel.add(phone, BorderLayout.EAST);
 			infoPanel.add(panel);
 		}
 		
-		JPanel panelEmail = new ContactInfoDetail("Mail: ", contact.getEmail());
+		JPanel panelEmail = new PersonalDataRow("Mail: ", contact.getEmail());
 		infoPanel.add(panelEmail);
 		
 		contactPanel.add(infoPanel, BorderLayout.CENTER);
@@ -106,17 +104,17 @@ public class ContactInfoJPanel extends JPanel {
 	class Back implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ContactJPanel.changePanel("contactListJPanel");
+			ContactView.changePanel("contactListView");
 		}
 	}
 	
 	class Edit implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ContactForm contactForm = (ContactForm) ContactJPanel.getCardsComponent(1);
-			contactForm.formFunction = 1;
-			contactForm.setField(contact);
-			ContactJPanel.changePanel("contactForm");
+			ContactFormView contactFormView = (ContactFormView) ContactView.getCardsComponent(1);
+			contactFormView.formFunction = 1;
+			contactFormView.setField(contact);
+			ContactView.changePanel("contactFormView");
 		}
 	}
 }

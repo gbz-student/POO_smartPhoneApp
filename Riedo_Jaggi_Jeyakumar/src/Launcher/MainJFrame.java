@@ -7,8 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import Caculate.CalculateJPanel;
-import Contact.ContactInfoJPanel;
-import Contact.ContactJPanel;
+import Contact.ContactInfoView;
+import Contact.ContactView;
 import Gallery.GalleryJPanel;
 import Gallery.ImageFullScreen;
 
@@ -17,7 +17,7 @@ public class MainJFrame extends JFrame{
 	private static CardLayout cardLayout;
 	private static JPanel cards;
 	private JPanel launcherPanel= new LauncherJPanel();
-	private JPanel contactJPanel = new ContactJPanel();
+	private JPanel contactJPanel = new ContactView();
 	private JPanel calculateJPanel = new CalculateJPanel();
 	private JPanel galleryJPanel = new GalleryJPanel();
 	private JPanel imageFullScreen = new ImageFullScreen();
