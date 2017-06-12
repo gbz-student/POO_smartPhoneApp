@@ -22,6 +22,26 @@ public class ContactController {
 		return this.contacts;
 	}
 	
+	public void removeContact(int id){
+		String filename = SOURCE_DIR + id + ".ser";
+		
+		try{
+    		File file = new File(filename);
+
+    		if(file.delete()){
+    			System.out.println(file.getName() + " is deleted!");
+    		}else{
+    			System.out.println("Delete operation is failed.");
+    		}
+
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+		ContactListView contactListView = (ContactListView) ContactView.getCardsComponent(0);
+		
+		contactListView.updateList();
+	}
+	
 	public void setContactsFromFiles(){
 		ArrayList<Contact> contacts = new ArrayList<Contact>();
 		

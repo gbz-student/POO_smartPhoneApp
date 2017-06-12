@@ -17,6 +17,7 @@ public class ContactInfoView extends JPanel {
 	
 	private JButton back = new JButton("back");
 	private JButton edit = new JButton("edit");
+	private JButton delete = new JButton("delete");
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
 	private static ContactController contactController = ContactView.getContactController();
 	private JPanel contactPanel = new JPanel(new BorderLayout());
@@ -31,11 +32,18 @@ public class ContactInfoView extends JPanel {
 		setLayout(new BorderLayout());
 		
 		contactInfoTop.setBackground(new Color(40,50,70));
+		JPanel deleteEdit = new JPanel();
+		deleteEdit.setBackground(new Color(0,0,0,0));
 		
 		back.addActionListener(new Back());
 		edit.addActionListener(new Edit());
+		delete.addActionListener(new Delete());
+		
+		deleteEdit.add(delete, BorderLayout.WEST);
+		deleteEdit.add(edit, BorderLayout.EAST);
+		
 		contactInfoTop.add(back, BorderLayout.WEST);
-		contactInfoTop.add(edit, BorderLayout.EAST);
+		contactInfoTop.add(deleteEdit, BorderLayout.EAST);
 		
 		add(contactInfoTop, BorderLayout.NORTH);
 		
@@ -47,7 +55,6 @@ public class ContactInfoView extends JPanel {
 	
 		updateContact();
 	}
-	
 	
 	public void updateContact(){
 		imagePanel.removeAll();
@@ -115,6 +122,14 @@ public class ContactInfoView extends JPanel {
 			contactFormView.formFunction = 1;
 			contactFormView.setField(contact);
 			ContactView.changePanel("contactFormView");
+		}
+	}
+	
+	class Delete implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			contactController.removeContact(contact.getId());
+			ContactView.changePanel("contactListView");
 		}
 	}
 }
