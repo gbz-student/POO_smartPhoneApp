@@ -90,12 +90,13 @@ public class ThumbDisplay extends JPanel{
 //	}
 		
 	class MouseListenerThumb implements MouseListener{
-		int index;
 		
+		int index;
+ 
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent e){
 			MainJFrame.changePanel("imageFullScreen");
-			ImageFullScreen imgFS = (ImageFullScreen) MainJFrame.getCards(4);
+			ImageFullScreen imgFS = (ImageFullScreen)MainJFrame.getCards(4);
 			imgFS.displayImg(index);
 
 		}

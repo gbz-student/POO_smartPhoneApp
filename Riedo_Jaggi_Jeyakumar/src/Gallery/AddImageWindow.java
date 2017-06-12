@@ -28,8 +28,11 @@ public class AddImageWindow extends JFileChooser{
 	private ImgInfo itd;
 		
 	public AddImageWindow(){
-		initActionWindows();
-		addImage();
+		System.out.println("test");
+
+//		initActionWindows();
+//
+//		addImage();
 //		ArrayList<ImgInfo>list = itd.createList();
 	}
 	
@@ -46,18 +49,17 @@ public class AddImageWindow extends JFileChooser{
 		System.out.println(imgSource);
 
 		String imgName = imgSource.getName();
-
 		String imgSourcePath = imgSource.getPath();
-		
-		
+				
 		Path source = Paths.get(imgSourcePath);
 		Path originalImgFolder = Paths.get(GalleryConstants.IMG_FOLDER+imgName);
 				
 //		try {
+			System.out.println(source);
 //			Files.copy(source, originalImgFolder) ;
 //
 //			//création du thumb
-//			ThumbNail thumb = new ThumbNail(originalImgFolder);
+//			ImgResizer thumb = new ImgResizer(originalImgFolder);
 //		} catch (IOException e) {	
 //			JFrame warningFrame = new JFrame("avertissement");
 //			JLabel warningLabel = new JLabel("Cette image existe deja !");
