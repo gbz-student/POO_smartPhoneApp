@@ -11,8 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import Model.Contact;
-import Model.PhoneNumber;
+import Model.*;
 			
 public class ContactInfoJPanel extends JPanel {
 	
@@ -27,7 +26,7 @@ public class ContactInfoJPanel extends JPanel {
 	private JLabel nameLabel;
 	Contact contact;
 	
-	public ContactInfoJPanel(String firstName, String lastName){
+	public ContactInfoJPanel(){
 		setBackground(new Color(255,255,255));
 		setLayout(new BorderLayout());
 		
@@ -40,18 +39,29 @@ public class ContactInfoJPanel extends JPanel {
 		
 		add(contactInfoTop, BorderLayout.NORTH);
 		
-		contact = contactController.getContact(firstName, lastName);
+		add(contactPanel, BorderLayout.CENTER);
+	}
+	
+//	public void setContact(String firstName, String lastName){
+//		contact = contactController.getContactByName(firstName, lastName);
+	public void setContact(int id){
+		contact = contactController.getContactById(id);
+	
+		updateContact();
+	}
+	
+	
+	public void updateContact(){
+		imagePanel.removeAll();
+		infoPanel.removeAll();
 		
 		setImagePanel();
-		
 		setInfoPanel();
 		
-		
-			
-//		contactPanel.add(imagePanel, BorderLayout.NORTH);
-//		contactPanel.add(infoPanel, BorderLayout.CENTER);
-		
-		add(contactPanel, BorderLayout.CENTER);
+		imagePanel.revalidate();
+		imagePanel.repaint();
+		infoPanel.revalidate();
+		infoPanel.repaint();
 	}
 	
 	public void setImagePanel(){
@@ -93,29 +103,17 @@ public class ContactInfoJPanel extends JPanel {
 		contactPanel.add(infoPanel, BorderLayout.CENTER);
 	}
 	
-	public void updateContact(){
-		infoPanel.removeAll();
-		
-		setImagePanel();
-		setInfoPanel();
-		
-		contactPanel.revalidate();
-		contactPanel.repaint();
-	}
-	
 	class Back implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			ContactJPanel.removeLastPanel();
-//			ContactJPanel.goFirstPanel();
-			ContactJPanel.backPanel("contactInfo");
+			ContactJPanel.changePanel("contactListJPanel");
 		}
 	}
 	
 	class Edit implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ContactForm contactForm = (ContactForm) ContactJPanel.getCards().getComponent(1);
+			ContactForm contactForm = (ContactForm) ContactJPanel.getCardsComponent(1);
 			contactForm.formFunction = 1;
 			contactForm.setField(contact);
 			ContactJPanel.changePanel("contactForm");

@@ -20,7 +20,7 @@ public class ContactListJPanel extends JPanel {
 	private JButton addContact = new JButton("add");
 	private JPanel contactListTop = new JPanel(new BorderLayout());
 	private static ContactController contactController = ContactJPanel.getContactController();
-	private JPanel contactInfoJPanel;
+	private ContactInfoJPanel contactInfoJPanel;
 	private JPanel gridPanel = new JPanel();
 	private ArrayList<Contact> contacts = contactController.getContacts();
 	
@@ -52,6 +52,7 @@ public class ContactListJPanel extends JPanel {
 		Border raisedetched = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(189, 195, 199));
 		for (Contact contact : contacts) {
 			JButton label = new JButton(contact.getFirstName() + " " + contact.getLastName());
+			label.setName(String.valueOf(contact.getId()));
 			label.setBorder(BorderFactory.createCompoundBorder(raisedetched,paddingBorder));
 			label.addActionListener(new ShowContactListener());
 			label.setHorizontalAlignment(SwingConstants.LEFT);
@@ -60,7 +61,7 @@ public class ContactListJPanel extends JPanel {
         }
 	}
 	
-	public void updateContact(){
+	public void updateList(){
 		gridPanel.removeAll();
 		contacts = contactController.getContacts();
 		
@@ -72,25 +73,28 @@ public class ContactListJPanel extends JPanel {
 	
 	class ShowContactListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			String string = ((JButton) e.getSource()).getText();
-			String[] parts = string.split(" ");
-			String firstName = parts[0]; 
-			String lastName = parts[1]; 
+//			String string = ((JButton) e.getSource()).getText();
+//			String[] parts = string.split(" ");
+//			String firstName = parts[0]; 
+//			String lastName = parts[1]; 
 			
-			contactInfoJPanel = new ContactInfoJPanel(firstName, lastName);
+			JButton button = ((JButton) e.getSource());
 			
-			ContactJPanel.removeLastPanel();
 			
-			ContactJPanel.addPanel(contactInfoJPanel, "contactInfo");
+			contactInfoJPanel = (ContactInfoJPanel) ContactJPanel.getCardsComponent(2);
 			
-			ContactJPanel.changePanel("contactInfo");	
+//			contactInfoJPanel.setContact(firstName, lastName);
+			
+			contactInfoJPanel.setContact(Integer.parseInt(button.getName()));
+
+			ContactJPanel.changePanel("contactInfoJPanel");	
 		}
 	}
 	
 	class AddContact implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ContactForm contactForm = (ContactForm) ContactJPanel.getCards().getComponent(1);
+			ContactForm contactForm = (ContactForm) ContactJPanel.getCardsComponent(1);
 			contactForm.formFunction = 0;
 			contactForm.resetField();
 			ContactJPanel.changePanel("contactForm");
