@@ -42,9 +42,11 @@ public class ContactInfoJPanel extends JPanel {
 		add(contactPanel, BorderLayout.CENTER);
 	}
 	
-	public void setContact(String firstName, String lastName){
-		contact = contactController.getContact(firstName, lastName);
-		
+//	public void setContact(String firstName, String lastName){
+//		contact = contactController.getContactByName(firstName, lastName);
+	public void setContact(int id){
+		contact = contactController.getContactById(id);
+	
 		updateContact();
 	}
 	
@@ -56,8 +58,10 @@ public class ContactInfoJPanel extends JPanel {
 		setImagePanel();
 		setInfoPanel();
 		
-		contactPanel.revalidate();
-		contactPanel.repaint();
+		imagePanel.revalidate();
+		imagePanel.repaint();
+		infoPanel.revalidate();
+		infoPanel.repaint();
 	}
 	
 	public void setImagePanel(){

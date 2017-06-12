@@ -14,24 +14,27 @@ import Model.PhoneNumber;
 
 public class ContactController {
 	private ArrayList<Contact> contacts = new ArrayList<Contact>();
+	private File repertoire = new File("contacts/");
 	
 	public ArrayList<Contact> getContacts(){
-		if(this.contacts.isEmpty()){
-			getContactsFromFiles();
-		}
+		
+		getContactsFromFiles();
+		
 		return this.contacts;
 	}
 	
 	public void getContactsFromFiles(){
-		File repertoire = new File("contacts/");
+		ArrayList<Contact> contacts = new ArrayList<Contact>();
 		File[] files=repertoire.listFiles();
 		
 		for(File file : files){
 			contacts.add(readFile(file.getPath()));
 		}
+		
+		this.contacts = contacts;
 	}
 	
-	public Contact getContact(String firstName, String lastName){
+	public Contact getContactByName(String firstName, String lastName){
 		Contact contact = null;
 
 	    for (Contact c : contacts) {
@@ -40,12 +43,17 @@ public class ContactController {
 	            break;
 	        }
 	    }
+		return contact;
+	}
+	
+	public Contact getContactById(int id){
+		Contact contact = readFile("contacts/" + id + ".ser");
 	    
 		return contact;
 	}
 	
 	public void createContact(String firstName, String lastName, String email, String photo, ArrayList<PhoneNumber> phoneNumbers){
-		if(getContact(firstName, lastName) == null){
+		if(getContactByName(firstName, lastName) == null){
 			Contact c = new Contact(firstName, lastName, phoneNumbers, email, photo);
 			contacts.add(c);
 			
@@ -62,22 +70,31 @@ public class ContactController {
 		}
 	}
 	
-	public void editContact(String firstName, String lastName, String email, String photo, ArrayList<PhoneNumber> phoneNumbers){
-		Contact c = getContact(firstName, lastName);
-		int index = contacts.indexOf(c);
+	public void editContact(int id, String firstName, String lastName, String email, String photo, ArrayList<PhoneNumber> phoneNumbers){
+//		Contact c = getContactByName(firstName, lastName);
+//		int index = contacts.indexOf(c);
+//		
+//		contacts.get(index).setFirstName(firstName);
+//		contacts.get(index).setLastName(lastName);
+//		contacts.get(index).setEmail(email);
+//		contacts.get(index).setPhoto(photo);
+//		contacts.get(index).setPhoneNumbers(phoneNumbers);
 		
-		contacts.get(index).setFirstName(firstName);
-		contacts.get(index).setLastName(lastName);
-		contacts.get(index).setEmail(email);
-		contacts.get(index).setPhoto(photo);
-		contacts.get(index).setPhoneNumbers(phoneNumbers);
+		Contact c = getContactById(id);
+		
+		c.setFirstName(firstName);
+		c.setLastName(lastName);
+		c.setEmail(email);
+		c.setPhoto(photo);
+		c.setPhoneNumbers(phoneNumbers);
 		
 		ContactListJPanel contactListJPanel = (ContactListJPanel) ContactJPanel.getCardsComponent(0);
 		contactListJPanel.updateList();
 		ContactInfoJPanel contactInfoJPanel = (ContactInfoJPanel) ContactJPanel.getCardsComponent(2);
-		contactInfoJPanel.updateContact();
+		
 		
 		if(saveContact(c)){
+			contactInfoJPanel.setContact(c.getId());
 			ContactJPanel.changePanel("contactInfoJPanel");
 		}else{
 			JOptionPane.showMessageDialog(new JPanel(), "Erreur d'enregistrement", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -106,6 +123,8 @@ public class ContactController {
 			}
 		}
 		
+		Contact.setIndex(c.getId());
+		System.out.println(c.getId());
 		return c;
 	}
 	
@@ -113,7 +132,7 @@ public class ContactController {
 		ObjectOutputStream oos = null;
 		boolean isSave = true;
 		
-		String filename = "contacts/" + c.getFirstName().toLowerCase() + "_" + c.getLastName().toLowerCase() + ".ser";
+		String filename = "contacts/" + c.getId() + ".ser";
 		
 		try {
 			final FileOutputStream fichier = new FileOutputStream(filename);

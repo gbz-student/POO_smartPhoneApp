@@ -32,6 +32,7 @@ public class ContactForm extends JPanel{
 	private JTextField[] phoneField = new JTextField[3];
 	public int formFunction = 0; // 0 => formulaire d'ajout, 1 => formulaire de modification
 	private String[] typePhoneNumber = { "", "Privé", "Maison", "Bureau" };
+	private int contactId;
 	
 	public ContactForm(){
 		setBackground(new Color(255,255,255));
@@ -105,6 +106,7 @@ public class ContactForm extends JPanel{
 		}
 		panelContainer.revalidate();
 		panelContainer.repaint();
+		contactId = contact.getId();
 	}
 	
 	public void resetField(){
@@ -149,7 +151,7 @@ public class ContactForm extends JPanel{
 				if(formFunction == 0){
 					contactController.createContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
 				}else if (formFunction == 1) {
-					contactController.editContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
+					contactController.editContact(contactId, firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
 				}
 			}else{
 			    JOptionPane.showMessageDialog(new JPanel(), "Veuillez remplir les champs nom et prénom", "Attention", JOptionPane.WARNING_MESSAGE);

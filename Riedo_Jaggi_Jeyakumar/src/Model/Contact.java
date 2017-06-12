@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 public class Contact implements Serializable{
 	
-	private static int id = 0;
+	private static int index = 0;
+	private int id;
 	private String firstName;
 	private String lastName;
 	private ArrayList<PhoneNumber> phoneNumbers;
@@ -18,7 +19,8 @@ public class Contact implements Serializable{
 		this.phoneNumbers = PhoneNumbers;
 		this.email = email;
 		this.photo = photo;
-		id++;
+		index++;
+		this.id = index;
 	}
 
 	public String getFirstName() {
@@ -61,7 +63,13 @@ public class Contact implements Serializable{
 		this.photo = photo;
 	}
 
-	public static int getId() {
+	public int getId() {
 		return id;
+	}
+
+	public static void setIndex(int index) {
+		if(Contact.index < index){
+			Contact.index = index;
+		}
 	}
 }

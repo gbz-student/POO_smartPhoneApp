@@ -52,6 +52,7 @@ public class ContactListJPanel extends JPanel {
 		Border raisedetched = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(189, 195, 199));
 		for (Contact contact : contacts) {
 			JButton label = new JButton(contact.getFirstName() + " " + contact.getLastName());
+			label.setName(String.valueOf(contact.getId()));
 			label.setBorder(BorderFactory.createCompoundBorder(raisedetched,paddingBorder));
 			label.addActionListener(new ShowContactListener());
 			label.setHorizontalAlignment(SwingConstants.LEFT);
@@ -72,14 +73,19 @@ public class ContactListJPanel extends JPanel {
 	
 	class ShowContactListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			String string = ((JButton) e.getSource()).getText();
-			String[] parts = string.split(" ");
-			String firstName = parts[0]; 
-			String lastName = parts[1]; 
+//			String string = ((JButton) e.getSource()).getText();
+//			String[] parts = string.split(" ");
+//			String firstName = parts[0]; 
+//			String lastName = parts[1]; 
+			
+			JButton button = ((JButton) e.getSource());
+			
 			
 			contactInfoJPanel = (ContactInfoJPanel) ContactJPanel.getCardsComponent(2);
 			
-			contactInfoJPanel.setContact(firstName, lastName);
+//			contactInfoJPanel.setContact(firstName, lastName);
+			
+			contactInfoJPanel.setContact(Integer.parseInt(button.getName()));
 
 			ContactJPanel.changePanel("contactInfoJPanel");	
 		}
