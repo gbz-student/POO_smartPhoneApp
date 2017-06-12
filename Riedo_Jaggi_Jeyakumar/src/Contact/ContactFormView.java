@@ -7,7 +7,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -26,13 +28,15 @@ public class ContactFormView extends JPanel{
 	private JTextField firstNameField;
 	private JTextField lastNameField;
 	private JTextField emailField;
-	private JTextField photoField;
 	private JComboBox<?>[] typeNumberLabel = new JComboBox[3];
 	private JTextField[] phoneField = new JTextField[3];
 	private static ContactController contactController = ContactView.getContactController();
 	private String[] typePhoneNumber = { "", "Privé", "Maison", "Bureau" };
 	public int formFunction = 0; // 0 => formulaire d'ajout, 1 => formulaire de modification
 	private int contactId;
+	private JComboBox photoBox;
+	private File[] filesImg;
+	private ImageIcon[] items;
 	
 	public ContactFormView(){
 		setBackground(new Color(255,255,255));
@@ -74,9 +78,7 @@ public class ContactFormView extends JPanel{
 		
 		JLabel photoLabel = new JLabel("Photo");
 		addConstraint(photoLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 3);
-		
-		photoField = new JTextField();
-		addConstraint(photoField, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 3);
+		generatePhotoList();
 		
 		for (int i=0; i < typeNumberLabel.length; i++){
 			typeNumberLabel[i] = new JComboBox<String>(typePhoneNumber);
@@ -97,13 +99,20 @@ public class ContactFormView extends JPanel{
 		firstNameField.setText(contact.getFirstName());
 		lastNameField.setText(contact.getLastName());
 		emailField.setText(contact.getEmail());
-		photoField.setText(contact.getPhoto());
+		
+		for(int i=0; i < filesImg.length; i++){
+			if(filesImg[i].getPath().toString().equals(contact.getPhoto())){
+				photoBox.setSelectedIndex(i);
+			}
+		}
+
 		int i = 0;
 		for(PhoneNumber number : contact.getPhoneNumbers()){
 			typeNumberLabel[i].setSelectedItem(number.getTypePhoneNumber());
 			phoneField[i].setText(number.getPhoneNumber());
 			i++;
 		}
+		
 		panelContainer.revalidate();
 		panelContainer.repaint();
 		contactId = contact.getId();
@@ -113,7 +122,7 @@ public class ContactFormView extends JPanel{
 		firstNameField.setText("");
 		lastNameField.setText("");
 		emailField.setText("");
-		photoField.setText("");
+		photoBox.setSelectedIndex(-1);
 		for(int i = 0; i < typeNumberLabel.length; i++){
 			typeNumberLabel[i].setSelectedIndex(0);
 			phoneField[i].setText("");
@@ -131,6 +140,20 @@ public class ContactFormView extends JPanel{
 		panel.add(comp, gbc);	
 	}
 	
+	public void generatePhotoList(){
+		File folder = new File("img_library/thumb");
+		filesImg = folder.listFiles();
+		
+		items = new ImageIcon[filesImg.length];
+		
+		for(int i=0; i < filesImg.length; i++){
+			items[i] = new ImageIcon(filesImg[i].getPath());
+		}
+        photoBox = new JComboBox(items);
+        
+		addConstraint(photoBox, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 3);
+	}
+	
 	class Save implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -143,15 +166,20 @@ public class ContactFormView extends JPanel{
 				}
 			}
 			
+			String imgPath = null;
+			if(photoBox.getSelectedIndex() != -1){
+				imgPath = filesImg[photoBox.getSelectedIndex()].getPath();
+			}
+			
 			if((firstNameField.getText().isEmpty()) && (lastNameField.getText().isEmpty())){
 				statut = false;
 			}
 			
 			if(statut){
 				if(formFunction == 0){
-					contactController.createContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
+					contactController.createContact(firstNameField.getText(), lastNameField.getText(), emailField.getText(), imgPath, phoneNumbers);
 				}else if (formFunction == 1) {
-					contactController.editContact(contactId, firstNameField.getText(), lastNameField.getText(), emailField.getText(), photoField.getText(), phoneNumbers);
+					contactController.editContact(contactId, firstNameField.getText(), lastNameField.getText(), emailField.getText(), imgPath, phoneNumbers);
 				}
 			}else{
 			    JOptionPane.showMessageDialog(new JPanel(), "Veuillez remplir les champs nom et prénom", "Attention", JOptionPane.WARNING_MESSAGE);

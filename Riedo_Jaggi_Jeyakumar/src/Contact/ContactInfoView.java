@@ -25,7 +25,7 @@ public class ContactInfoView extends JPanel {
 	private JPanel infoPanel = new JPanel();
 	private JLabel image = new JLabel();
 	private JLabel nameLabel;
-	Contact contact;
+	private Contact contact;
 	
 	public ContactInfoView(){
 		setBackground(new Color(255,255,255));
@@ -52,7 +52,7 @@ public class ContactInfoView extends JPanel {
 	
 	public void setContact(int id){
 		contact = contactController.getContactById(id);
-	
+		
 		updateContact();
 	}
 	
@@ -77,7 +77,7 @@ public class ContactInfoView extends JPanel {
 		
 		image.setHorizontalAlignment(SwingConstants.CENTER);
 		try {
-			ImageIcon menuIcon = new ImageIcon("img_library/" + contact.getPhoto());
+			ImageIcon menuIcon = new ImageIcon(contact.getPhoto());
 			image.setIcon(menuIcon);	
 		} catch (Exception ex) {
 		    System.out.println(ex);
