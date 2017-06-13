@@ -41,7 +41,7 @@ public class MainJFrame extends JFrame{
 		if(screenSize.getHeight() < 900){
 			width = 360;
 			height = 600;
-		}else if (screenSize.getHeight() > 2000) {
+		}else if (screenSize.getHeight() > 1900) {
 			width = 720;
 			height = 1200;
 		}
