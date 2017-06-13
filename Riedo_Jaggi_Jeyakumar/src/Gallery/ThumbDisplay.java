@@ -99,7 +99,7 @@ public class ThumbDisplay extends JPanel{
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent e){
 			MainJFrame.changePanel("imageFullScreen");
-			ImageFullScreen imgFS = (ImageFullScreen)MainJFrame.getCards(3);
+			ImageFullScreen imgFS = (ImageFullScreen)MainJFrame.getCards(4);
 			imgFS.displayImg(index);
 
 		}
