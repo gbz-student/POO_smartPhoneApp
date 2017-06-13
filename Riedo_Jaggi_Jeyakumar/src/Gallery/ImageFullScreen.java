@@ -25,10 +25,13 @@ import Gallery.ActionBar.ActionButtonListener;
 import Launcher.MainJFrame;
 
 
+
 public class ImageFullScreen extends JPanel {
 	
+	private ThumbDisplay thumbDisplay = new ThumbDisplay(); 	
+	public ArrayList<ImgInfo>list = thumbDisplay.getList();
 	private ImgInfo imgInfo = new ImgInfo();
-	private ArrayList<ImgInfo>list = imgInfo.createList();	
+//	private ArrayList<ImgInfo>list = imgInfo.createList();	
 
 	public int indexFS;
 	JLabel imgLabel = new JLabel();
@@ -76,7 +79,7 @@ public class ImageFullScreen extends JPanel {
 		navBar.add(removeBtn, BorderLayout.CENTER);
 		navBar.add(nextBtn, BorderLayout.EAST);
 		
-		this.add(navBar, BorderLayout.SOUTH);
+		this.add(navBar, BorderLayout.NORTH);
 		
 	}
 	
@@ -94,6 +97,7 @@ public class ImageFullScreen extends JPanel {
 		String imgPath = list.get(index).getImgName();
 		ImageIcon imgIcon = new ImageIcon(GalleryConstants.IMG_FOLDER+imgPath);
 		imgLabel.setIcon(imgIcon);
+
 		this.add(imgLabel, BorderLayout.CENTER);
 		indexFS = index;
 	}

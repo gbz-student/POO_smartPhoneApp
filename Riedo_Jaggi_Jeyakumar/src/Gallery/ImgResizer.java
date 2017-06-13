@@ -13,66 +13,105 @@ import javax.imageio.ImageIO;
 
 public class ImgResizer {
 	
+	public ImgResizer(){
 	
-
-	public ImgResizer(Path src, Path dest, Dimension dim){
-		
+	}
+	
+	//Redimensionnement de l'image
+	protected void resizeThumb(Path src, Path dest, Dimension dim){
+	 		
 		try {
-			resize(src, dest, dim);
+			int width = (int)dim.getWidth();
+			int height = (int)dim.getHeight();
+			
+			// reads input image
+			String imgOriginalPathStr = src.toString();
+			File inputFile = new File(imgOriginalPathStr);
+			String inputFileName = inputFile.getName();
+			BufferedImage inputImage = ImageIO.read(inputFile);
+			
+			// creates output image
+			BufferedImage outputImage = new BufferedImage(width, height, inputImage.getType());
+			        
+			// scales the input image to the output image
+			Graphics2D g2d = outputImage.createGraphics();
+			        
+			//crops inputimage for thumbs
+			int[]cropCoord = getCropCoord(inputImage);
+			BufferedImage inputImageCropped = inputImage.getSubimage(cropCoord[0],cropCoord[1],cropCoord[2],cropCoord[3]);
+
+			g2d.drawImage(inputImageCropped.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, width, height, null);
+			g2d.dispose();
+ 
+			//extracts extension of output file
+			String formatName = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
+			
+			
+			String outputFileName;
+			//modification du nom du fichier thumb
+			outputFileName = rename(inputFileName, "_thumb");
+  
+			// writes to output file		
+			ImageIO.write(outputImage, formatName, new File(GalleryConstants.THUMB_FOLDER+outputFileName));
+			
 		} catch (IOException e) {
 			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		}
-	}
+   	}
 	
-	//Redimensionnement de l'image
-	private static void resize(Path src, Path dest, Dimension dim)
-	 
-		throws IOException {
+	protected void resizeImg(Path src, Path dest, Dimension dim){
+ 		
+		try {
+			double maxWidth = dim.getWidth();
+			double maxHeight = dim.getHeight();
 			
-			int width = (int)dim.getWidth();
-	        int height = (int)dim.getHeight();
-	        
 			// reads input image
 			String imgOriginalPathStr = src.toString();
-	        File inputFile = new File(imgOriginalPathStr);
-	        String inputFileName = inputFile.getName();
-	        BufferedImage inputImage = ImageIO.read(inputFile);
-	        
-	        // creates output image
-	        BufferedImage outputImage = new BufferedImage(width, height, inputImage.getType());
-	      	        
-	        // scales the input image to the output image
-	        Graphics2D g2d = outputImage.createGraphics();
-	       	        
-	        //crops inputimage for thumbs
-	        if(dest == GalleryConstants.THUMB_FOLDER_PATH){
-		        int[]cropCoord = getCropCoord(inputImage);
-		        BufferedImage inputImageCropped = inputImage.getSubimage(cropCoord[0],cropCoord[1],cropCoord[2],cropCoord[3]);
-		        g2d.drawImage(inputImageCropped.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, width, height, null);
+			File inputFile = new File(imgOriginalPathStr);
+			String inputFileName = inputFile.getName();
+			BufferedImage inputImage = ImageIO.read(inputFile);
+			
+			// creates output image
+			double inputWidth = inputImage.getWidth();
+			double inputHeight = inputImage.getHeight();
+			
+			double outputWidth;
+			double outputHeight;
+			double ratio;
+			
+			if( (inputWidth/inputHeight) > (maxWidth/maxHeight) ){
+				outputWidth = maxWidth;
+				ratio = maxWidth/inputWidth;
+				outputHeight = inputHeight * ratio;
+				}
+			else {
+				outputHeight = maxHeight;
+				ratio = maxHeight/inputHeight;
+				outputWidth = inputWidth * ratio;
+				}
+		
+			BufferedImage outputImage = new BufferedImage((int)outputWidth, (int)outputHeight, inputImage.getType());
 
-	        }
-	        else
-		        g2d.drawImage(inputImage.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, width, height, null);
-
-	        g2d.dispose();
-	 
-	        //extracts extension of output file
-	        String formatName = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
-	        
-	        
-	        String outputFileName;
-	        //modification du nom du fichier thumb
-	        if(dest == GalleryConstants.THUMB_FOLDER_PATH){
-	        	outputFileName = rename(inputFileName, "_thumb");
-	        }
-	        else
-	        	outputFileName = inputFileName;
-	 
-	        // writes to output file
-	        ImageIO.write(outputImage, formatName, new File(GalleryConstants.THUMB_FOLDER+outputFileName));
-	        System.out.println(GalleryConstants.THUMB_FOLDER+inputFileName);
+				
+			// scales the input image to the output image
+			Graphics2D g2d = outputImage.createGraphics();
+			        
+			//crops inputimage for thumbs
+			g2d.drawImage(inputImage, 0, 0, (int)outputWidth, (int)outputHeight, null);
+			g2d.dispose();
+ 
+			//extracts extension of output file
+			String formatName = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
+			  
+			// writes to output file		
+			ImageIO.write(outputImage, formatName, new File(GalleryConstants.IMG_FOLDER+inputFileName));
+			
+		} catch (IOException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
 		}
+   	}
 	
 	//Ajout d'un suffixe au nom de fichier
 	private static String rename(String inputName, String addStr){
@@ -88,10 +127,7 @@ public class ImgResizer {
 		int height = inputImage.getHeight();
 		int width = inputImage.getWidth();
 		int diff = Math.abs(height - width);
-		
-        System.out.println("height : "+height);
-        System.out.println("width : "+width);
-	
+			
 		int[]cropCoord = new int[4];
 		
 		if(height>width){

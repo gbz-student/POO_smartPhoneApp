@@ -33,7 +33,12 @@ import Launcher.MainJFrame;
 
 public class ThumbDisplay extends JPanel{
 	
+	private ImgInfo imgInfo = new ImgInfo();
+	private ArrayList<ImgInfo>list = imgInfo.createList();
 	
+	public ThumbDisplay(){
+		
+	}
 	public ThumbDisplay(int column) {
 		displayThumbs();
 		columnDisplay(column);
@@ -41,43 +46,41 @@ public class ThumbDisplay extends JPanel{
 	
 	//Afficher les vignettes à partir de la liste
 	public void displayThumbs(){
-		ImgInfo itd = new ImgInfo();
-		ArrayList<ImgInfo>list = itd.createList();
 		
-		for(int i=0 ; i<list.size() ; i++){
-			String thumbName = list.get(i).getThumbName();
-			ImageIcon thumb = new ImageIcon(GalleryConstants.THUMB_FOLDER_PATH+"/"+thumbName);
-			JLabel thumbLabel = new JLabel(thumb);
-			
-			MouseListenerThumb click = new MouseListenerThumb();
-			click.index = i;
-			thumbLabel.addMouseListener(click);
-			
-			this.add(thumbLabel);
+		if(!list.isEmpty()){
+			for(int i=0 ; i<list.size() ; i++){
+				
+	
+				String thumbName = list.get(i).getThumbName();
+				ImageIcon thumb = new ImageIcon(GalleryConstants.THUMB_FOLDER_PATH+"/"+thumbName);
+				JLabel thumbLabel = new JLabel(thumb);
+				
+				MouseListenerThumb click = new MouseListenerThumb();
+				click.index = i;
+				thumbLabel.addMouseListener(click);
+				
+				this.add(thumbLabel);
+			}
 		}
 
 	}
 	
-	protected void columnDisplay(int nbColumn){
+	private void columnDisplay(int nbColumn){
 		GridLayout column = new GridLayout(0, nbColumn);
-		column.setVgap(40);
-		column.setHgap(40);
+//		column.setHgap(GalleryConstants.Hgap);
+		column.setVgap(GalleryConstants.Vgap);
 
 		this.setLayout(column);
 	}
 		
-//	protected void regenerateThumbs(){
-//
-//		
-//		for (int i = 0; i < thumbsList.length; i++) {
-//			File file = new File(thumbsFolder+"/"+thumbsList[i]);
-//			file.delete();
-//		}
-//		for (int i = 0; i < originalImgList.length; i++) {
-//			Path imgOriginalPath = Paths.get(originalImgFolder+"/"+originalImgList[i]);
-//			ThumbNail thumb = new ThumbNail(imgOriginalPath);
-//		}
-//	}
+	public ArrayList<ImgInfo>getList(){
+		return list;
+		
+	}
+	
+	public void refresh(){
+		this.displayThumbs();
+	}
 	
 //	//Retrait du suffixe au nom de fichier
 //	private String fromThumb2Originall(String inputName){
@@ -96,7 +99,7 @@ public class ThumbDisplay extends JPanel{
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent e){
 			MainJFrame.changePanel("imageFullScreen");
-			ImageFullScreen imgFS = (ImageFullScreen)MainJFrame.getCards(4);
+			ImageFullScreen imgFS = (ImageFullScreen)MainJFrame.getCards(3);
 			imgFS.displayImg(index);
 
 		}

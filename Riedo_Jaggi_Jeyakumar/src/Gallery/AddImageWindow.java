@@ -22,45 +22,43 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class AddImageWindow extends JFileChooser{
 	
-	
-	private GalleryJPanel gallery = new GalleryJPanel();
-	private File imgSource = this.getSelectedFile();
-	private ImgInfo itd;
+	private File imgSourceFile;
+	private ThumbDisplay thumbDisplay = new ThumbDisplay(); 	
+	private ArrayList<ImgInfo>list = thumbDisplay.getList();
+	private GalleryJPanel galleryPanel = new GalleryJPanel();
+	private ThumbDisplay thumbDisp = galleryPanel.getThumbDisplay();
 		
 	public AddImageWindow(){
-		System.out.println("test");
-
-//		initActionWindows();
-//
-//		addImage();
-//		ArrayList<ImgInfo>list = itd.createList();
+		initActionWindows();
 	}
 	
 	private void initActionWindows(){
 		JButton addImgButton = new JButton();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
-	   
-		this.setFileFilter(filter);
+	   	this.setFileFilter(filter);
 	    int returnVal = this.showOpenDialog(addImgButton);
+	    imgSourceFile = this.getSelectedFile();
+	    addImage(imgSourceFile);
 	}
 	
-	private void addImage(){
-		//ajout de l'image taille originale
-		System.out.println(imgSource);
+	private void addImage(File file){
+		//ajout de l'image 
+		Path imgSource = imgSourceFile.toPath();
+		Path originalImgPath = Paths.get(GalleryConstants.IMG_FOLDER+imgSourceFile.getName());
+		ImgInfo imgInfo = new ImgInfo(imgSourceFile.getName());
+		list.add(imgInfo);
+		int last = list.size()-1;
+		Path thumbPath = Paths.get(GalleryConstants.THUMB_FOLDER+list.get(last).getThumbName());
+		ImgResizer resizer = new ImgResizer();
 
-		String imgName = imgSource.getName();
-		String imgSourcePath = imgSource.getPath();
-				
-		Path source = Paths.get(imgSourcePath);
-		Path originalImgFolder = Paths.get(GalleryConstants.IMG_FOLDER+imgName);
-				
-//		try {
-			System.out.println(source);
-//			Files.copy(source, originalImgFolder) ;
-//
-//			//création du thumb
-//			ImgResizer thumb = new ImgResizer(originalImgFolder);
-//		} catch (IOException e) {	
+		
+//		Files.copy(imgSource, originalImgPath) ;
+		resizer.resizeImg(imgSource, originalImgPath, GalleryConstants.IMG_DIM);
+		resizer.resizeThumb(imgSource, thumbPath, GalleryConstants.THUMBS_DIM);
+		thumbDisp.revalidate();
+		thumbDisp.repaint();
+		
+		
 //			JFrame warningFrame = new JFrame("avertissement");
 //			JLabel warningLabel = new JLabel("Cette image existe deja !");
 //			warningFrame.add(warningLabel);

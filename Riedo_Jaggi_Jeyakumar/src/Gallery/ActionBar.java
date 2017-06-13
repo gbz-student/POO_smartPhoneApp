@@ -17,7 +17,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ActionBar extends JPanel{
 
-	JButton addImg = new JButton("Ajouteer");
+	JButton addImg = new JButton("Ajouter");
 	JButton removeImg = new JButton("Supprimer");
 	
 	
@@ -29,13 +29,12 @@ public class ActionBar extends JPanel{
 
 		initButton();
 		
-
 	}
 	
 	private void initButton(){
 				
 		addImg.addActionListener(new ActionButtonListener());
-		removeImg.addActionListener(new ActionButtonListener());;
+		removeImg.addActionListener(new ActionButtonListener());
 				
 		this.add(addImg);
 		this.add(removeImg);

@@ -28,6 +28,7 @@ public class GalleryJPanel extends JPanel {
 		
 	private TitleJPanel title = new TitleJPanel("Mes images");
 	private ActionBar imgActionBar = new ActionBar();
+	private ThumbDisplay thumbsPanel;
 	
 	public GalleryJPanel() {
 		
@@ -35,7 +36,6 @@ public class GalleryJPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		
 		setPreferredSize(new Dimension(480, 500));
-		
 		
 		ThumbDisplay thumbsPanel = new ThumbDisplay(3);
 					
@@ -48,6 +48,12 @@ public class GalleryJPanel extends JPanel {
 		add(imgActionBar, BorderLayout.NORTH);
         
 		}
+	
+	public ThumbDisplay getThumbDisplay(){
+		return thumbsPanel;
+	}
+	
+	
 	
 
 }
