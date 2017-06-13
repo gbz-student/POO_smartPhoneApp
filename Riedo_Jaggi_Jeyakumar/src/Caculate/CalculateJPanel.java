@@ -23,7 +23,6 @@ public class CalculateJPanel extends JPanel{
 	private ActionsButton butpanel = new ActionsButton();
 	
 	
-	
 	public CalculateJPanel(){
 		
 		this.setVisible(true);
