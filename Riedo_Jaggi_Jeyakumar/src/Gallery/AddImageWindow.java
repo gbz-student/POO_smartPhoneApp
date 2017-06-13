@@ -20,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Launcher.MainJFrame;
+
 public class AddImageWindow extends JFileChooser{
 	
 	private File imgSourceFile;
@@ -51,21 +53,16 @@ public class AddImageWindow extends JFileChooser{
 		Path thumbPath = Paths.get(GalleryConstants.THUMB_FOLDER+list.get(last).getThumbName());
 		ImgResizer resizer = new ImgResizer();
 
-		
-//		Files.copy(imgSource, originalImgPath) ;
 		resizer.resizeImg(imgSource, originalImgPath, GalleryConstants.IMG_DIM);
 		resizer.resizeThumb(imgSource, thumbPath, GalleryConstants.THUMBS_DIM);
-		thumbDisp.revalidate();
-		thumbDisp.repaint();
 		
 		
-//			JFrame warningFrame = new JFrame("avertissement");
-//			JLabel warningLabel = new JLabel("Cette image existe deja !");
-//			warningFrame.add(warningLabel);
-//			warningFrame.setSize(220, 120);
-//			warningFrame.setVisible(true);
-//						
-//		}				
+//		ThumbDisplay thumbCard = (ThumbDisplay)MainJFrame.getCards(3);
+//		thumbCard.displayThumbs();
+		
+		
+
+						
 	}
 	
 

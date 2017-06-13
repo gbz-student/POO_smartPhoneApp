@@ -29,11 +29,9 @@ import Launcher.MainJFrame;
 public class ImageFullScreen extends JPanel {
 	
 	private ThumbDisplay thumbDisplay = new ThumbDisplay(); 	
-	public ArrayList<ImgInfo>list = thumbDisplay.getList();
+	private ArrayList<ImgInfo>list = thumbDisplay.getList();
 	private ImgInfo imgInfo = new ImgInfo();
-//	private ArrayList<ImgInfo>list = imgInfo.createList();	
-
-	public int indexFS;
+	private int indexFS;
 	JLabel imgLabel = new JLabel();
 	
 	JPanel navBar = new JPanel();

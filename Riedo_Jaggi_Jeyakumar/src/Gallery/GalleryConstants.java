@@ -32,6 +32,9 @@ public class GalleryConstants {
 	public final static int IMG_WIDTH = 480;
 	public final static int IMG_HEIGHT = 750;
 	public final static Dimension IMG_DIM = new Dimension(IMG_WIDTH, IMG_HEIGHT);
+	
+	//nbre de colonnes de vignettes
+	public final static int COLUMN = 3;
 
 	
 	

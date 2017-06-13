@@ -36,12 +36,10 @@ public class ThumbDisplay extends JPanel{
 	private ImgInfo imgInfo = new ImgInfo();
 	private ArrayList<ImgInfo>list = imgInfo.createList();
 	
-	public ThumbDisplay(){
-		
-	}
-	public ThumbDisplay(int column) {
+
+	public ThumbDisplay() {
 		displayThumbs();
-		columnDisplay(column);
+		columnDisplay(GalleryConstants.COLUMN);
 	}
 	
 	//Afficher les vignettes à partir de la liste
