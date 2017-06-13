@@ -141,7 +141,7 @@ public class ContactFormView extends JPanel{
 	}
 	
 	public void generatePhotoList(){
-		File folder = new File("img_library/thumb");
+		File folder = new File("img_library/thumbs");
 		filesImg = folder.listFiles();
 		
 		items = new ImageIcon[filesImg.length];
