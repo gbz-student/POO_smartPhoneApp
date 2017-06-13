@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
+
+import Launcher.MainJFrame;
 import Model.Contact;
 
 public class ContactListView extends JPanel {
@@ -55,7 +57,7 @@ public class ContactListView extends JPanel {
 			label.setBorder(BorderFactory.createCompoundBorder(raisedetched,paddingBorder));
 			label.addActionListener(new ShowContactListener());
 			label.setHorizontalAlignment(SwingConstants.LEFT);
-			label.setMaximumSize(new Dimension(480, 70));
+			label.setMaximumSize(new Dimension(MainJFrame.getWidthJFrame(), 70));
             gridPanel.add(label);
         }
 	}

@@ -5,6 +5,8 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
+
+import Launcher.MainJFrame;
 import MainPackage.TitleJPanel;
 
 /**
@@ -27,7 +29,7 @@ public class ContactView extends JPanel{
 	 * Construit le JPanel de basse qui contient le cardLayout
 	 */
 	public ContactView(){
-		setPreferredSize(new Dimension(480, 750));
+		setPreferredSize(new Dimension(MainJFrame.getWidthJFrame(), MainJFrame.getHeightJFrame() - 50));
 		setLayout(new BorderLayout());
 		 
 		cards = new JPanel (cardLayout);

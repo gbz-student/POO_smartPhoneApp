@@ -1,14 +1,11 @@
 package Launcher;
 
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-
-import MainPackage.Main;
 
 public class LauncherJPanel extends JPanel{
 	
@@ -19,7 +16,7 @@ public class LauncherJPanel extends JPanel{
 	
 	public LauncherJPanel(){
 		setLayout(new FlowLayout(FlowLayout.LEFT));
-		setPreferredSize(new Dimension(480, 750));
+		setSize(MainJFrame.getWidthJFrame(), MainJFrame.getHeightJFrame() - 50);
 		
 		img = new ImageIcon("resources/wallpapers.png").getImage();
 		

@@ -3,6 +3,8 @@ package Launcher;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -21,10 +23,30 @@ public class MainJFrame extends JFrame{
 	private JPanel calculateJPanel = new CalculateJPanel();
 	private JPanel galleryJPanel = new GalleryJPanel();
 	private JPanel imageFullScreen = new ImageFullScreen();
+	private static int width = 480;
+	private static int height = 800;
+	
+	public static int getWidthJFrame(){
+		return width;
+	}
+	
+	public static int getHeightJFrame(){
+		return height;
+	}
 	
 	public MainJFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(480, 800);
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		if(screenSize.getHeight() < 900){
+			width = 360;
+			height = 600;
+		}else if (screenSize.getHeight() > 2000) {
+			width = 720;
+			height = 1200;
+		}
+		
+		setSize(new Dimension(width, height));
 	    
 	    getContentPane().setBackground(new Color(0,0,0));
 		
@@ -44,7 +66,7 @@ public class MainJFrame extends JFrame{
 		
 		cards.setBackground(new Color(0,0,0,0));
 		
-		add(cards, BorderLayout.NORTH);
+		add(cards, BorderLayout.CENTER);
 		
 		add(buttonMenu, BorderLayout.SOUTH);
 		

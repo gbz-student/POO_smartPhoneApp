@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import Launcher.MainJFrame;
 import Model.*;
 			
 public class ContactInfoView extends JPanel {
@@ -85,7 +87,7 @@ public class ContactInfoView extends JPanel {
 		
 		imagePanel.setLayout(new BorderLayout());
 		imagePanel.setBackground(new Color(40,50,70));
-		imagePanel.setPreferredSize(new Dimension(480, 300));
+		imagePanel.setPreferredSize(new Dimension(MainJFrame.getWidthJFrame(), 300));
 		imagePanel.add(image, BorderLayout.NORTH);
 		imagePanel.add(nameLabel, BorderLayout.CENTER);
 		
