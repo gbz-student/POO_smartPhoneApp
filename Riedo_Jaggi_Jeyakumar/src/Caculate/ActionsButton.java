@@ -1,5 +1,6 @@
 package Caculate;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,17 +9,20 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+
 
  public class ActionsButton extends JPanel {
-	 
+	
+	
 	private JPanel b = new JPanel();
 	private ActionsScreen screen = new ActionsScreen();
 	
 	// creation des elements a afficher
-    private String elements [] = {"AC","C","DEL","÷","7","8","9","×","4","5","6","-","1","2","3","+","+/-","0",".","="};
+    private String elements [] = {"AC","%","ON","÷","7","8","9","×","4","5","6","-","1","2","3","+","+/-","0",".","="};
 	 
 	 // creation des boutons par element
      private JButton but[] = new JButton[elements.length];
@@ -32,6 +36,7 @@ import javax.swing.JPanel;
 	 
 	 private double number;
 	 private boolean clicOperateur = false, update = false;
+	 private boolean active = false;
 	 private String operateur;
 	 
      
@@ -51,7 +56,7 @@ import javax.swing.JPanel;
       	// inisialisation des boutons
    		   initBut();
     	  
-    	// coloriage des boutons 
+    	
     	   coloriageBut();
     	   
     	// operations
@@ -60,9 +65,13 @@ import javax.swing.JPanel;
   		// ajout des boutons dans le Panel 
     	   addBut();
     	   
+    	   this.setBorder(new TitledBorder(null,"Calculatrice", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
     	   this.add(screen, BorderLayout.NORTH);
     	   this.add(b, BorderLayout.CENTER);
      }
+     
+     
+    	   
      
      public void initBut(){
     	 
@@ -77,7 +86,7 @@ import javax.swing.JPanel;
  	   }
      }
     
-     
+           // coloriage des boutons 
       public void coloriageBut(){
     	 
     	 
@@ -165,19 +174,19 @@ import javax.swing.JPanel;
                  screen.text.setText(String.valueOf(number));
                }     
                if(operateur=="/"){
+            	 
                  try{
-                   number = number/Double.valueOf(screen.text.getText()).doubleValue();
-                   screen.text.setText(String.valueOf(number));
+                	   number = number/Double.valueOf(screen.text.getText()).doubleValue();
+                       screen.text.setText(String.valueOf(number));
                    
                  } catch(ArithmeticException e) {
-               
-                  screen.text.setText("0");
+                	
+                 screen.text.setText(e.getMessage());
                    
                  }
                }
              }
              
-
              //Listener utilisé pour les chiffres
              //Permet de stocker les chiffres et de les afficher
              
@@ -195,12 +204,11 @@ import javax.swing.JPanel;
                  screen.text.setText(str);
                }
              }
-
              
              //Listener affecté au bouton =
              class EgalListener implements ActionListener {
                public void actionPerformed(ActionEvent arg0){
-            	 //calculOperateurs();
+            	 calculOperateurs();
                  update = true;
                  clicOperateur = false;
                }
@@ -271,7 +279,6 @@ import javax.swing.JPanel;
                  update = true;
                }
              }
-
              //Listener affecté au bouton AC
              
              class ResetListener implements ActionListener {
@@ -288,6 +295,15 @@ import javax.swing.JPanel;
             	 public void actionPerformed(ActionEvent arg0){
             		 
             		screen.text.setText("0"); 
+            		 
+            		if (arg0.getActionCommand().equals("on")){
+            			active = true;
+            		}
+            			else{
+            				active = false;
+            			
+            	
+            		}
 
             	 }
              }
@@ -297,8 +313,7 @@ import javax.swing.JPanel;
             		number = -1.0*Double.valueOf(screen.text.getText());
             		
             		clicOperateur = false;
-            	    screen.text.setText(String.valueOf(number));
-            		
+            	    screen.text.setText(String.valueOf(number));	
             	 }
              }
              
@@ -310,8 +325,8 @@ import javax.swing.JPanel;
 
             	 }
              }
-           
-	
+             
+          
 	
 	
 	
