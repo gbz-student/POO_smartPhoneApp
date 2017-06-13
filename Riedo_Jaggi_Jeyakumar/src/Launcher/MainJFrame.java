@@ -4,12 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import Caculate.CalculateJPanel;
-import Contact.ContactInfoView;
 import Contact.ContactView;
 import Gallery.GalleryJPanel;
 import Gallery.ImageFullScreen;
@@ -23,8 +21,8 @@ public class MainJFrame extends JFrame{
 	private JPanel calculateJPanel = new CalculateJPanel();
 	private JPanel galleryJPanel = new GalleryJPanel();
 	private JPanel imageFullScreen = new ImageFullScreen();
-	private static int width = 480;
-	private static int height = 800;
+	private static int width = 450;
+	private static int height = 750;
 	
 	public static int getWidthJFrame(){
 		return width;
@@ -36,15 +34,6 @@ public class MainJFrame extends JFrame{
 	
 	public MainJFrame() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		if(screenSize.getHeight() < 900){
-			width = 360;
-			height = 600;
-		}else if (screenSize.getHeight() > 2000) {
-			width = 720;
-			height = 1200;
-		}
 		
 		setSize(new Dimension(width, height));
 	    

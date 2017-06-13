@@ -181,7 +181,7 @@ import javax.swing.border.TitledBorder;
                    
                  } catch(ArithmeticException e) {
                 	
-                 screen.text.setText(e.getMessage());
+                 screen.text.setText("Infinity");
                    
                  }
                }
@@ -302,7 +302,6 @@ import javax.swing.border.TitledBorder;
             			else{
             				active = false;
             			
-            	
             		}
 
             	 }
@@ -310,11 +309,26 @@ import javax.swing.border.TitledBorder;
              
              class NegatifListner implements ActionListener{
             	 public void actionPerformed(ActionEvent arg0){
+            		 
+            		number = Double.valueOf(screen.text.getText());
+            		if(number == -number){
+            		number = 1.0*Double.valueOf(screen.text.getText());
+            		screen.text.setText(String.valueOf(number));	
+            		clicOperateur = true;
+            		update = true;
+            			
+            		}else if (number == number){
             		number = -1.0*Double.valueOf(screen.text.getText());
-            		
-            		clicOperateur = false;
-            	    screen.text.setText(String.valueOf(number));	
+            		screen.text.setText(String.valueOf(number));
+            		clicOperateur = true;
+            		update = true;
+            		}
+            		clicOperateur = true;
+            	    update = true;
+            	    	
             	 }
+            	 
+            	 
              }
              
              class PercentListner implements ActionListener{
