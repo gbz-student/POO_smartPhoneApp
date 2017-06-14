@@ -3,6 +3,7 @@ package Gallery;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -33,22 +34,22 @@ import Launcher.MainJFrame;
 
 public class ThumbDisplay extends JPanel{
 	
-	private ImgInfo imgInfo = new ImgInfo();
-	private ArrayList<ImgInfo>list = imgInfo.createList();
-	
-
+	private static ArrayList<String>imgArrayList;
+		
 	public ThumbDisplay() {
+		imgArrayList = createList();
 		displayThumbs();
 		columnDisplay(GalleryConstants.COLUMN);
 	}
 	
 	//Afficher les vignettes à partir de la liste
 	public void displayThumbs(){
+//		imgArrayList = createList();
 		
-		if(!list.isEmpty()){
-			for(int i=0 ; i<list.size() ; i++){
+		if(!imgArrayList.isEmpty()){
+			for(int i=0 ; i<imgArrayList.size() ; i++){
 				
-				String thumbName = list.get(i).getThumbName();
+				String thumbName = imgArrayList.get(i);
 				ImageIcon thumb = new ImageIcon(GalleryConstants.THUMB_FOLDER_PATH+"/"+thumbName);
 				JLabel thumbLabel = new JLabel(thumb);
 				
@@ -59,39 +60,58 @@ public class ThumbDisplay extends JPanel{
 				this.add(thumbLabel);
 			}
 		}
-
 	}
 	
 	private void columnDisplay(int nbColumn){
-		GridLayout column = new GridLayout(0, nbColumn);
+//		GridLayout column = new GridLayout(0, nbColumn);
 //		column.setHgap(GalleryConstants.Hgap);
-		column.setVgap(GalleryConstants.Vgap);
+		FlowLayout column = new FlowLayout(0,30,30);
+//		column.setVgap(GalleryConstants.Vgap);
 
 		this.setLayout(column);
 	}
 		
-	public ArrayList<ImgInfo>getList(){
-		return list;
+	
+	private ArrayList<String> createList(){
+		
+		imgArrayList = new ArrayList<String>();
+
+		String[]imgList = GalleryConstants.IMG_FOLDER_FILE.list();
+		int countImg = imgList.length;
+		
+		if(countImg>0){		
+			for(int i=0 ; i<countImg ; i++){
+				imgArrayList.add(imgList[i]);
+			}
+		}
+		
+		return imgArrayList;
+	
+	}
+	
+	public static ArrayList<String>getList(){
+		return imgArrayList;
 		
 	}
 	
+	public static String getImgName(int index){
+		String name = imgArrayList.get(index);
+		return name;
+	}
+	
 	public void refresh(){
-		removeAll();
+		removeAll();		
 		displayThumbs();
 		revalidate();
 		repaint();
 	}
 	
-//	//Retrait du suffixe au nom de fichier
-//	private String fromThumb2Originall(String inputName){
-//		String beforeExtension = inputName.substring(0, inputName.lastIndexOf("."));
-//		String extension = inputName.substring(inputName.lastIndexOf("."), inputName.length());
-//		String removeThumbAdd = beforeExtension.substring(0,beforeExtension.length()-6);
-//		String outputName = removeThumbAdd + extension;
-//		
-//		return outputName;		
-//	}
-		
+	public void refreshList(){
+		imgArrayList.clear();
+		imgArrayList = createList();
+	}
+
+	
 	class MouseListenerThumb implements MouseListener{
 		
 		int index;

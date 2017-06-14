@@ -26,9 +26,10 @@ import MainPackage.TitleJPanel;
 
 public class GalleryJPanel extends JPanel {
 		
-	private TitleJPanel title = new TitleJPanel("Mes images");
-	private ActionBar imgActionBar = new ActionBar();
-	private ThumbDisplay thumbsPanel;
+	private static TitleJPanel title;
+	private static ActionBar imgActionBar ; 
+	private static ThumbDisplay thumbsPanel;
+	private static JScrollPane thumbScroll;
 	
 	public GalleryJPanel() {
 		
@@ -39,21 +40,23 @@ public class GalleryJPanel extends JPanel {
 		
 		thumbsPanel = new ThumbDisplay();
 					
-		JScrollPane thumbScroll = new JScrollPane(thumbsPanel);
+		thumbScroll = new JScrollPane(thumbsPanel);
 		thumbScroll.getVerticalScrollBar().setUnitIncrement(16);
 		
+		imgActionBar = new ActionBar();
+		title = new TitleJPanel("Mes images");
 		
 		add(title, BorderLayout.NORTH);
 		add(thumbScroll, BorderLayout.CENTER);
-		add(imgActionBar, BorderLayout.NORTH);
+		add(imgActionBar, BorderLayout.SOUTH);
         
 		}
 	
-	public ThumbDisplay getThumbDisplay(){
+	public static ThumbDisplay getThumbDisplay(){
 		return thumbsPanel;
 	}
 	
-	
-	
-
+	public static JScrollPane getThumbScrollPane(){
+		return thumbScroll;
+	}
 }
