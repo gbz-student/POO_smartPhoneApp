@@ -48,7 +48,6 @@ public class ThumbDisplay extends JPanel{
 		if(!list.isEmpty()){
 			for(int i=0 ; i<list.size() ; i++){
 				
-	
 				String thumbName = list.get(i).getThumbName();
 				ImageIcon thumb = new ImageIcon(GalleryConstants.THUMB_FOLDER_PATH+"/"+thumbName);
 				JLabel thumbLabel = new JLabel(thumb);
@@ -77,7 +76,10 @@ public class ThumbDisplay extends JPanel{
 	}
 	
 	public void refresh(){
-		this.displayThumbs();
+		removeAll();
+		displayThumbs();
+		revalidate();
+		repaint();
 	}
 	
 //	//Retrait du suffixe au nom de fichier

@@ -25,8 +25,7 @@ public class ImgResizer {
 	
 	//Redimensionnement de l'image
 	protected void resizeThumb(Path src, Path dest, Dimension dim){
-	 		
-		
+	 				
 			try {
 				int width = (int)dim.getWidth();
 				int height = (int)dim.getHeight();
@@ -65,13 +64,13 @@ public class ImgResizer {
 				// writes to output file	
 				File outputFile ;
 				do{
-					if(imgIncrement>0)
-						imgIncrementStr = "_("+imgIncrement+")";
+					if(thumbIncrement>0)
+						thumbIncrementStr = "_("+thumbIncrement+")";
 					else
-						imgIncrementStr = "";
+						thumbIncrementStr = "";
 					
-					outputFile = new File(GalleryConstants.THUMB_FOLDER+beforeExtension+GalleryConstants.THUMB_SUFFIX+imgIncrementStr+extension);
-					imgIncrement++;
+					outputFile = new File(GalleryConstants.THUMB_FOLDER+beforeExtension+GalleryConstants.THUMB_SUFFIX+thumbIncrementStr+extension);
+					thumbIncrement++;
 				}
 				while(outputFile.exists());
 								

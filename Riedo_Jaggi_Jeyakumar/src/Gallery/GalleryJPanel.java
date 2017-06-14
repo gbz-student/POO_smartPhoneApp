@@ -37,7 +37,7 @@ public class GalleryJPanel extends JPanel {
 		
 		setPreferredSize(new Dimension(MainJFrame.getWidthJFrame(), MainJFrame.getHeightJFrame()));
 		
-		ThumbDisplay thumbsPanel = new ThumbDisplay();
+		thumbsPanel = new ThumbDisplay();
 					
 		JScrollPane thumbScroll = new JScrollPane(thumbsPanel);
 		thumbScroll.getVerticalScrollBar().setUnitIncrement(16);

@@ -27,8 +27,8 @@ public class AddImageWindow extends JFileChooser{
 	private File imgSourceFile;
 	private ThumbDisplay thumbDisplay = new ThumbDisplay(); 	
 	private ArrayList<ImgInfo>list = thumbDisplay.getList();
-	private GalleryJPanel galleryPanel = new GalleryJPanel();
-	private ThumbDisplay thumbDisp = galleryPanel.getThumbDisplay();
+//	private GalleryJPanel galleryPanel = new GalleryJPanel();
+//	private ThumbDisplay thumbDisp = galleryPanel.getThumbDisplay();
 		
 	public AddImageWindow(){
 		initActionWindows();
@@ -57,8 +57,10 @@ public class AddImageWindow extends JFileChooser{
 		resizer.resizeThumb(imgSource, thumbPath, GalleryConstants.THUMBS_DIM);
 		
 		
-//		ThumbDisplay thumbCard = (ThumbDisplay)MainJFrame.getCards(3);
-//		thumbCard.displayThumbs();
+		
+		GalleryJPanel thumbPanel = (GalleryJPanel)MainJFrame.getCards(3);
+		ThumbDisplay thumbDisplay = thumbPanel.getThumbDisplay(); 
+		thumbDisplay.refresh();
 		
 		
 
