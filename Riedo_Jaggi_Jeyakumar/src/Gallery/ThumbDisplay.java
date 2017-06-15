@@ -149,7 +149,8 @@ public class ThumbDisplay extends JPanel{
 	
 	/**
 	 * Rafraichit la liste de nom d'image
-	 * @return
+	 * 
+	 * 
 	 */
 	public void refreshList(){
 		
