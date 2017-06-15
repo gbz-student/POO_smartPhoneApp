@@ -40,7 +40,7 @@ public class ContactFormView extends JPanel{
 	private JComboBox<?>[] typeNumberLabel = new JComboBox[3];
 	private JTextField[] phoneField = new JTextField[3];
 	private static ContactController contactController = ContactView.getContactController();
-	private String[] typePhoneNumber = { "", "Privé", "Maison", "Bureau" };
+	private String[] typePhoneNumber;
 	public int formFunction = 0; // 0 => formulaire d'ajout, 1 => formulaire de modification
 	private int contactId;
 	private JComboBox photoBox;
@@ -92,6 +92,8 @@ public class ContactFormView extends JPanel{
 		addConstraint(photoLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 3);
 		generatePhotoList();
 		
+		PhoneNumber phoneNumber = new PhoneNumber();
+		typePhoneNumber = phoneNumber.getTypesPhoneNumber();
 		for (int i=0; i < typeNumberLabel.length; i++){
 			typeNumberLabel[i] = new JComboBox<String>(typePhoneNumber);
 			addConstraint(typeNumberLabel[i], new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 4 + i);

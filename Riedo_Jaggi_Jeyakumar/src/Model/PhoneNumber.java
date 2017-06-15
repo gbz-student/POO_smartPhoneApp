@@ -12,6 +12,11 @@ public class PhoneNumber implements Serializable{
 	
 	private String typePhoneNumber;
 	private String phoneNumber;
+	private String[] typesPhoneNumber = { "", "Privé", "Maison", "Bureau" };
+	
+	public PhoneNumber(){
+		
+	}
 	
 	public PhoneNumber(String typePhoneNumber, String phoneNumber){
 		this.typePhoneNumber = typePhoneNumber;
@@ -23,6 +28,9 @@ public class PhoneNumber implements Serializable{
 	}
 	public void setTypePhoneNumber(String typePhoneNumber) {
 		this.typePhoneNumber = typePhoneNumber;
+	}
+	public String[] getTypesPhoneNumber() {
+		return typesPhoneNumber;
 	}
 	public String getPhoneNumber() {
 		return phoneNumber;
