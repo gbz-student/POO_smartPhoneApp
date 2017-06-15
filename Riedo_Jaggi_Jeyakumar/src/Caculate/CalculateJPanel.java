@@ -8,7 +8,11 @@ import javax.swing.JPanel;
 
 import Launcher.MainJFrame;
 
-
+/**
+ * classe permettant d'appeler Une classe ActionsButton et de l'afficher
+ * @author ashan
+ *
+ */
 public class CalculateJPanel extends JPanel{
 	
 	
