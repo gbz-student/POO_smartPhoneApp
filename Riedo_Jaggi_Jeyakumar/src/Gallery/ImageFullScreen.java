@@ -26,11 +26,32 @@ import Gallery.ActionBar.ActionButtonListener;
 import Launcher.MainJFrame;
 import MainPackage.TitleJPanel;
 
+
+/**
+ * Affichage en plein écran d'une image sélectionnée dans la galerie
+ * 
+ * @author Gabriel Riedo
+ *
+ */
 public class ImageFullScreen extends JPanel {
 	
+	/**
+	 * Récupération de l'instance de la classe ThumbDisplay, de la ArrayList associée 
+	 * ainsi que de l'index de l'image sélectionnée dans la galerie
+	 */
 	private static ThumbDisplay thumbDisplay = GalleryJPanel.getThumbDisplay(); 
 	private static ArrayList<String>list = thumbDisplay.getList();
 	private int indexFS;
+	
+	/*
+	 * Nouvelles instances pour l'affichage du fullscreen
+	 * <ul>
+	 * <li>imgLabel pour contenir l'image</li>
+	 * <li>JPanels pour la mise en page</li>
+	 * <li>JButtons pour les boutons</li>
+	 * <li>JFrame pour la confirmation d'action supprimer</li>
+	 * </ul>
+	 */
 	JLabel imgLabel = new JLabel();
 	
 	JPanel navBar = new JPanel();
@@ -48,19 +69,30 @@ public class ImageFullScreen extends JPanel {
 	JButton cancelBtn= new JButton();
 
 	
-	
+	/**
+	 * Consructeur par défaut de la classe
+	 * <ul>
+	 * <li>définition des paramêtre d'affichage</li>
+	 * <li>Ajout des boutons d'actions</li>
+	 * </ul>
+	 */
 	public ImageFullScreen(){
 		this.setVisible(true);
 		this.setBackground(new Color(0,0,0));
 		this.setLayout(new BorderLayout());
 				
 		addNavBarBtn();
-		
-					
 	}
 	
-	//Ajout de navigation
-	//Side 0 vaut gauche, side 1 vaut droite 
+	/**
+	 * Ajout de la navigation
+	 * <ul>
+	 * <li>définition des espaces d'affichage et de leur layout</li>
+	 * <li>définition du titre de l'image</li>
+	 * <li>ajout des boutons de navigation et d'action</li>
+	 * <li>organisation des espaces d'affichage dans l'affichage principal</li>
+	 * </ul>
+	 */
 	public void addNavBarBtn(){
 		navBar.setLayout(new BorderLayout());
 		navBarMiddle.setLayout(new FlowLayout());
@@ -101,12 +133,25 @@ public class ImageFullScreen extends JPanel {
 		navBarMiddle.setBackground(Color.black);
 		navBarWest.setBackground(Color.black);
 		navBarEast.setBackground(Color.black);
-
 		
 	}
 	
-	/*
-	 * affichage de l-image en fullscreen
+	
+	
+	
+	/**
+	 * 	Affichage de l'image en fullscreen
+	 * 
+	 * <ul>
+	 * <li>récupération de l'index</li>
+	 * <li>création de l'ImgIcon à partir du nom d'image récupéré dans la liste d'image grâce à l'index</li>
+	 * <li>création du chemin vers l'image</li>
+	 * <li>insertion de l'ImgIcon créé dans un JLabel</li>
+	 * <li>actualisation de l'index de l'image</li>
+	 * </ul>
+	 * 
+	 * @param index
+	 * 			Index de l'image cliqué dans la galerie
 	 */
 	public void displayImg(int index){
 		String imgPath = list.get(index);
@@ -146,8 +191,8 @@ public class ImageFullScreen extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==nextBtn && indexFS < (list.size()-1)){
-					indexFS++;
-					displayImg(indexFS);
+				indexFS++;
+				displayImg(indexFS);
 			}
 			if(e.getSource()==previousBtn && indexFS > 0){
 				indexFS--;
@@ -173,9 +218,11 @@ public class ImageFullScreen extends JPanel {
 				img.delete();
 				thumb.delete();
 				thumbDisplay.refreshList();
-				confirmation.dispose();
+				ThumbDisplay thumbDisplay = GalleryJPanel.getThumbDisplay();
 				thumbDisplay.refresh();
 				MainJFrame.changePanel("galleryJPanel");
+				confirmation.dispose();
+
 			}
 			if(e.getSource()==cancelBtn){
 				confirmation.dispose();

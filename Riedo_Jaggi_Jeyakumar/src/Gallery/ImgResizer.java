@@ -24,7 +24,12 @@ public class ImgResizer {
 	
 	}
 	
-	
+	/**
+	 * 
+	 * @param src
+	 * @param dest
+	 * @param dim
+	 */
 	protected void resizeImg(Path src, Path dest, Dimension dim){
  		
 		try {

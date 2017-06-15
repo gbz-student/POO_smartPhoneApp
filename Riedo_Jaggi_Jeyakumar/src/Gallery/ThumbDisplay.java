@@ -39,12 +39,19 @@ public class ThumbDisplay extends JPanel{
 	public ThumbDisplay() {
 		imgArrayList = createList();
 		displayThumbs();
-		columnDisplay(GalleryConstants.COLUMN);
+		
+		FlowLayout mainLayout = new FlowLayout(0,13,13);
+		this.setLayout(mainLayout);
 	}
 	
 	//Afficher les vignettes à partir de la liste
 	public void displayThumbs(){
-//		imgArrayList = createList();
+		
+		GridLayout columnDisplay = new GridLayout(0,3);
+		columnDisplay.setHgap(15);
+		columnDisplay.setVgap(15);
+		JPanel imgContainer = new JPanel(columnDisplay);
+		
 		
 		if(!imgArrayList.isEmpty()){
 			for(int i=0 ; i<imgArrayList.size() ; i++){
@@ -56,21 +63,13 @@ public class ThumbDisplay extends JPanel{
 				MouseListenerThumb click = new MouseListenerThumb();
 				click.index = i;
 				thumbLabel.addMouseListener(click);
+				imgContainer.add(thumbLabel);
+//				}
 				
-				this.add(thumbLabel);
+				this.add(imgContainer);
 			}
 		}
 	}
-	
-	private void columnDisplay(int nbColumn){
-//		GridLayout column = new GridLayout(0, nbColumn);
-//		column.setHgap(GalleryConstants.Hgap);
-		FlowLayout column = new FlowLayout(0,30,30);
-//		column.setVgap(GalleryConstants.Vgap);
-
-		this.setLayout(column);
-	}
-		
 	
 	private ArrayList<String> createList(){
 		
@@ -91,7 +90,10 @@ public class ThumbDisplay extends JPanel{
 	
 	public static ArrayList<String>getList(){
 		return imgArrayList;
-		
+	}
+	
+	public static void setList(ArrayList<String>newList){
+		imgArrayList = newList;
 	}
 	
 	public static String getImgName(int index){
@@ -106,9 +108,16 @@ public class ThumbDisplay extends JPanel{
 		repaint();
 	}
 	
-	public void refreshList(){
+	public ArrayList<String> refreshList(){
+		
+		System.out.println("avant refresh: "+imgArrayList.size());
 		imgArrayList.clear();
+		System.out.println("apres clear: "+imgArrayList.size());
+
 		imgArrayList = createList();
+		System.out.println("apres recreation "+imgArrayList.size());
+		
+		return imgArrayList;
 	}
 
 	
