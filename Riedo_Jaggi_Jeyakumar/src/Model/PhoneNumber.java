@@ -2,6 +2,12 @@ package Model;
 
 import java.io.Serializable;
 
+/**
+ * Model pour l'object numéro de télphone qui implémente la sérialisation
+ * 
+ * @author ken
+ *
+ */
 public class PhoneNumber implements Serializable{
 	
 	private String typePhoneNumber;

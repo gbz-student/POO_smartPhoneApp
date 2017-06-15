@@ -19,6 +19,11 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import Model.*;
 
+/**
+ * Class qui génére un formulaire pour l'ajout et la modification dans une vue graphique 
+ * @author ken
+ *
+ */
 public class ContactFormView extends JPanel{
 	
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
@@ -38,6 +43,9 @@ public class ContactFormView extends JPanel{
 	private File[] filesImg;
 	private ImageIcon[] items;
 	
+	/**
+	 * Construit mon panel avec le différent champs
+	 */
 	public ContactFormView(){
 		setBackground(new Color(255,255,255));
 		setLayout(new BorderLayout());
@@ -95,6 +103,10 @@ public class ContactFormView extends JPanel{
 		addConstraint(save, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 7);
 	}
 	
+	/**
+	 * Remplit les champs avec les informations du contact (formulaire d'édition) 
+	 * @param contact
+	 */
 	public void setField(Contact contact){
 		firstNameField.setText(contact.getFirstName());
 		lastNameField.setText(contact.getLastName());
@@ -118,6 +130,10 @@ public class ContactFormView extends JPanel{
 		contactId = contact.getId();
 	}
 	
+	/**
+	 * Méthode permetant de remettre les champs à vide
+	 * 
+	 */
 	public void resetField(){
 		firstNameField.setText("");
 		lastNameField.setText("");
@@ -131,6 +147,15 @@ public class ContactFormView extends JPanel{
 		panelContainer.repaint();
 	}
 	
+	/**
+	 * Permet d'ajouté les champs au bon endroit dans le jpanel
+	 * 
+	 * @param comp
+	 * @param insets
+	 * @param anchor
+	 * @param gridx
+	 * @param gridy
+	 */
 	public void addConstraint(Component comp, Insets insets, int anchor, int gridx, int gridy){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = insets;
@@ -140,6 +165,9 @@ public class ContactFormView extends JPanel{
 		panel.add(comp, gbc);	
 	}
 	
+	/**
+	 * Génère une liste de photo
+	 */
 	public void generatePhotoList(){
 		File folder = new File("img_library/thumbs");
 		filesImg = folder.listFiles();
@@ -154,6 +182,13 @@ public class ContactFormView extends JPanel{
 		addConstraint(photoBox, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 3);
 	}
 	
+	/**
+	 * Listener pour l'action save.
+	 * Créé une liste avec les numéros entré
+	 * Set le chemin de l'image
+	 * Selon le statut du formulaire, les données sont envoyé soit vers les méthodes createContact ou ou editContact
+	 * 
+	 */
 	class Save implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -187,6 +222,12 @@ public class ContactFormView extends JPanel{
 		}
 	}
 	
+	/**
+	 * Listener pour l'action back qui rentourne au bon cards.
+	 * 
+	 * @author ken
+	 *
+	 */
 	class Back implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {

@@ -11,12 +11,15 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import Launcher.MainJFrame;
 import Model.*;
 			
+/**
+ * Cette vue permet d'afficher les informations d'un contact (Phonto, prénom, nom, numéros de téléphone et l'adresse email)
+ * @author ken
+ *
+ */
 public class ContactInfoView extends JPanel {
-	
 	private JButton back = new JButton("back");
 	private JButton edit = new JButton("edit");
 	private JButton delete = new JButton("delete");
@@ -29,6 +32,9 @@ public class ContactInfoView extends JPanel {
 	private JLabel nameLabel;
 	private Contact contact;
 	
+	/**
+	 * Construit le JPanel de base et appel les autres méthodes pour se complété
+	 */
 	public ContactInfoView(){
 		setBackground(new Color(255,255,255));
 		setLayout(new BorderLayout());
@@ -58,6 +64,10 @@ public class ContactInfoView extends JPanel {
 		updateContact();
 	}
 	
+	/**
+	 * Cette méthode permet de rafraichir les JPanel image et info.
+	 * Elle est appelé après l'enregistrement des modifications d'un contact
+	 */
 	public void updateContact(){
 		imagePanel.removeAll();
 		infoPanel.removeAll();
@@ -71,6 +81,9 @@ public class ContactInfoView extends JPanel {
 		infoPanel.repaint();
 	}
 	
+	/**
+	 * Méthodes qui construit mon JPnael image (contient la photo, le prénom et le nom)
+	 */
 	public void setImagePanel(){
 		nameLabel = new JLabel(contact.getFirstName() + " " + contact.getLastName());
 		nameLabel.setFont(nameLabel.getFont().deriveFont(25f));
@@ -94,6 +107,9 @@ public class ContactInfoView extends JPanel {
 		contactPanel.add(imagePanel, BorderLayout.NORTH);
 	}
 	
+	/**
+	 * Méthode qui construit mon JPanel info (contient les numéros de téléphone et l'addresse email)
+	 */
 	public void setInfoPanel(){
 		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 		
@@ -110,6 +126,11 @@ public class ContactInfoView extends JPanel {
 		contactPanel.add(infoPanel, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Listener pour le boutton back
+	 * @author ken
+	 *
+	 */
 	class Back implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -117,6 +138,11 @@ public class ContactInfoView extends JPanel {
 		}
 	}
 	
+	/**
+	 * Listener pour le boutton edit
+	 * @author ken
+	 *
+	 */
 	class Edit implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -127,6 +153,11 @@ public class ContactInfoView extends JPanel {
 		}
 	}
 	
+	/**
+	 * Listerner pour le delete
+	 * @author ken
+	 *
+	 */
 	class Delete implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {

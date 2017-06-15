@@ -16,7 +16,11 @@ import javax.swing.border.Border;
 
 import Launcher.MainJFrame;
 import Model.Contact;
-
+/**
+ * Cette vue affiche une liste de contact
+ * @author ken
+ *
+ */
 public class ContactListView extends JPanel {
 	
 	private JButton addContact = new JButton("add");
@@ -25,7 +29,10 @@ public class ContactListView extends JPanel {
 	private ContactInfoView contactInfoView;
 	private static ContactController contactController = ContactView.getContactController();
 	private ArrayList<Contact> contacts = contactController.getContacts();
-		
+	
+	/**
+	 * Construit ma liste de contact pour être affiché
+	 */
 	public ContactListView(){
 		setLayout(new BorderLayout());  
 		
@@ -48,6 +55,9 @@ public class ContactListView extends JPanel {
 		add(scrollPanel, BorderLayout.CENTER);	
 	}
 	
+	/**
+	 *  Génère ma liste avec le bon design
+	 */
 	private void generateList(){
 		Border paddingBorder = BorderFactory.createEmptyBorder(20,10,20,10);
 		Border raisedetched = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(189, 195, 199));
@@ -62,6 +72,10 @@ public class ContactListView extends JPanel {
         }
 	}
 	
+	/**
+	 * Cette méthode permet de rafraichir la vue.
+	 * Elle est appelé après l'enregistrement d'un nouveau contact
+	 */
 	public void updateList(){
 		gridPanel.removeAll();
 		contacts = contactController.getContacts();
@@ -72,6 +86,11 @@ public class ContactListView extends JPanel {
 		gridPanel.repaint();
 	}
 	
+	/**
+	 * Listener pour les boutons permettant de voir les informations d'un contact
+	 * @author ken
+	 *
+	 */
 	class ShowContactListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) { 
 			JButton button = ((JButton) e.getSource());
@@ -84,6 +103,11 @@ public class ContactListView extends JPanel {
 		}
 	}
 	
+	/**
+	 * Listener pour le bouton d'ajout d'un contact
+	 * @author ken
+	 *
+	 */
 	class AddContact implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
