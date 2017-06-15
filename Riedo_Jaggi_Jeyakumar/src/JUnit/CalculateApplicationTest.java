@@ -1,14 +1,18 @@
 package JUnit;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
+
+import Caculate.ActionsButton;
+
 
 public class CalculateApplicationTest {
 
+	private ActionsButton actionButton = new ActionsButton();
+	
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		//TO DO when we have time ;)
+		
 	}
 
 }

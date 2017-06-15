@@ -7,6 +7,14 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
+
+/**
+ * classe permettant de créer un écran pour afficher les résultats des opérations
+ * @author ashan
+ *
+ */
+
 public class ActionsScreen extends JPanel {
 
 	// creation d'un champ de texte
