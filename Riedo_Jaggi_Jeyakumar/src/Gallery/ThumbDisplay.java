@@ -41,8 +41,7 @@ import Launcher.MainJFrame;
  */
 public class ThumbDisplay extends JPanel{
 	
-	static int index;
-	
+	JPanel imgContainer;
 	/**
 	 * ArrayList stockant le nom des images contenu dans le dossier img_library 
 	 */
@@ -67,7 +66,7 @@ public class ThumbDisplay extends JPanel{
 		GridLayout columnDisplay = new GridLayout(0,3);
 		columnDisplay.setHgap(15);
 		columnDisplay.setVgap(15);
-		JPanel imgContainer = new JPanel(columnDisplay);
+		imgContainer = new JPanel(columnDisplay);
 		
 		/**
 		 * test pour éviter l'erreur de liste vide
@@ -75,6 +74,7 @@ public class ThumbDisplay extends JPanel{
 		if(!imgArrayList.isEmpty()){
 			for(int i=0 ; i<imgArrayList.size() ; i++){
 				
+//				imgArrayList = new ArrayList<String>();
 				String thumbName = imgArrayList.get(i);
 				ImageIcon thumb = new ImageIcon(GalleryConstants.THUMB_FOLDER_PATH+"/"+thumbName);
 				JLabel thumbLabel = new JLabel(thumb);
@@ -115,9 +115,6 @@ public class ThumbDisplay extends JPanel{
 		return imgArrayList;
 	}
 	
-	public static int getIndex(){
-		return index;
-	}
 	
 	/**
 	 * remplace la liste de nom d'image par une nouvelle liste fraîche
@@ -141,7 +138,7 @@ public class ThumbDisplay extends JPanel{
 	 * Rafraìchit la galerie
 	 */
 	public void refresh(){
-		removeAll();		
+		removeAll();	
 		displayThumbs();
 		revalidate();
 		repaint();
@@ -151,16 +148,10 @@ public class ThumbDisplay extends JPanel{
 	 * Rafraichit la liste de nom d'image
 	 * @return
 	 */
-	public ArrayList<String> refreshList(){
+	public void refreshList(){
 		
-		System.out.println("avant refresh: "+imgArrayList.size());
 		imgArrayList.clear();
-		System.out.println("apres clear: "+imgArrayList.size());
-
 		imgArrayList = createList();
-		System.out.println("apres recreation "+imgArrayList.size());
-		
-		return imgArrayList;
 	}
 
 	/**
@@ -169,8 +160,7 @@ public class ThumbDisplay extends JPanel{
 	 */
 	class MouseListenerThumb implements MouseListener{
 		
-		int i = getIndex();
- 
+		int index;
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent e){
 			MainJFrame.changePanel("imageFullScreen");

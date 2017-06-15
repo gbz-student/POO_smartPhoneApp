@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.ImageFilter;
 import java.io.File;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -99,7 +100,14 @@ public class ImageFullScreen extends JPanel {
 		navBarWest.setLayout(new FlowLayout());
 		navBarEast.setLayout(new FlowLayout());
 		
-		TitleJPanel imgTitle = new TitleJPanel(list.get(indexFS));
+		TitleJPanel imgTitle; 
+		if(list.size()>0){
+			imgTitle = new TitleJPanel(list.get(indexFS));
+		}
+		else {
+			imgTitle = new TitleJPanel("Aucune image");
+		}
+			
 
 		previousBtn.setText("<");
 		previousBtn.addActionListener(new Navigation());
@@ -222,16 +230,18 @@ public class ImageFullScreen extends JPanel {
 			}
 			
 			if(e.getSource()==okBtn){
+				confirmation.dispose();
 				String name = thumbDisplay.getImgName(indexFS);
 				File img = new File(GalleryConstants.IMG_FOLDER+name);
 				File thumb = new File(GalleryConstants.THUMB_FOLDER+name);
 				img.delete();
 				thumb.delete();
-				thumbDisplay.refreshList();
+				
 				ThumbDisplay thumbDisplay = GalleryJPanel.getThumbDisplay();
+				thumbDisplay.refreshList();
 				thumbDisplay.refresh();
 				MainJFrame.changePanel("galleryJPanel");
-				confirmation.dispose();
+
 
 			}
 			if(e.getSource()==cancelBtn){
