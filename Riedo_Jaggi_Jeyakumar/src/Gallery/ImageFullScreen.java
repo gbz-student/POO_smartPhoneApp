@@ -162,6 +162,9 @@ public class ImageFullScreen extends JPanel {
 		indexFS = index;
 	}
 	
+	/**
+	 * Lancement de la JFrame de confirmation de suppression
+	 */
 	public void confirmRemove(){
 
 		confirmation.setVisible(true);
@@ -176,16 +179,21 @@ public class ImageFullScreen extends JPanel {
 		cancelBtn.addActionListener(new Remove());
 	}
 	
+	/**
+	 * Listener pour le retour vres la galerie
+	 */
 	class CloseListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			MainJFrame.changePanel("galleryJPanel");
 		}
-		
-		
 	}
 	
+	
+	/**
+	 * Listener pour la navigation
+	 */
 	class Navigation implements ActionListener{
 		
 		@Override
@@ -198,11 +206,13 @@ public class ImageFullScreen extends JPanel {
 				indexFS--;
 				displayImg(indexFS);
 			}
-			
 		}
-
 	}
 	
+	
+	/**
+	 * Listener pour la supression d'image et confirmation
+	 */
 	class Remove implements ActionListener{
 		
 		@Override
@@ -227,9 +237,7 @@ public class ImageFullScreen extends JPanel {
 			if(e.getSource()==cancelBtn){
 				confirmation.dispose();
 			}
-			
 		}
-
 	}
 	
 	
