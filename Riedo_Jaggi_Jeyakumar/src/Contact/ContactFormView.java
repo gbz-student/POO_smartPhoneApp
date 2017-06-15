@@ -178,14 +178,16 @@ public class ContactFormView extends JPanel{
 		File folder = new File("img_library/thumbs");
 		filesImg = folder.listFiles();
 		
-		items = new ImageIcon[filesImg.length];
+		if(filesImg.length != 0){
+			items = new ImageIcon[filesImg.length];
 		
-		for(int i=0; i < filesImg.length; i++){
-			items[i] = new ImageIcon(filesImg[i].getPath());
+			for(int i=0; i < filesImg.length; i++){
+				items[i] = new ImageIcon(filesImg[i].getPath());
+			}
+	        photoBox = new JComboBox(items);
+	        
+			addConstraint(photoBox, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 3);
 		}
-        photoBox = new JComboBox(items);
-        
-		addConstraint(photoBox, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 3);
 	}
 	
 	/**
