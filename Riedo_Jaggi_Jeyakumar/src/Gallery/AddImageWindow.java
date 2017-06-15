@@ -23,20 +23,53 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Launcher.MainJFrame;
 
+/**
+ * Permet l'utilisation d'un JFileChooser pour ajouter des images jpg et gif
+ * Rafraîchit la galerie suite à l'ajout d'une image
+ * 
+ * @author Gabriel Riedo
+ * 
+ */
+
 public class AddImageWindow extends JFileChooser{
 	
+	/**
+	 * Source de l'image envoyée vers la galerie
+	 */
 	private File imgSourceFile;
+	
+	/**
+	 * Récupération de la liste des images ajoutées à l'application
+	 */
 	private ArrayList<String>list = ThumbDisplay.getList();
-	private JButton addImgButton;
-		
+	
+
+	/**
+	 * <b>Constructeur AddImageWindow</b>
+	 * <p>
+	 * Lance les méthodes permattant l'ajout d'image
+	 * <ul>
+	 * <li> initialisation d'une instance de JFileChooser</li>
+	 * <li> récupétation de l'image source à introduire dans le programme</li>
+	 * <li> rafraîchissement de la galerie pour prendre en compte la nouvelle image</li>
+	 * </ul>
+	 */
 	public AddImageWindow(){
 		initActionWindows();
 		addImage(imgSourceFile);
 		refreshGallery();
 	}
 	
+	/**
+	 * <b>Initialisation d'une instance de JFileChooser</b>
+	 * <ul>
+	 * <li>ajout d'une instance de JButton pour réagir à la confirmation</li>
+	 * <li>filtrage du type de fichier réglé sur jpg et gif</li>
+	 * <li>récupération de l'image</li>
+	 * </ul> 
+	 */
 	private void initActionWindows(){
-		addImgButton = new JButton();
+		JButton addImgButton = new JButton();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
 	   	this.setFileFilter(filter);
 	   	this.setCurrentDirectory(GalleryConstants.DEFAULT_FOLDER_FILECHOOSER);
@@ -44,6 +77,13 @@ public class AddImageWindow extends JFileChooser{
 	    imgSourceFile = this.getSelectedFile();
 	  }
 	
+	/**
+	 * <b>méthode d'ajout de l'image</b>
+	 * 
+	 * @param file
+	 * 			Fichier à ajouter à l'application
+	 * 
+	 */
 	private void addImage(File file){
 		//ajout de l'image 
 		Path imgSource = imgSourceFile.toPath();
@@ -59,16 +99,12 @@ public class AddImageWindow extends JFileChooser{
 	}
 	
 	
-	
-	private void refreshGallery(){
+	/**
+	 * <b>Méthode de rafraîchissement de la galerie</b>
+	 */
+	private static void refreshGallery(){
 		ThumbDisplay thumbDisplay = GalleryJPanel.getThumbDisplay();
 		thumbDisplay.refresh();
-
 	}
-		
-
-						
 	
-	
-
 }

@@ -24,13 +24,45 @@ import javax.swing.JTextArea;
 import Launcher.MainJFrame;
 import MainPackage.TitleJPanel;
 
+/**
+ * Classe permettant de créer l'instance de galerie appelée au lancement de l'application
+ * 
+ * @author Gabriel Riedo
+ *
+ */
 public class GalleryJPanel extends JPanel {
-		
+	
+	
+	/**
+	 * Barre de titre en sommet de galerie
+	 */
 	private static TitleJPanel title;
+	
+	/**
+	 * Barre comportant des fonctions d'ajout et retrait d'image
+	 */
 	private static ActionBar imgActionBar ; 
+	
+	/**
+	 * Panel comprenant et organisation l'affichage des vignettes
+	 */
 	private static ThumbDisplay thumbsPanel;
+	
+	/**
+	 * Scroll permettant de parcourir une liste de vignettes plus haute que la hauteur de l'application
+	 */
 	private static JScrollPane thumbScroll;
 	
+	
+	/**
+	 * <b>Constructeur par défaut de la classe GalleryJPanel</b>
+	 * <ul>
+	 * <li>Création d'une instance de ThumbDisplay</li>
+	 * <li>Création d'une instance de JScrollPane</li>
+	 * <li>Ajout de l'instance ThumbDisplay dans l'instance JScrollPane</li>
+	 * <li>Instanciation de la barre de titre</li>
+	 * </ul> 
+	 */
 	public GalleryJPanel() {
 		
 		this.setVisible(true);
@@ -52,10 +84,18 @@ public class GalleryJPanel extends JPanel {
         
 		}
 	
+	/**
+	 * Getter du ThumbDisplay
+	 * @return L'instance de Thumbdisplay utilisée dans l'affichage de la galerie
+	 */
 	public static ThumbDisplay getThumbDisplay(){
 		return thumbsPanel;
 	}
 	
+	/**
+	 * Getter
+	 * @return L'instance du JScrollPane utilisée dans l'affichage de la galerie
+	 */
 	public static JScrollPane getThumbScrollPane(){
 		return thumbScroll;
 	}
