@@ -116,7 +116,7 @@ public class ContactInfoView extends JPanel {
 		
 		for(PhoneNumber number : contact.getPhoneNumbers()){
 			JPanel panel = new PersonalDataRow("Téléphone " + number.getTypePhoneNumber() + ": ", number.getPhoneNumber());
-			JButton phone = new JButton("phone");
+			JButton phone = new ButtonImage("resources/ic_phone.png");
 			panel.add(phone, BorderLayout.EAST);
 			infoPanel.add(panel);
 		}
