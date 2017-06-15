@@ -13,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
-
-import Launcher.LauncherButton;
 import Launcher.MainJFrame;
 import MainPackage.ButtonImage;
 import Model.Contact;
