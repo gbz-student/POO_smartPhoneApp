@@ -18,8 +18,8 @@ public class GalleryConstants {
 	public final static File THUMB_FOLDER_FILE = new File(THUMB_FOLDER);
 	public final static Path THUMB_FOLDER_PATH = Paths.get(THUMB_FOLDER);
 	
-	//suffixe des thumbs
-	public final static String THUMB_SUFFIX = "_thumb";
+//	//suffixe des thumbs
+//	public final static String THUMB_SUFFIX = "_thumb";
 	
 	//taille et dimension des vignettes
 	public final static int THUMBS_WIDTH = 130;
@@ -35,6 +35,9 @@ public class GalleryConstants {
 	
 	//nbre de colonnes de vignettes
 	public final static int COLUMN = 3;
+	
+	//dossier par defaut de JFileChooser
+	public final static File DEFAULT_FOLDER_FILECHOOSER = new File("./images_test/");
 
 	
 	

@@ -22,26 +22,23 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ImgInfo {
 
 	private String imgName;
-	private String thumbName;
+//	private String thumbName;
 	
 	public ImgInfo(){
-		
-	}	
-	
-	public ImgInfo(String imgName){
 		this.imgName = imgName;
-		this.thumbName = nameThumb(imgName);	
+//		this.thumbName = thumbName;
+		
 	}
 			
 	//Ajout d'un suffixe au nom de fichier
-	private static String nameThumb(String inputName){
-
-		String beforeExtension = inputName.substring(0, inputName.lastIndexOf("."));
-		String extension = inputName.substring(inputName.lastIndexOf("."), inputName.length());
-		String outputName = beforeExtension + GalleryConstants.THUMB_SUFFIX + extension;
-
-		return outputName;		
-	}
+//	private static String nameThumb(String inputName){
+//
+//		String beforeExtension = inputName.substring(0, inputName.lastIndexOf("."));
+//		String extension = inputName.substring(inputName.lastIndexOf("."), inputName.length());
+//		String outputName = beforeExtension + GalleryConstants.THUMB_SUFFIX + extension;
+//
+//		return outputName;		
+//	}
 
 	//Création de la liste d'objet
 	protected ArrayList<ImgInfo> createList(){
@@ -61,11 +58,20 @@ public class ImgInfo {
 	
 	}
 	
-	public String getThumbName(){
-		return thumbName;
+	public void setImgName(String imgName){
+		this.imgName = imgName;
 	}
+	
+	public void setThumbName(String thumbName){
+		this.thumbName = thumbName;
+	}
+	
 	public String getImgName(){
 		return imgName;
+	}
+	
+	public String getThumbName(){
+		return thumbName;
 	}
 		
 }

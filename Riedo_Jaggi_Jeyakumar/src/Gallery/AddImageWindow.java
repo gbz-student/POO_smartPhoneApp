@@ -18,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Launcher.MainJFrame;
@@ -25,45 +26,49 @@ import Launcher.MainJFrame;
 public class AddImageWindow extends JFileChooser{
 	
 	private File imgSourceFile;
-	private ThumbDisplay thumbDisplay = new ThumbDisplay(); 	
-	private ArrayList<ImgInfo>list = thumbDisplay.getList();
-	private GalleryJPanel galleryPanel = new GalleryJPanel();
-	private ThumbDisplay thumbDisp = galleryPanel.getThumbDisplay();
+	private ArrayList<String>list = ThumbDisplay.getList();
+	private JButton addImgButton;
 		
 	public AddImageWindow(){
 		initActionWindows();
+		addImage(imgSourceFile);
+		refreshGallery();
 	}
 	
 	private void initActionWindows(){
-		JButton addImgButton = new JButton();
+		addImgButton = new JButton();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");
 	   	this.setFileFilter(filter);
+	   	this.setCurrentDirectory(GalleryConstants.DEFAULT_FOLDER_FILECHOOSER);
 	    int returnVal = this.showOpenDialog(addImgButton);
 	    imgSourceFile = this.getSelectedFile();
-	    addImage(imgSourceFile);
-	}
+	  }
 	
 	private void addImage(File file){
 		//ajout de l'image 
 		Path imgSource = imgSourceFile.toPath();
 		Path originalImgPath = Paths.get(GalleryConstants.IMG_FOLDER+imgSourceFile.getName());
-		ImgInfo imgInfo = new ImgInfo(imgSourceFile.getName());
-		list.add(imgInfo);
+		String imgSourceName = imgSourceFile.getName();
+		list.add(imgSourceName);
 		int last = list.size()-1;
-		Path thumbPath = Paths.get(GalleryConstants.THUMB_FOLDER+list.get(last).getThumbName());
+		Path thumbPath = Paths.get(GalleryConstants.THUMB_FOLDER+imgSourceName);
 		ImgResizer resizer = new ImgResizer();
 
 		resizer.resizeImg(imgSource, originalImgPath, GalleryConstants.IMG_DIM);
 		resizer.resizeThumb(imgSource, thumbPath, GalleryConstants.THUMBS_DIM);
-		
-		
-//		ThumbDisplay thumbCard = (ThumbDisplay)MainJFrame.getCards(3);
-//		thumbCard.displayThumbs();
-		
+	}
+	
+	
+	
+	private void refreshGallery(){
+		ThumbDisplay thumbDisplay = GalleryJPanel.getThumbDisplay();
+		thumbDisplay.refresh();
+
+	}
 		
 
 						
-	}
+	
 	
 
 }
