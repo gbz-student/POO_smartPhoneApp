@@ -166,6 +166,7 @@ public class ThumbDisplay extends JPanel{
 			MainJFrame.changePanel("imageFullScreen");
 			ImageFullScreen imgFS = (ImageFullScreen)MainJFrame.getCards(4);
 			imgFS.displayImg(index);
+			System.out.println("index image "+index);
 
 		}
 

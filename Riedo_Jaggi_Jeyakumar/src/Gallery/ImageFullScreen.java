@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +26,7 @@ import javax.swing.JPanel;
 
 import Gallery.ActionBar.ActionButtonListener;
 import Launcher.MainJFrame;
+import MainPackage.ButtonImage;
 import MainPackage.TitleJPanel;
 
 
@@ -60,10 +62,10 @@ public class ImageFullScreen extends JPanel {
 	JPanel navBarEast = new JPanel();
 	JPanel navBarWest = new JPanel();
 	
-	JButton closeBtn = new JButton();
-	JButton previousBtn = new JButton();
-	JButton nextBtn = new JButton();
-	JButton removeBtn = new JButton();
+	ButtonImage closeBtn = new ButtonImage("./resources/ic_gallery.png");
+	ButtonImage previousBtn = new ButtonImage("./resources/ic_previous.png");
+	ButtonImage nextBtn = new ButtonImage("./resources/ic_next.png");
+	ButtonImage removeBtn = new ButtonImage("./resources/ic_delete.png");
 	
 	JFrame confirmation = new JFrame("Confirmation");
 	JButton okBtn= new JButton();
@@ -109,16 +111,12 @@ public class ImageFullScreen extends JPanel {
 		}
 			
 
-		previousBtn.setText("<");
 		previousBtn.addActionListener(new Navigation());
 				
-		nextBtn.setText(">");
 		nextBtn.addActionListener(new Navigation());
 		
-		removeBtn.setText("supprimer");
 		removeBtn.addActionListener(new Remove());
 		
-		closeBtn.setText("Galerie");
 		closeBtn.addActionListener(new CloseListener());
 		
 		okBtn.setText("OK");
@@ -137,10 +135,10 @@ public class ImageFullScreen extends JPanel {
 		this.add(navBar, BorderLayout.SOUTH);
 		this.add(imgTitle, BorderLayout.NORTH);
 		
-		navBar.setBackground(Color.black);
-		navBarMiddle.setBackground(Color.black);
-		navBarWest.setBackground(Color.black);
-		navBarEast.setBackground(Color.black);
+		navBar.setBackground(new Color(38, 166, 154));
+		navBarMiddle.setBackground(new Color(38, 166, 154));
+		navBarWest.setBackground(new Color(38, 166, 154));
+		navBarEast.setBackground(new Color(38, 166, 154));
 		
 	}
 	
@@ -176,12 +174,23 @@ public class ImageFullScreen extends JPanel {
 	public void confirmRemove(){
 
 		confirmation.setVisible(true);
-		FlowLayout layout = new FlowLayout(0);
-		confirmation.setLayout(layout);
-		confirmation.setSize(140, 100);
+		confirmation.setSize(200, 130);
+		confirmation.setLocation(300, 200);
 		
-		confirmation.add(okBtn);
-		confirmation.add(cancelBtn);
+		
+		FlowLayout layout = new FlowLayout(1,0,13);
+		confirmation.setLayout(layout);
+		
+		GridLayout grid = new GridLayout(1, 2);
+		grid.setHgap(10);
+		JPanel btnPanel = new JPanel(grid);
+		
+		JLabel confirmText = new JLabel("Supprimer l'image?");
+					
+		btnPanel.add(okBtn);
+		btnPanel.add(cancelBtn);
+		confirmation.add(confirmText);
+		confirmation.add(btnPanel);
 		
 		okBtn.addActionListener(new Remove());
 		cancelBtn.addActionListener(new Remove());
