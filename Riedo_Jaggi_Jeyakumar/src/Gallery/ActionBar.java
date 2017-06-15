@@ -15,29 +15,26 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import MainPackage.ButtonImage;
+
 public class ActionBar extends JPanel{
 
-	JButton addImg = new JButton("Ajouter");
-	JButton removeImg = new JButton("Supprimer");
+	JButton addImg = new ButtonImage("./resources/ic_add.png");
 	
 	
 	public ActionBar(){
 
 		this.setLayout(new FlowLayout());
-		this.setBackground(Color.BLACK);
+		this.setBackground(new Color(38, 166, 154));
 		this.setVisible(true);
 
 		initButton();
-		
 	}
 	
 	private void initButton(){
 				
 		addImg.addActionListener(new ActionButtonListener());
-		removeImg.addActionListener(new ActionButtonListener());
-				
 		this.add(addImg);
-		this.add(removeImg);
 	}
 	
 

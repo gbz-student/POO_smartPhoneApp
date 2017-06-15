@@ -6,11 +6,13 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.ImageFilter;
 import java.io.File;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import javax.swing.JPanel;
 
 import Gallery.ActionBar.ActionButtonListener;
 import Launcher.MainJFrame;
+import MainPackage.ButtonImage;
 import MainPackage.TitleJPanel;
 
 
@@ -59,10 +62,10 @@ public class ImageFullScreen extends JPanel {
 	JPanel navBarEast = new JPanel();
 	JPanel navBarWest = new JPanel();
 	
-	JButton closeBtn = new JButton();
-	JButton previousBtn = new JButton();
-	JButton nextBtn = new JButton();
-	JButton removeBtn = new JButton();
+	ButtonImage closeBtn = new ButtonImage("./resources/ic_gallery.png");
+	ButtonImage previousBtn = new ButtonImage("./resources/ic_previous.png");
+	ButtonImage nextBtn = new ButtonImage("./resources/ic_next.png");
+	ButtonImage removeBtn = new ButtonImage("./resources/ic_delete.png");
 	
 	JFrame confirmation = new JFrame("Confirmation");
 	JButton okBtn= new JButton();
@@ -99,18 +102,21 @@ public class ImageFullScreen extends JPanel {
 		navBarWest.setLayout(new FlowLayout());
 		navBarEast.setLayout(new FlowLayout());
 		
-		TitleJPanel imgTitle = new TitleJPanel(list.get(indexFS));
+		TitleJPanel imgTitle; 
+		if(list.size()>0){
+			imgTitle = new TitleJPanel(list.get(indexFS));
+		}
+		else {
+			imgTitle = new TitleJPanel("Aucune image");
+		}
+			
 
-		previousBtn.setText("<");
 		previousBtn.addActionListener(new Navigation());
 				
-		nextBtn.setText(">");
 		nextBtn.addActionListener(new Navigation());
 		
-		removeBtn.setText("supprimer");
 		removeBtn.addActionListener(new Remove());
 		
-		closeBtn.setText("Galerie");
 		closeBtn.addActionListener(new CloseListener());
 		
 		okBtn.setText("OK");
@@ -129,10 +135,10 @@ public class ImageFullScreen extends JPanel {
 		this.add(navBar, BorderLayout.SOUTH);
 		this.add(imgTitle, BorderLayout.NORTH);
 		
-		navBar.setBackground(Color.black);
-		navBarMiddle.setBackground(Color.black);
-		navBarWest.setBackground(Color.black);
-		navBarEast.setBackground(Color.black);
+		navBar.setBackground(new Color(38, 166, 154));
+		navBarMiddle.setBackground(new Color(38, 166, 154));
+		navBarWest.setBackground(new Color(38, 166, 154));
+		navBarEast.setBackground(new Color(38, 166, 154));
 		
 	}
 	
@@ -162,30 +168,49 @@ public class ImageFullScreen extends JPanel {
 		indexFS = index;
 	}
 	
+	/**
+	 * Lancement de la JFrame de confirmation de suppression
+	 */
 	public void confirmRemove(){
 
 		confirmation.setVisible(true);
-		FlowLayout layout = new FlowLayout(0);
-		confirmation.setLayout(layout);
-		confirmation.setSize(140, 100);
+		confirmation.setSize(200, 130);
+		confirmation.setLocation(300, 200);
 		
-		confirmation.add(okBtn);
-		confirmation.add(cancelBtn);
+		
+		FlowLayout layout = new FlowLayout(1,0,13);
+		confirmation.setLayout(layout);
+		
+		GridLayout grid = new GridLayout(1, 2);
+		grid.setHgap(10);
+		JPanel btnPanel = new JPanel(grid);
+		
+		JLabel confirmText = new JLabel("Supprimer l'image?");
+					
+		btnPanel.add(okBtn);
+		btnPanel.add(cancelBtn);
+		confirmation.add(confirmText);
+		confirmation.add(btnPanel);
 		
 		okBtn.addActionListener(new Remove());
 		cancelBtn.addActionListener(new Remove());
 	}
 	
+	/**
+	 * Listener pour le retour vres la galerie
+	 */
 	class CloseListener implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			MainJFrame.changePanel("galleryJPanel");
 		}
-		
-		
 	}
 	
+	
+	/**
+	 * Listener pour la navigation
+	 */
 	class Navigation implements ActionListener{
 		
 		@Override
@@ -198,11 +223,13 @@ public class ImageFullScreen extends JPanel {
 				indexFS--;
 				displayImg(indexFS);
 			}
-			
 		}
-
 	}
 	
+	
+	/**
+	 * Listener pour la supression d'image et confirmation
+	 */
 	class Remove implements ActionListener{
 		
 		@Override
@@ -212,24 +239,24 @@ public class ImageFullScreen extends JPanel {
 			}
 			
 			if(e.getSource()==okBtn){
+				confirmation.dispose();
 				String name = thumbDisplay.getImgName(indexFS);
 				File img = new File(GalleryConstants.IMG_FOLDER+name);
 				File thumb = new File(GalleryConstants.THUMB_FOLDER+name);
 				img.delete();
 				thumb.delete();
-				thumbDisplay.refreshList();
+				
 				ThumbDisplay thumbDisplay = GalleryJPanel.getThumbDisplay();
+				thumbDisplay.refreshList();
 				thumbDisplay.refresh();
 				MainJFrame.changePanel("galleryJPanel");
-				confirmation.dispose();
+
 
 			}
 			if(e.getSource()==cancelBtn){
 				confirmation.dispose();
 			}
-			
 		}
-
 	}
 	
 	

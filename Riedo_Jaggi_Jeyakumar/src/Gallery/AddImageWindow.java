@@ -84,7 +84,7 @@ public class AddImageWindow extends JFileChooser{
 	 * 			Fichier à ajouter à l'application
 	 * 
 	 */
-	private void addImage(File file){
+	public void addImage(File file){
 		//ajout de l'image 
 		Path imgSource = imgSourceFile.toPath();
 		Path originalImgPath = Paths.get(GalleryConstants.IMG_FOLDER+imgSourceFile.getName());

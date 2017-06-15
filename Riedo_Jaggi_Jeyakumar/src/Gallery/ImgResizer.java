@@ -11,24 +11,39 @@ import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
+/**
+ * 
+ * Classe permettant le redimensionement et enregistrement des images des images lors de leur téléchargement
+ * 
+ * @author Gabriel Riedo
+ *
+ */
 public class ImgResizer {
 	
+	/**
+	 * initialisation des variables permettant le renomage par incrémentation si le nom de l'image téléchargée
+	 * existe déjà dans le programme
+	 */
 	int imgIncrement = 0;
 	String imgIncrementStr;
-	int thumbIncrement = 0;
-	String thumbIncrementStr;
 	String outputFileName;
 
 	
+	/**
+	 * Constructeur par défaut
+	 */
 	public ImgResizer(){
-	
 	}
 	
 	/**
+	 * Méthode pour redimensionner l'image pour optimiser son affichage
 	 * 
 	 * @param src
+	 * 			source de l'image à redimensionner
 	 * @param dest
+	 * 			chemin du dossier dans lequel enregistrer la sortie
 	 * @param dim
+	 * 			dimension de la sortie
 	 */
 	protected void resizeImg(Path src, Path dest, Dimension dim){
  		
@@ -36,7 +51,9 @@ public class ImgResizer {
 			double maxWidth = dim.getWidth();
 			double maxHeight = dim.getHeight();
 			
-			// reads input image
+			/**
+			 *  lecture de l'image en input
+			 */
 			String imgOriginalPathStr = src.toString();
 			File inputFile = new File(imgOriginalPathStr);
 			String inputFileName = inputFile.getName();
@@ -44,7 +61,9 @@ public class ImgResizer {
 			String extension = inputFileName.substring(inputFileName.lastIndexOf("."), inputFileName.length());
 			BufferedImage inputImage = ImageIO.read(inputFile);
 			
-			// creates output image
+			/**
+			 *  instanciation de l'image output
+			 */
 			double inputWidth = inputImage.getWidth();
 			double inputHeight = inputImage.getHeight();
 			
@@ -66,17 +85,25 @@ public class ImgResizer {
 			BufferedImage outputImage = new BufferedImage((int)outputWidth, (int)outputHeight, inputImage.getType());
 
 				
-			// scales the input image to the output image
+			/**
+			 * redimensionnement de l'image en input à la taille de l'instance output
+			 */
 			Graphics2D g2d = outputImage.createGraphics();
 			        
-			//crops inputimage for thumbs
+			/**
+			 * génère le contenu de l'image output
+			 */
 			g2d.drawImage(inputImage, 0, 0, (int)outputWidth, (int)outputHeight, null);
 			g2d.dispose();
 
-			//extracts extension of output file
+			/**
+			 * extraction de l'extension
+			 */
 			String formatName = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
 			  
-			// writes to output file	
+			/**
+			 * écriture du fichier de sortie avec incrément si le nom de l'image existe déjà dans le dossier de sortie	
+			 */
 			File outputFile ;
 			do{
 				if(imgIncrement>0)
@@ -99,14 +126,26 @@ public class ImgResizer {
 		}
 	}
 	
-	//Redimensionnement de l'image
+	/**
+	 * Méthode pour redimensionner et recadrer la vignette pour optimiser son affichage
+	 * 
+	 * @param src
+	 * 			source de l'image à redimensionner
+	 * @param dest
+	 * 			chemin du dossier dans lequel enregistrer la sortie
+	 * @param dim
+	 * 			dimension de la sortie
+	 * 
+	 */
 	protected void resizeThumb(Path src, Path dest, Dimension dim){
 	 				
 		try {
 			int width = (int)dim.getWidth();
 			int height = (int)dim.getHeight();
 			
-			// reads input image
+			/**
+			 *  lecture de l'image en input
+			 */
 			String imgOriginalPathStr = src.toString();
 			File inputFile = new File(imgOriginalPathStr);
 			String inputFileName = inputFile.getName();
@@ -116,13 +155,19 @@ public class ImgResizer {
 			
 			inputImage = ImageIO.read(inputFile);
 						
-			// creates output image
+			/**
+			 *  instanciation de l'image output
+			 */
 			BufferedImage outputImage = new BufferedImage(width, height, inputImage.getType());
 			        
-			// scales the input image to the output image
+			/**
+			 * création de l'image de sortie
+			 */
 			Graphics2D g2d = outputImage.createGraphics();
 			        
-			//crops inputimage for thumbs
+			/**
+			 * recadrage de la vignette
+			 */
 				int[]cropCoord = getCropCoord(inputImage);
 				BufferedImage inputImageCropped = inputImage.getSubimage(cropCoord[0],cropCoord[1],cropCoord[2],cropCoord[3]);
 
@@ -132,7 +177,9 @@ public class ImgResizer {
 				//extracts extension of output file
 			String formatName = inputFileName.substring(inputFileName.lastIndexOf(".") + 1);
 			  
-			// writes to output file	
+			/**
+			 * écriture du fichier de sortie avec récupération du nom de l'image en cas d'écrémentation du nom	
+			 */	
 			File outputFile ;
 			
 			outputFile = new File(GalleryConstants.THUMB_FOLDER+outputFileName);
@@ -140,24 +187,21 @@ public class ImgResizer {
 							
 			ImageIO.write(outputImage, formatName, outputFile);
 		} catch (IOException e) {
-			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		}
 		
    	}
 	
 
-	
-	//Ajout d'un suffixe au nom de fichier
-	private static String rename(String inputName, String addStr){
-		String beforeExtension = inputName.substring(0, inputName.lastIndexOf("."));
-		String extension = inputName.substring(inputName.lastIndexOf("."), inputName.length());
-		
-		String outputName = beforeExtension + addStr + extension;
-		
-		return outputName;		
-	}
-	
+	/**
+	 * Calcul de coordonnées pour le recadrage de la vignette
+	 * 
+	 * @param inputImage
+	 * 			image à croper
+	 * 
+	 * @return Les coordonnées pour le recadrage sous forme d'un tableau de 4 lignes
+	 * 
+	 */		
 	private static int[]getCropCoord(BufferedImage inputImage){
 		int height = inputImage.getHeight();
 		int width = inputImage.getWidth();

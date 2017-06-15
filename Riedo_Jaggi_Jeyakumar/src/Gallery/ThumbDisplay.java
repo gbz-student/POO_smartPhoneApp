@@ -32,10 +32,27 @@ import org.w3c.dom.events.MouseEvent;
 
 import Launcher.MainJFrame;
 
+/**
+ * 
+ * Classe permettant l'affichage des vignettes dans la galerie
+ * 
+ * @author Gabriel Riedo 
+ *
+ */
 public class ThumbDisplay extends JPanel{
 	
+	JPanel imgContainer;
+	
+
+	/**
+	 * ArrayList stockant le nom des images contenu dans le dossier img_library 
+	 */
 	private static ArrayList<String>imgArrayList;
 		
+	
+	/**
+	 * Constructeur par défaut permettant de générer la liste des images ainsi que leur affichage dans le panel principal 
+	 */
 	public ThumbDisplay() {
 		imgArrayList = createList();
 		displayThumbs();
@@ -44,15 +61,20 @@ public class ThumbDisplay extends JPanel{
 		this.setLayout(mainLayout);
 	}
 	
-	//Afficher les vignettes à partir de la liste
+	
+	/**
+	 * Afficher les vignettes à partir de la liste
+	 */
 	public void displayThumbs(){
 		
 		GridLayout columnDisplay = new GridLayout(0,3);
 		columnDisplay.setHgap(15);
 		columnDisplay.setVgap(15);
-		JPanel imgContainer = new JPanel(columnDisplay);
+		imgContainer = new JPanel(columnDisplay);
 		
-		
+		/**
+		 * test pour éviter l'erreur de liste vide
+		 */
 		if(!imgArrayList.isEmpty()){
 			for(int i=0 ; i<imgArrayList.size() ; i++){
 				
@@ -64,13 +86,16 @@ public class ThumbDisplay extends JPanel{
 				click.index = i;
 				thumbLabel.addMouseListener(click);
 				imgContainer.add(thumbLabel);
-//				}
 				
 				this.add(imgContainer);
 			}
 		}
 	}
 	
+	/**
+	 * Création de la liste d'image
+	 * @return ArrayList contenu en String le nom des images contenues dans le dossier img_library
+	 */
 	private ArrayList<String> createList(){
 		
 		imgArrayList = new ArrayList<String>();
@@ -83,54 +108,67 @@ public class ThumbDisplay extends JPanel{
 				imgArrayList.add(imgList[i]);
 			}
 		}
-		
-		return imgArrayList;
-	
+		return imgArrayList;	
 	}
 	
+	/**
+	 * @return La liste des noms d'image
+	 */
 	public static ArrayList<String>getList(){
 		return imgArrayList;
 	}
 	
+	
+	/**
+	 * remplace la liste de nom d'image par une nouvelle liste fraîche
+	 * @param newList
+	 */
 	public static void setList(ArrayList<String>newList){
 		imgArrayList = newList;
 	}
 	
+	/**
+	 * @param index
+	 * 			index de l'image dont on souhaite le nom
+	 * @return Le nom de l'image
+	 */
 	public static String getImgName(int index){
 		String name = imgArrayList.get(index);
 		return name;
 	}
 	
+	/**
+	 * Rafraìchit la galerie
+	 */
 	public void refresh(){
-		removeAll();		
+		removeAll();	
 		displayThumbs();
 		revalidate();
 		repaint();
 	}
 	
-	public ArrayList<String> refreshList(){
+	/**
+	 * Rafraichit la liste de nom d'image
+	 * @return
+	 */
+	public void refreshList(){
 		
-		System.out.println("avant refresh: "+imgArrayList.size());
 		imgArrayList.clear();
-		System.out.println("apres clear: "+imgArrayList.size());
-
 		imgArrayList = createList();
-		System.out.println("apres recreation "+imgArrayList.size());
-		
-		return imgArrayList;
 	}
 
-	
+	/**
+	 * Listener pour l'affichage en fullscreen de l'image cliquée par récupération de l'index de l'image
+	 * 
+	 */
 	class MouseListenerThumb implements MouseListener{
 		
 		int index;
- 
 		@Override
 		public void mouseClicked(java.awt.event.MouseEvent e){
 			MainJFrame.changePanel("imageFullScreen");
 			ImageFullScreen imgFS = (ImageFullScreen)MainJFrame.getCards(4);
 			imgFS.displayImg(index);
-
 		}
 
 		@Override
