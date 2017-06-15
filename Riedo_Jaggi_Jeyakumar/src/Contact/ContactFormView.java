@@ -16,6 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import MainPackage.ButtonImage;
+
 import java.awt.Insets;
 import Model.*;
 
@@ -29,7 +32,8 @@ public class ContactFormView extends JPanel{
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
 	private JPanel panelContainer = new JPanel();
 	private JPanel panel = new JPanel();
-	private JButton back = new JButton("back");
+	private JButton back = new ButtonImage("resources/ic_back.png");
+	private JButton save = new ButtonImage("resources/ic_save.png");
 	private JTextField firstNameField;
 	private JTextField lastNameField;
 	private JTextField emailField;
@@ -50,7 +54,7 @@ public class ContactFormView extends JPanel{
 		setBackground(new Color(255,255,255));
 		setLayout(new BorderLayout());
 		
-		contactInfoTop.setBackground(new Color(40,50,70));
+		contactInfoTop.setBackground(new Color(38, 166, 154));
 		
 		back.addActionListener(new Back());
 		contactInfoTop.add(back, BorderLayout.WEST);
@@ -98,7 +102,7 @@ public class ContactFormView extends JPanel{
 			addConstraint(phoneField[i], new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 4 + i);
 		}
 		
-		JButton save = new JButton("Save");
+		save.setText("Enregistrer");
 		save.addActionListener(new Save());
 		addConstraint(save, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 7);
 	}

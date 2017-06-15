@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import Launcher.MainJFrame;
+import MainPackage.ButtonImage;
 import Model.*;
 			
 /**
@@ -20,9 +21,9 @@ import Model.*;
  *
  */
 public class ContactInfoView extends JPanel {
-	private JButton back = new JButton("back");
-	private JButton edit = new JButton("edit");
-	private JButton delete = new JButton("delete");
+	private JButton back = new ButtonImage("resources/ic_back.png");
+	private JButton edit = new ButtonImage("resources/ic_edit.png");
+	private JButton delete = new ButtonImage("resources/ic_delete.png");
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
 	private static ContactController contactController = ContactView.getContactController();
 	private JPanel contactPanel = new JPanel(new BorderLayout());
@@ -39,7 +40,7 @@ public class ContactInfoView extends JPanel {
 		setBackground(new Color(255,255,255));
 		setLayout(new BorderLayout());
 		
-		contactInfoTop.setBackground(new Color(40,50,70));
+		contactInfoTop.setBackground(new Color(38, 166, 154));
 		JPanel deleteEdit = new JPanel();
 		deleteEdit.setBackground(new Color(0,0,0,0));
 		
@@ -99,7 +100,7 @@ public class ContactInfoView extends JPanel {
 		}
 		
 		imagePanel.setLayout(new BorderLayout());
-		imagePanel.setBackground(new Color(40,50,70));
+		imagePanel.setBackground(new Color(38, 166, 154));
 		imagePanel.setPreferredSize(new Dimension(MainJFrame.getWidthJFrame(), 300));
 		imagePanel.add(image, BorderLayout.NORTH);
 		imagePanel.add(nameLabel, BorderLayout.CENTER);

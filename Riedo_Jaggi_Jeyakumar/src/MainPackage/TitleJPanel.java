@@ -1,29 +1,18 @@
 package MainPackage;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 
+import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class TitleJPanel extends JPanel{
-
-	private String str;
 	
 	public TitleJPanel(String str){
-		
-		
 		JLabel titre = new JLabel(str);
-		titre.setForeground(Color.WHITE);
+		titre.setForeground(Color.BLACK);
 		add(titre);
-		
-		
-		this.setLayout(new FlowLayout());
-		this.setBackground(Color.BLACK);
-		this.setVisible(true);
 
-		
-		
+		this.setBackground(new Color(38, 166, 154));
+		this.setVisible(true);	
 	}
 	
 }

@@ -7,11 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import MainPackage.ButtonImage;
+
 public class LauncherJPanel extends JPanel{
 	
-	private JButton buttonContact = new LauncherButton("resources/contactIcon.png");
-	private JButton buttonCalculate = new LauncherButton("resources/calculatorIcon.png");
-	private JButton buttonGallery = new LauncherButton("resources/galleryIcon.png");
+	private JButton buttonContact = new ButtonImage("resources/contactIcon.png");
+	private JButton buttonCalculate = new ButtonImage("resources/calculatorIcon.png");
+	private JButton buttonGallery = new ButtonImage("resources/galleryIcon.png");
 	private Image img;
 	
 	public LauncherJPanel(){

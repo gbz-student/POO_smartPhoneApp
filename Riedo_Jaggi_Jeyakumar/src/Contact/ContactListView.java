@@ -14,7 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+import Launcher.LauncherButton;
 import Launcher.MainJFrame;
+import MainPackage.ButtonImage;
 import Model.Contact;
 /**
  * Cette vue affiche une liste de contact
@@ -23,7 +25,7 @@ import Model.Contact;
  */
 public class ContactListView extends JPanel {
 	
-	private JButton addContact = new JButton("add");
+	private JButton addContact = new ButtonImage("resources/ic_add.png");
 	private JPanel contactListTop = new JPanel(new BorderLayout());
 	private JPanel gridPanel = new JPanel();
 	private ContactInfoView contactInfoView;
@@ -36,7 +38,7 @@ public class ContactListView extends JPanel {
 	public ContactListView(){
 		setLayout(new BorderLayout());  
 		
-		contactListTop.setBackground(new Color(40,50,70));
+		contactListTop.setBackground(new Color(38, 166, 154));
 		
 		addContact.addActionListener(new AddContact());
 		contactListTop.add(addContact, BorderLayout.EAST);
