@@ -119,17 +119,33 @@ public class ContactController {
 	 */
 	public void createContact(String firstName, String lastName, String email, String photo, ArrayList<PhoneNumber> phoneNumbers){
 		if(getContactByName(firstName, lastName) == null){
-			Contact c = new Contact(firstName, lastName, phoneNumbers, email, photo);
-			contacts.add(c);
+			boolean isValid = true;
+			String message = "";
 			
-			ContactListView contactListView = (ContactListView) ContactView.getCardsComponent(0);
+			for(PhoneNumber number : phoneNumbers){
+				if(!controlPhoneNumber(number.getPhoneNumber())){
+					isValid = false;
+					message = message + "Le numéro " + number.getPhoneNumber() + " n'est pas un numéro valable\n";
+				}
+			}
+			
+			if(message != ""){
+				JOptionPane.showMessageDialog(new JPanel(), message, "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
+			
+			if(isValid){
+				Contact c = new Contact(firstName, lastName, phoneNumbers, email, photo);
+				contacts.add(c);
 				
-			
-			if(saveContactInFile(c)){
-				contactListView.updateList();
-				ContactView.changePanel("contactListView");
-			}else{
-				JOptionPane.showMessageDialog(new JPanel(), "Erreur d'enregistrement", "Erreur", JOptionPane.ERROR_MESSAGE);
+				ContactListView contactListView = (ContactListView) ContactView.getCardsComponent(0);
+					
+				
+				if(saveContactInFile(c)){
+					contactListView.updateList();
+					ContactView.changePanel("contactListView");
+				}else{
+					JOptionPane.showMessageDialog(new JPanel(), "Erreur d'enregistrement", "Erreur", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}else{
 			JOptionPane.showMessageDialog(new JPanel(), "Le contact existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -147,24 +163,49 @@ public class ContactController {
 	 * @param phoneNumbers
 	 */
 	public void editContact(int id, String firstName, String lastName, String email, String photo, ArrayList<PhoneNumber> phoneNumbers){
-		Contact c = getContactById(id);
+		boolean isValid = true;
+		String message = "";
 		
-		c.setFirstName(firstName);
-		c.setLastName(lastName);
-		c.setEmail(email);
-		c.setPhoto(photo);
-		c.setPhoneNumbers(phoneNumbers);
-		
-		ContactListView contactListView = (ContactListView) ContactView.getCardsComponent(0);
-		ContactInfoView contactInfoView = (ContactInfoView) ContactView.getCardsComponent(2);
-		
-		if(saveContactInFile(c)){
-			contactInfoView.setContact(c.getId());
-			contactListView.updateList();
-			ContactView.changePanel("contactInfoView");
-		}else{
-			JOptionPane.showMessageDialog(new JPanel(), "Erreur d'enregistrement", "Erreur", JOptionPane.ERROR_MESSAGE);
+		for(PhoneNumber number : phoneNumbers){
+			if(!controlPhoneNumber(number.getPhoneNumber())){
+				isValid = false;
+				message = message + "Le numéro " + number.getPhoneNumber() + " n'est pas un numéro valable\n";
+			}
 		}
+		
+		if(message != ""){
+			JOptionPane.showMessageDialog(new JPanel(), message, "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		if(isValid){
+			Contact c = getContactById(id);
+			
+			c.setFirstName(firstName);
+			c.setLastName(lastName);
+			c.setEmail(email);
+			c.setPhoto(photo);
+			c.setPhoneNumbers(phoneNumbers);
+			
+			ContactListView contactListView = (ContactListView) ContactView.getCardsComponent(0);
+			ContactInfoView contactInfoView = (ContactInfoView) ContactView.getCardsComponent(2);
+			
+			if(saveContactInFile(c)){
+				contactInfoView.setContact(c.getId());
+				contactListView.updateList();
+				ContactView.changePanel("contactInfoView");
+			}else{
+				JOptionPane.showMessageDialog(new JPanel(), "Erreur d'enregistrement", "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public boolean controlPhoneNumber(String s){
+		return s.matches("^([+]{1}[0-9]{4}|[0-9]{3})[0-9]{7}$");
 	}
 	
 	/**
