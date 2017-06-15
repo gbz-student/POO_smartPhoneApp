@@ -16,33 +16,45 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import MainPackage.ButtonImage;
+
 import java.awt.Insets;
 import Model.*;
 
+/**
+ * Class qui génére un formulaire pour l'ajout et la modification dans une vue graphique 
+ * @author ken
+ *
+ */
 public class ContactFormView extends JPanel{
 	
 	private JPanel contactInfoTop = new JPanel(new BorderLayout());
 	private JPanel panelContainer = new JPanel();
 	private JPanel panel = new JPanel();
-	private JButton back = new JButton("back");
+	private JButton back = new ButtonImage("resources/ic_back.png");
+	private JButton save = new ButtonImage("resources/ic_save.png");
 	private JTextField firstNameField;
 	private JTextField lastNameField;
 	private JTextField emailField;
 	private JComboBox<?>[] typeNumberLabel = new JComboBox[3];
 	private JTextField[] phoneField = new JTextField[3];
 	private static ContactController contactController = ContactView.getContactController();
-	private String[] typePhoneNumber = { "", "Privé", "Maison", "Bureau" };
+	private String[] typePhoneNumber;
 	public int formFunction = 0; // 0 => formulaire d'ajout, 1 => formulaire de modification
 	private int contactId;
 	private JComboBox photoBox;
 	private File[] filesImg;
 	private ImageIcon[] items;
 	
+	/**
+	 * Construit mon panel avec le différent champs
+	 */
 	public ContactFormView(){
 		setBackground(new Color(255,255,255));
 		setLayout(new BorderLayout());
 		
-		contactInfoTop.setBackground(new Color(40,50,70));
+		contactInfoTop.setBackground(new Color(38, 166, 154));
 		
 		back.addActionListener(new Back());
 		contactInfoTop.add(back, BorderLayout.WEST);
@@ -80,6 +92,8 @@ public class ContactFormView extends JPanel{
 		addConstraint(photoLabel, new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 3);
 		generatePhotoList();
 		
+		PhoneNumber phoneNumber = new PhoneNumber();
+		typePhoneNumber = phoneNumber.getTypesPhoneNumber();
 		for (int i=0; i < typeNumberLabel.length; i++){
 			typeNumberLabel[i] = new JComboBox<String>(typePhoneNumber);
 			addConstraint(typeNumberLabel[i], new Insets(0, 0, 5, 5), GridBagConstraints.EAST, 0, 4 + i);
@@ -90,11 +104,15 @@ public class ContactFormView extends JPanel{
 			addConstraint(phoneField[i], new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 4 + i);
 		}
 		
-		JButton save = new JButton("Save");
+		save.setText("Enregistrer");
 		save.addActionListener(new Save());
 		addConstraint(save, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 7);
 	}
 	
+	/**
+	 * Remplit les champs avec les informations du contact (formulaire d'édition) 
+	 * @param contact
+	 */
 	public void setField(Contact contact){
 		firstNameField.setText(contact.getFirstName());
 		lastNameField.setText(contact.getLastName());
@@ -118,6 +136,10 @@ public class ContactFormView extends JPanel{
 		contactId = contact.getId();
 	}
 	
+	/**
+	 * Méthode permetant de remettre les champs à vide
+	 * 
+	 */
 	public void resetField(){
 		firstNameField.setText("");
 		lastNameField.setText("");
@@ -131,6 +153,15 @@ public class ContactFormView extends JPanel{
 		panelContainer.repaint();
 	}
 	
+	/**
+	 * Permet d'ajouté les champs au bon endroit dans le jpanel
+	 * 
+	 * @param comp
+	 * @param insets
+	 * @param anchor
+	 * @param gridx
+	 * @param gridy
+	 */
 	public void addConstraint(Component comp, Insets insets, int anchor, int gridx, int gridy){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = insets;
@@ -140,6 +171,9 @@ public class ContactFormView extends JPanel{
 		panel.add(comp, gbc);	
 	}
 	
+	/**
+	 * Génère une liste de photo
+	 */
 	public void generatePhotoList(){
 		File folder = new File("img_library/thumbs");
 		filesImg = folder.listFiles();
@@ -154,6 +188,13 @@ public class ContactFormView extends JPanel{
 		addConstraint(photoBox, new Insets(0, 0, 5, 0), GridBagConstraints.HORIZONTAL, 1, 3);
 	}
 	
+	/**
+	 * Listener pour l'action save.
+	 * Créé une liste avec les numéros entré
+	 * Set le chemin de l'image
+	 * Selon le statut du formulaire, les données sont envoyé soit vers les méthodes createContact ou ou editContact
+	 * 
+	 */
 	class Save implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -187,6 +228,12 @@ public class ContactFormView extends JPanel{
 		}
 	}
 	
+	/**
+	 * Listener pour l'action back qui rentourne au bon cards.
+	 * 
+	 * @author ken
+	 *
+	 */
 	class Back implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {

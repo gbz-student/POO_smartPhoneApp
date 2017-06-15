@@ -1,6 +1,5 @@
 package Caculate;
 
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,37 +7,39 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
 
 
  public class ActionsButton extends JPanel {
-	
 	
 	private JPanel b = new JPanel();
 	private ActionsScreen screen = new ActionsScreen();
 	
 	// creation des elements a afficher
-    private String elements [] = {"AC","%","ON","÷","7","8","9","×","4","5","6","-","1","2","3","+","+/-","0",".","="};
-	 
+    private String elements [] = {"AC","DEL","ON","÷","7","8","9","×","4","5","6","-","1","2","3","+","+/-","0",".","="};
+    
 	 // creation des boutons par element
-     private JButton but[] = new JButton[elements.length];
+    private JButton but[] = new JButton[elements.length];
     
  	// agrandissement du caractere du bouton
-     private Font f = new Font("Serif", Font.PLAIN, 40);
+    private Font f = new Font("Serif", Font.PLAIN, 40);
      
-     private Dimension bsize = new Dimension(70,70);
+    private Dimension bsize = new Dimension(70,70);
 	
-	 private GridLayout cr = new GridLayout();
+	private GridLayout cr = new GridLayout();
 	 
-	 private double number;
-	 private boolean clicOperateur = false, update = false;
-	 private boolean active = false;
-	 private String operateur;
-	 
+	private double number;
+	private boolean clicOperateur = false, update = false;
+	private String operateur;
+	private int cpt = 0;
+	
+	
+	/**
+	 * constructeur permettant de positionner les boutons, de les personnaliser, et d'ajouter un ActionsScreen
+	 * @author ashan
+	 * 
+	 */
      
      public ActionsButton(){
     	 
@@ -56,7 +57,7 @@ import javax.swing.border.TitledBorder;
       	// inisialisation des boutons
    		   initBut();
     	  
-    	
+    	// coloriage des boutons
     	   coloriageBut();
     	   
     	// operations
@@ -64,15 +65,16 @@ import javax.swing.border.TitledBorder;
 	
   		// ajout des boutons dans le Panel 
     	   addBut();
-    	   
-    	   this.setBorder(new TitledBorder(null,"Calculatrice", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION));
+  
     	   this.add(screen, BorderLayout.NORTH);
     	   this.add(b, BorderLayout.CENTER);
      }
-     
-     
-    	   
-     
+     	   
+     /**
+      * methode permettant d'initialiser, d'agrandir la taille et d'agrandir la taille du caractere des boutons
+      * @author ashan
+      * 
+      */
      public void initBut(){
     	 
     	 for (int i = 0; i < but.length; i++) {
@@ -85,8 +87,12 @@ import javax.swing.border.TitledBorder;
  			
  	   }
      }
-    
-           // coloriage des boutons 
+     
+    /**
+     * methode permettant de colorier les boutons
+     * @author ashan
+     * 
+     */
       public void coloriageBut(){
     	 
     	 
@@ -105,7 +111,12 @@ import javax.swing.border.TitledBorder;
     
     	}
              }
-             // affectation d'ActionListner aux boutons
+      
+      /**
+       * methode permettant d'affecter ActionListner aux boutons
+       * @author ashan
+       * 
+       */
              public void calculBut(){
             	 
             	 for (int i = 0; i < elements.length; i++) {
@@ -115,10 +126,10 @@ import javax.swing.border.TitledBorder;
            	          but[i].addActionListener(new ResetListener());
            	          break;
             		  case 1 : 
-            		  but[i].addActionListener(new PercentListner());  
+            		  but[i].addActionListener(new DeleteListner());  
             	      break;
             		  case 2 :  
-            		  but[i].addActionListener(new DeleteListner());    
+            		  but[i].addActionListener(new OnOffListner());    
             	      break;
             		 case 3 :
            	          but[i].addActionListener(new DivListener());
@@ -147,6 +158,10 @@ import javax.swing.border.TitledBorder;
 				} 
             	 }
              
+             /**
+              * methode permettant d'ajouter les boutons sur le JPanel
+              */
+             
              public void addBut(){
             	 
             	 for (int i = 0; i < but.length; i++) {
@@ -155,10 +170,11 @@ import javax.swing.border.TitledBorder;
      		} 
             	 }
            
-             
-             
-             //Méthode permettant d'effectuer un calcul selon l'opérateur sélectionné
-             
+             /**
+              * Méthode permettant d'effectuer un calcul selon l'opérateur sélectionné
+              * @author ashan
+              */
+            
              private void calculOperateurs(){
               
                if(operateur=="+"){
@@ -169,52 +185,53 @@ import javax.swing.border.TitledBorder;
                  number = number-Double.valueOf(screen.text.getText()).doubleValue();
                  screen.text.setText(String.valueOf(number));  
                }          
-               if(operateur=="*"){
+               if(operateur=="×"){
                  number = number*Double.valueOf(screen.text.getText()).doubleValue();
                  screen.text.setText(String.valueOf(number));
                }     
-               if(operateur=="/"){
+               if(operateur=="÷"){
             	 
-                 try{
-                	   number = number/Double.valueOf(screen.text.getText()).doubleValue();
-                       screen.text.setText(String.valueOf(number));
-                   
-                 } catch(ArithmeticException e) {
-                	
-                 screen.text.setText("Infinity");
-                   
+                 number = number/Double.valueOf(screen.text.getText()).doubleValue();
+                
+                 if(Double.valueOf(screen.text.getText()).doubleValue()==0){
+                	 
+                	 screen.text.setText(String.valueOf("Erreur"));
+                	 
+                 }else{
+                	 
+                	 screen.text.setText(String.valueOf(number));
                  }
+                	 
+                   
                }
+               
              }
              
-             //Listener utilisé pour les chiffres
-             //Permet de stocker les chiffres et de les afficher
-             
+             /**
+              * Listener affecté aux boutons des chiffres
+              * @author ashan
+              *
+              */
              class NumberListener implements ActionListener {
                public void actionPerformed(ActionEvent e){
-                 
-                 String str = ((JButton)e.getSource()).getText();
+            
+                 String stk = ((JButton)e.getSource()).getText();
                  if(update){
                    update = false;
                  }
                  else{
                    if(!screen.text.getText().equals("0"))
-                     str = screen.text.getText() + str;
+                     stk = screen.text.getText() + stk;
                  }
-                 screen.text.setText(str);
+                 screen.text.setText(stk);
                }
              }
              
-             //Listener affecté au bouton =
-             class EgalListener implements ActionListener {
-               public void actionPerformed(ActionEvent arg0){
-            	 calculOperateurs();
-                 update = true;
-                 clicOperateur = false;
-               }
-             }
-
-             //Listener affecté au bouton +
+             /**
+              * Listener affecté au bouton +
+              * @author ashan
+              *
+              */
              class PlusListener implements ActionListener {
                public void actionPerformed(ActionEvent arg0){
                  if(clicOperateur){
@@ -230,8 +247,11 @@ import javax.swing.border.TitledBorder;
                }
              }
 
-             //Listener affecté au bouton -
-             
+             /**
+              * Listener affecté au bouton -
+              * @author ashan
+              *
+              */
              class MinusListener implements ActionListener {
                public void actionPerformed(ActionEvent arg0){
                  if(clicOperateur){
@@ -246,8 +266,13 @@ import javax.swing.border.TitledBorder;
                  update = true;
                }
              }
+             
+             /**
+              * Listener affecté au bouton ×
+              * @author ashan
+              *
+              */
 
-             //Listener affecté au bouton *
              class MultiListener implements ActionListener {
                public void actionPerformed(ActionEvent arg0){
                  if(clicOperateur){
@@ -258,100 +283,124 @@ import javax.swing.border.TitledBorder;
                    number = Double.valueOf(screen.text.getText()).doubleValue();
                    clicOperateur = true;
                  }
-                 operateur = "*";
+                 operateur = "×";
                  update = true;
                }
              }
 
-             //Listener affecté au bouton /
-             
+             /**
+              * Listener affecté au bouton ÷
+              * @author ashan
+              *
+              */
              class DivListener implements ActionListener {
                public void actionPerformed(ActionEvent arg0){
                  if(clicOperateur){
                    calculOperateurs();
+                   //DevisionZero();
                    screen.text.setText(String.valueOf(number));
                  }
                  else{
                    number = Double.valueOf(screen.text.getText()).doubleValue();
                    clicOperateur = true;
                  }
-                 operateur = "/";
+                 operateur = "÷";
                  update = true;
                }
              }
-             //Listener affecté au bouton AC
              
+            /**
+             * Listener affecté au bouton AC
+             * @author ashan
+             *
+             */
+           
              class ResetListener implements ActionListener {
                public void actionPerformed(ActionEvent arg0){
                  clicOperateur = false;
                  update = true;
                  number = 0;
-                 operateur = "";
+               //  operateur = "";
                  screen.text.setText("0");
                }
-             }      
+             }    
+             
+             /**
+              * Listener affecté au bouton off
+              * @author ashan
+              *
+              */
 	
-             class DeleteListner implements ActionListener{
+             class OnOffListner implements ActionListener{
             	 public void actionPerformed(ActionEvent arg0){
             		 
-            		screen.text.setText("0"); 
-            		 
-            		if (arg0.getActionCommand().equals("on")){
-            			active = true;
-            		}
-            			else{
-            				active = false;
+            	        cpt++;
+            	        
+            		
+            		for (int i = 0; i < but.length; i++) {
+						
+            			if(cpt%2==0){
+            				
             			
-            		}
-
+            				but[i].setEnabled(true);
+            				screen.text.setEnabled(true);
+            				
+            			}else{
+            				
+            				but[2].setEnabled(true);
+            				but[i].setEnabled(false);
+            				screen.text.setEnabled(false);		
+            			}		
+            			
+					}
             	 }
              }
              
+             /**
+              *  Listener affecté au bouton -+
+              * @author ashan
+              *
+              */
+            	 
              class NegatifListner implements ActionListener{
-            	 public void actionPerformed(ActionEvent arg0){
-            		 
-            		number = Double.valueOf(screen.text.getText());
-            		if(number == -number){
-            		number = 1.0*Double.valueOf(screen.text.getText());
-            		screen.text.setText(String.valueOf(number));	
-            		clicOperateur = true;
-            		update = true;
-            			
-            		}else if (number == number){
-            		number = -1.0*Double.valueOf(screen.text.getText());
-            		screen.text.setText(String.valueOf(number));
-            		clicOperateur = true;
-            		update = true;
-            		}
-            		clicOperateur = true;
-            	    update = true;
-            	    	
+            	 public void actionPerformed(ActionEvent e){
+            		
+            		Object src = e.getSource();
+            		
+        			if(src==but[16])
+        			screen.text.setText(""+Double.parseDouble(screen.text.getText())*-1);
+            		
+            	 }
             	 }
             	 
-            	 
-             }
-             
-             class PercentListner implements ActionListener{
-            	 public void actionPerformed(ActionEvent arg0){
+             /**
+              * Listener affecté au bouton DEL
+              * @author ashan
+              *
+              */  
+             class DeleteListner implements ActionListener{
+            	 public void actionPerformed(ActionEvent e){
             		 
-            		number = Double.valueOf(screen.text.getText())/100;
-            		screen.text.setText(String.valueOf(number)); 
+            		Object src = e.getSource();
+            		
+            		if(src==but[1])
+           			screen.text.setText(screen.text.getText().substring(0,screen.text.getText().length()-1));
 
             	 }
              }
              
-          
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-	
-
-	
+             /**
+              * Listener affecté au bouton =
+              * @author ashan
+              *
+              */
+             
+             class EgalListener implements ActionListener {
+               public void actionPerformed(ActionEvent arg0){
+            	 calculOperateurs();
+                 update = true;
+                 clicOperateur = false;
+               }
+             }
+ 
 }

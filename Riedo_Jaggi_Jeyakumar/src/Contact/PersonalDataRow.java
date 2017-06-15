@@ -11,8 +11,14 @@ import javax.swing.border.Border;
 
 import Launcher.MainJFrame;
 
+/**
+ * Cette class permet de généré les labels pour les numéros de téléphone et l'adresse 
+ * email dans un style commun pour lé'affichage dabs ContactsInfoView
+ * @author ken
+ *
+ */
 public class PersonalDataRow extends JPanel{
-	Border paddingBorder = BorderFactory.createEmptyBorder(20,10,20,10);
+	Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
 	Border raisedetched = BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(189, 195, 199));
 	
 	public PersonalDataRow(String label, String data){

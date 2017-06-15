@@ -2,7 +2,12 @@ package Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/**
+ * Model pour l'object contact qui implémente la sérialisation
+ * 
+ * @author ken
+ *
+ */
 public class Contact implements Serializable{
 	
 	private static int index = 0;
