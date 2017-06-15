@@ -42,11 +42,14 @@ import Launcher.MainJFrame;
 public class ThumbDisplay extends JPanel{
 	
 	JPanel imgContainer;
+	
+
 	/**
 	 * ArrayList stockant le nom des images contenu dans le dossier img_library 
 	 */
 	private static ArrayList<String>imgArrayList;
 		
+	
 	/**
 	 * Constructeur par défaut permettant de générer la liste des images ainsi que leur affichage dans le panel principal 
 	 */
@@ -57,6 +60,7 @@ public class ThumbDisplay extends JPanel{
 		FlowLayout mainLayout = new FlowLayout(0,13,13);
 		this.setLayout(mainLayout);
 	}
+	
 	
 	/**
 	 * Afficher les vignettes à partir de la liste
@@ -74,7 +78,6 @@ public class ThumbDisplay extends JPanel{
 		if(!imgArrayList.isEmpty()){
 			for(int i=0 ; i<imgArrayList.size() ; i++){
 				
-//				imgArrayList = new ArrayList<String>();
 				String thumbName = imgArrayList.get(i);
 				ImageIcon thumb = new ImageIcon(GalleryConstants.THUMB_FOLDER_PATH+"/"+thumbName);
 				JLabel thumbLabel = new JLabel(thumb);
@@ -166,8 +169,6 @@ public class ThumbDisplay extends JPanel{
 			MainJFrame.changePanel("imageFullScreen");
 			ImageFullScreen imgFS = (ImageFullScreen)MainJFrame.getCards(4);
 			imgFS.displayImg(index);
-			System.out.println("index image "+index);
-
 		}
 
 		@Override
